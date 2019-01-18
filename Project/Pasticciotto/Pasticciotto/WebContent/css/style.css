@@ -101,3 +101,26 @@ body {
 #nearSubmit{
 	margin-left:20px;
 }
+#sidebarLogin{
+	float:left;
+}
+#sidebarLogin button{
+	margin-bottom: 10px;
+	width: 100px;
+}
+#viewOptionSidebar{
+	margin-left: 120px;
+}
+#entrate{
+	float:left;
+	width:45%;
+}
+#uscite{
+	float:right;
+	margin-left:10px;
+	width:45%;
+}
+#mySearch{
+	width: 150px;
+	float:right;
+}
