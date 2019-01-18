@@ -1,0 +1,103 @@
+body {
+	background-color: darkgrey !important;
+	color: black !important;
+	margin: auto !important;
+	width: 90% !important;
+}
+
+.btn-primary{
+	background-color: rgb(40,156,179) !important;
+	border-color: rgb(31,171,215) !important;
+}
+
+#header{
+	margin: auto;
+	width: 100%;
+}
+#header div{
+	display: inline-block;
+}
+#header #logo img{
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+}
+#header #navBar {
+	margin-left: 10%;
+	margin-right:10%;
+}
+#header #navBar li{
+	display: inline-block;
+	font-size: 10px;
+	padding: 10px;
+}
+#header #userLogin{
+  float: right;
+  padding: 60px;
+}
+#header #userLogin #buttonLogin{
+	display: block;
+}
+#header #userLogin img{
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+}
+#slider {
+	margin: auto;
+	width: 60%;
+	height: 50%;
+	margin-bottom: 20px;
+}
+#slider img {
+	height: 400px;
+	border-radius: 10px;
+}
+#searchPosition {
+	width: 300px;
+	margin: auto;
+}
+#searchPosition .input-group{
+	margin-top: -70px;
+	margin-bottom: 10px;
+}
+#searchPosition span{
+	width:40px;
+}
+#information {
+	margin: auto;
+	width: 60%;
+}
+#information #via, #information #telefono, #information #email{
+	margin-left:20px;
+}
+#information h3 {
+	font-family: cursive;
+	display: inline-block;
+}
+#information button {
+	float: right;
+}
+
+.carouselInformation{
+    background-color: rgb(41,41,41, 0.2);
+    border-radius: 20px;	
+}
+
+.carouselInformation span{
+	margin-left: 20px;
+}
+
+#formLogin{
+	width: 50%;
+	margin: auto;
+}
+#formLogin .input-group{
+	padding:10px;
+}
+#formLogin span {
+	width: 40px;
+}
+#nearSubmit{
+	margin-left:20px;
+}
