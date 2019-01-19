@@ -9,11 +9,11 @@
   </div>
   <div class="form-group">
     <label for="exampleFormControlInput1">Quantita</label>
-    <input type="number" min="0" class="form-control" id="exampleFormControlInput1">
+    <input type="number" min="0" value="0" class="form-control" id="exampleFormControlInput1">
   </div>
   <div class="form-group">
     <label for="exampleFormControlInput1">Scorta Minima</label>
-    <input type="number" min="0" class="form-control" id="exampleFormControlInput1">
+    <input type="number" min="0" value="0" class="form-control" id="exampleFormControlInput1">
   </div>
   <div class="form-group">
     <label for="exampleFormControlInput1">Nome</label>

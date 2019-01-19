@@ -1,3 +1,19 @@
+function addIngredientToRicetta(codice, nome){
+	//document.getElementById('#myTable #'+codice+' button').style.pointerEvents = 'none';
+	$("#myTable #"+codice+" button").attr('class', 'btn btn-primary disabled');
+	var text = $("#myTable #"+codice+" button").text();
+	if(text==="Aggiunto") return;
+	var val = $('#'+codice+' input').val();
+	$('#tableRicetta > tbody:last-child').append('<tr id=\''+codice+'\'> <td>'+nome+'</td><td>'+val+'</td><td><button type=\'button\' class=\'btn btn-primary\' onClick="removeIngredientToRicetta(\''+codice+'\');"> Rimuovi </button> </td></tr>');
+	$("#myTable #"+codice+" button").text("Aggiunto");
+}
+
+function removeIngredientToRicetta(codice){
+	$("#myTable #"+codice+" button").attr('class', 'btn btn-primary');
+	$("#myTable #"+codice+" button").text("Aggiungi");
+	$('#tableRicetta #'+codice).remove();
+}
+
 function filterTable(){
 	var value = $("#mySearch").val().toLowerCase();
 	$("#myTable tr").filter(function() {
