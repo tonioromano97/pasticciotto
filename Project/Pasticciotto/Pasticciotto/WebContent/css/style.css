@@ -1,5 +1,5 @@
 body {
-	background-color: darkgrey !important;
+	background-color: rgb(40,130,160) !important;
 	color: black !important;
 	margin: auto !important;
 	width: 90% !important;
@@ -110,6 +110,9 @@ body {
 }
 #viewOptionSidebar{
 	margin-left: 120px;
+	font-size: 15px;
+    font-family: monospace;
+    color: rgb(245,245,245);
 }
 #entrate{
 	float:left;

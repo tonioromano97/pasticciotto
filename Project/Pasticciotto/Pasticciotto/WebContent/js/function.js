@@ -1,3 +1,33 @@
+function showRicetta(codice){
+	$('#'+codice).modal('show');
+}
+
+function removeProduct(codice){
+	var n = $("#"+codice+" #nome").html();
+	if(confirm("Confermi di voler eliminare "+n+" ?"))
+		$("#"+codice).remove();
+}
+
+function saveInventario(codice){
+	$("#"+codice+" button").css('display','none');
+	var n = $("#"+codice+" #nomeM").val();
+	var q = $("#"+codice+" #quantitaM").val();
+	var s = $("#"+codice+" #scortaM").val();
+	$("#"+codice+" #nome").html(n);
+	$("#"+codice+" #quantita").html(q);
+	$("#"+codice+" #scorta").html(s);	
+}
+
+function modifyInventario(codice){
+	$("#"+codice+" button").css('display','inline');
+	var n = $("#"+codice+" #nome").html();
+	var q = $("#"+codice+" #quantita").html();
+	var s = $("#"+codice+" #scorta").html();
+	$("#"+codice+" #nome").html("<input id=\"nomeM\" class=\"form-control\" type=\"text\" value=\""+n+"\" style=\"color:black;\"/>");
+	$("#"+codice+" #quantita").html("<input id=\"quantitaM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+q+"\" style=\"color:black;\"/>");
+	$("#"+codice+" #scorta").html("<input id=\"scortaM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+s+"\" style=\"color:black;\"/>");
+}
+
 function addIngredientToRicetta(codice, nome){
 	//document.getElementById('#myTable #'+codice+' button').style.pointerEvents = 'none';
 	$("#myTable #"+codice+" button").attr('class', 'btn btn-primary disabled');

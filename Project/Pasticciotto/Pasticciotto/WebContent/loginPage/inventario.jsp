@@ -8,32 +8,33 @@
 <tr>
 <td> <b>Codice</b> </td>
 <td> <b>Nome</b> </td>
-<td> <b> Quantita</b> </td>
+<td> <b> Quantità</b> </td>
 <td> <b>Scorta Minima</b> </td>
 <td> <b>Azione</b> </td>
 </tr>
 </thead>
+<!-- Non ci devono essere spazi nei campi di <td> -->
 <tbody id="myTable">
-<tr>
-<td> A001</td>
-<td> Millefoglie</td>
-<td> 10 </td>
-<td> 20 </td>
-<td> <i class="glyphicon glyphicon-shopping-cart"> </i> <i class="glyphicon glyphicon-trash"> </i></td>
+<tr id="A0001">
+<td id="codice">A001</td>
+<td id="nome">Millefoglie</td>
+<td id="quantita">10</td>
+<td id="scorta">20</td>
+<td> <i class="glyphicon glyphicon-pencil" onClick="modifyInventario('A0001')"> </i>&nbsp;<i class="glyphicon glyphicon-trash" onClick="removeProduct('A0001')"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario('A0001')"> Salva </button></td>
 </tr>
-<tr>
-<td> A001</td>
-<td> Panna e nutella</td>
-<td> 10 </td>
-<td> 20 </td>
-<td> <i class="glyphicon glyphicon-shopping-cart"> </i> <i class="glyphicon glyphicon-trash"> </i></td>
+<tr id="A0002">
+<td id="codice">A002</td>
+<td id="nome"> Panna e Nutella</td>
+<td id="quantita">10</td>
+<td id="scorta">20</td>
+<td> <i class="glyphicon glyphicon-pencil" onClick="modifyInventario('A0002')"> </i>&nbsp;<i class="glyphicon glyphicon-trash" onClick="removeProduct('A0002')"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario('A0002')"> Salva </button></td>
 </tr>
-<tr>
-<td> A001</td>
-<td> Ricotta e pera</td>
-<td> 10 </td>
-<td> 20 </td>
-<td> <i class="glyphicon glyphicon-shopping-cart"> </i> <i class="glyphicon glyphicon-trash"> </i></td>
+<tr id="A0003">
+<td id="codice">A003</td>
+<td id="nome"> Ricotta e Pera</td>
+<td id="quantita">10</td> 
+<td id="scorta">20</td>
+<td> <i class="glyphicon glyphicon-pencil" onClick="modifyInventario('A0003')"> </i>&nbsp;<i class="glyphicon glyphicon-trash" onClick="removeProduct('A0003')"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario('A0003')"> Salva </button> </td>
 </tr>
 </tbody>
 </table>
