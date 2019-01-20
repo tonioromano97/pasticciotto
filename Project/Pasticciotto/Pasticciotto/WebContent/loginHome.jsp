@@ -9,6 +9,6 @@
 <button class="btn btn-primary" onClick="showPage('impostazioni.jsp')"> Impostazioni </button> <br>
 </div>
 <div id="viewOptionSidebar">
-Antonio Romano
+<%@ include file="loginPage/home.jsp" %> 
 </div>
 <%@ include file="footer.jsp" %>

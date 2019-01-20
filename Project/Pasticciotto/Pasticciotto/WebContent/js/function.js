@@ -9,6 +9,7 @@ function removeProduct(codice){
 }
 
 function saveInventario(codice){
+	$("#"+codice+" i").css('display','inline');
 	$("#"+codice+" button").css('display','none');
 	var n = $("#"+codice+" #nomeM").val();
 	var q = $("#"+codice+" #quantitaM").val();
@@ -19,6 +20,7 @@ function saveInventario(codice){
 }
 
 function modifyInventario(codice){
+	$("#"+codice+" i").css('display','none');
 	$("#"+codice+" button").css('display','inline');
 	var n = $("#"+codice+" #nome").html();
 	var q = $("#"+codice+" #quantita").html();
@@ -29,7 +31,6 @@ function modifyInventario(codice){
 }
 
 function addIngredientToRicetta(codice, nome){
-	//document.getElementById('#myTable #'+codice+' button').style.pointerEvents = 'none';
 	$("#myTable #"+codice+" button").attr('class', 'btn btn-primary disabled');
 	var text = $("#myTable #"+codice+" button").text();
 	if(text==="Aggiunto") return;
@@ -52,14 +53,8 @@ function filterTable(){
 }
 
 function showPage(page){
-	  xmlhttp=new XMLHttpRequest();
-	  xmlhttp.onreadystatechange=function() {
-	    if (this.readyState==4 && this.status==200) {
-	      document.getElementById("viewOptionSidebar").innerHTML = xmlhttp.responseText;
-	    }
-	  }
-	  xmlhttp.open("GET","/Pasticciotto/loginPage/"+page,true);
-	  xmlhttp.send();
+	page = "loginPage/"+page;
+	$("#viewOptionSidebar").load(page); 	
 }
 
 function viewProducts(){
