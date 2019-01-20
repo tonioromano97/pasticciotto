@@ -52,9 +52,12 @@ function filterTable(){
 	});
 }
 
-function showPage(page){
+function showPage(pulsante,page){
+	$("#sidebarLogin button").css('box-shadow','0px 0px 0px 0px');
+	pulsante.style.boxShadow = "1px 1px 1px 1px #fff";
 	page = "loginPage/"+page;
-	$("#viewOptionSidebar").load(page); 	
+	$("#viewOptionSidebar").load(page);
+	
 }
 
 function viewProducts(){

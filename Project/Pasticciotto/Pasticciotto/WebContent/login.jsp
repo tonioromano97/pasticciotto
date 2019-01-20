@@ -11,11 +11,9 @@
     </div>
     <div class="input-group">
     	<input type="submit" class="btn btn-primary" value="Accedi"/>
-    	<a href="register.jsp"> <button type="button" id="nearSubmit" class="btn btn-primary"> Non sei registrato ? Registrati subito </button> </a> 
+    	<a href="register.jsp"> <button type="button" id="nearSubmit" class="btn btn-primary"> Non sei registrato ? Registrati subito </button> </a>
+    	<a href="loginHome.jsp"> <button type="button" id="nearSubmit" class="btn btn-primary"> Login OK</button> </a> 
     </div>
-    <div class="input-group">
-    </div>
-    <br>
   </form>
 </div>
 <%@ include file="footer.jsp" %>
