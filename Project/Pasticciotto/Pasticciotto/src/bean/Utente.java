@@ -1,15 +1,16 @@
 package bean;
 
-import java.util.ArrayList;
 
 public class Utente {
-	public Utente(String nome, String cognome, String email, String pw, String telefono){
+	public Utente(String nome, String cognome, String email, String pw, String telefono, Pasticceria pasticceria, String ruolo, int numPrenotazioni){
 		this.nome=nome;
 		this.cognome=cognome;
 		this.email=email;
 		this.password=pw;
 		this.telefono=telefono;
-		elencoPasticcerie = new ArrayList<Pasticceria>();
+		this.pasticceria=pasticceria;
+		this.ruolo = ruolo;
+		this.numPrenotazioni = numPrenotazioni;
 	}
 	
 	public String getNome() {
@@ -52,10 +53,35 @@ public class Utente {
 		this.telefono = telefono;
 	}
 	
-	public ArrayList<Pasticceria> getPasticcerie() {
-		return this.elencoPasticcerie;
+
+	public String getRuolo() {
+		return ruolo;
 	}
 
-	private String nome,cognome,email,password,telefono;
-	private ArrayList<Pasticceria> elencoPasticcerie = null;
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+
+
+	public int getNumPrenotazioni() {
+		return numPrenotazioni;
+	}
+
+	public void setNumPrenotazioni(int numPrenotazioni) {
+		this.numPrenotazioni = numPrenotazioni;
+	}
+
+
+	public Pasticceria getPasticceria() {
+		return pasticceria;
+	}
+
+	public void setPasticceria(Pasticceria pasticceria) {
+		this.pasticceria = pasticceria;
+	}
+
+
+	private String nome,cognome,email,password,telefono,ruolo;
+	private int numPrenotazioni;
+	private Pasticceria pasticceria;
 }

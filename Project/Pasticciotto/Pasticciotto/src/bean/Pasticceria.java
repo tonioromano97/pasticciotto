@@ -9,7 +9,8 @@ public class Pasticceria {
 		prodotti = new ArrayList<Prodotto>();
 		finanze = new ArrayList<Finanza>();
 	}
-	public Pasticceria(String nome,String indirizzo,String email,String telefono,String descrizione,String urlWebSite){
+	public Pasticceria(int codice,String nome,String indirizzo,String email,String telefono,String descrizione,String urlWebSite){
+		this.codice = codice;
 		this.nome=nome;
 		this.indirizzo=indirizzo;
 		this.email=email;
@@ -103,7 +104,15 @@ public class Pasticceria {
 		this.urlWebSite = urlWebSite;
 	}
 
+	public int getCodice() {
+		return codice;
+	}
+	public void setCodice(int codice) {
+		this.codice = codice;
+	}
+
 	private String nome,indirizzo, email, telefono, descrizione, urlWebSite;
+	private int codice;
 	private ArrayList<Utente> utenti = null;
 	private ArrayList<Prodotto> prodotti = null;
 	private ArrayList<Finanza> finanze = null;

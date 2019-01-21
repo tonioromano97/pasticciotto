@@ -34,7 +34,7 @@ public class UserManager
 			preparedStatement.setString(3, user.getEmail());
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setString(5, user.getTelefono());
-			preparedStatement.setInt(6, user.getPasticceria().getCodice());
+			preparedStatement.setInt(6, 1);
 			preparedStatement.setString(7, user.getRuolo());
 			preparedStatement.setInt(8, user.getNumPrenotazioni());;
 			preparedStatement.executeUpdate();
