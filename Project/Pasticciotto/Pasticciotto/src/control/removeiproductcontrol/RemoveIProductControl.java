@@ -1,4 +1,4 @@
-package control.logincontrol;
+package control.removeiproductcontrol;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Utente;
-import model.UserManager;
+import model.ProductManager;
 
 /**
- * Servlet implementation class LoginControl
+ * Servlet implementation class RemoveIProductControl
  */
-@WebServlet("/Login")
-public class LoginControl extends HttpServlet {
+@WebServlet("/RemoveIProductControl")
+public class RemoveIProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginControl() {
+    public RemoveIProductControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +31,19 @@ public class LoginControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		Utente user = null;
+		String code = request.getParameter("code");
+		boolean done = false;
 		
-		UserManager manager = new UserManager();
 		try {
-			user = manager.login(email, password);
+			done = ProductManager.delete(code);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		if (user!=null)
-		{
-			request.getSession().setAttribute("user", user);
-			response.sendRedirect("loginHome.jsp");
-		}
-			
+		} 
+		if (done)
+			response.getWriter().println("done");
+		else
+			response.getWriter().println("fail");
 	}
 
 	/**

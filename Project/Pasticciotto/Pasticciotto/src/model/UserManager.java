@@ -50,14 +50,14 @@ public class UserManager
 		}
 	}
 	
-	public synchronized void login(String email, String password) throws SQLException
+	public synchronized Utente login(String email, String password) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
+		Utente logged = null;
 
-		String selectSQL = "SELECT * FROM Utente" 
-				+ "WHERE email=? AND password=?";
+		String selectSQL = "SELECT * FROM Utente WHERE email= ? AND password= ?";
 
 		try {
 			try {
@@ -70,7 +70,17 @@ public class UserManager
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			rs = preparedStatement.executeQuery();
-		
+			if(rs.first())
+			{
+				logged = new Utente();
+				logged.setNome(rs.getString("nome"));
+				logged.setCognome(rs.getString("cognome"));
+				logged.setEmail(rs.getString("email"));
+				//logged.setPasticceria(pasticceria);
+				logged.setNumPrenotazioni(rs.getInt("numPrenotazioni"));
+				logged.setRuolo(rs.getString("ruolo"));
+				logged.setTelefono(rs.getString("telefono"));
+			}
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -80,6 +90,7 @@ public class UserManager
 					connection.close();
 			}
 		}
+		return logged;
 	}
 	
 }

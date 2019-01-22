@@ -1,6 +1,8 @@
+<%@ page import="bean.Utente" %>
+<%Utente u = (Utente)request.getSession().getAttribute("user");%>
 <div>
 	<div>
-		<h1> Dolce Tentazioni</h1>
+		<h1><%= u.getNome() +" "+u.getCognome() %></h1>
 		<span class="glyphicon glyphicon-road"> Via Roma, Salerno, 0000 </span>
 		<span class="glyphicon glyphicon-phone"> 0890000000 </span>
 		<span class="glyphicon glyphicon-envelope"> info@cake.com </span>

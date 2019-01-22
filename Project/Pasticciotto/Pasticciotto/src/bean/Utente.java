@@ -2,6 +2,19 @@ package bean;
 
 
 public class Utente {
+	
+	public Utente()
+	{
+		this.nome="";
+		this.cognome="";
+		this.email="";
+		this.password="";
+		this.telefono="";
+		this.pasticceria=null;
+		this.ruolo = "";
+		this.numPrenotazioni = -1;
+	}
+	
 	public Utente(String nome, String cognome, String email, String pw, String telefono, Pasticceria pasticceria, String ruolo, int numPrenotazioni){
 		this.nome=nome;
 		this.cognome=cognome;
