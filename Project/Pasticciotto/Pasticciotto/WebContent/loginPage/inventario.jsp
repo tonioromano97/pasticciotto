@@ -1,5 +1,5 @@
 <div id="headerInventario">
-<button class="btn btn-primary" onClick="showPage('newProduct.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuovo prodotto </button>
+<button class="btn btn-primary" onClick="showPage(false,'newProduct.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuovo prodotto </button>
 <input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Search.."> 
 </div>
 <div id="inventario">
@@ -15,14 +15,14 @@
 </thead>
 <!-- Non ci devono essere spazi nei campi di <td> -->
 <tbody id="myTable">
-<tr id="A0001">
-<td id="codice">A001</td>
-<td id="nome">Millefoglie</td>
+<tr id="P00004">
+<td id="codice">P00004</td>
+<td id="nome">Zucchero</td>
 <td id="quantita">30</td>
 <td id="scorta">20</td>
-<td> <i style="display:inline;" class="glyphicon glyphicon-pencil" onClick="modifyInventario('A0001')"> </i>&nbsp;<i style="display:inline;" class="glyphicon glyphicon-trash" onClick="removeProduct('A0001')"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario('A0001')"> Salva </button></td>
+<td> <i style="display:inline;" class="glyphicon glyphicon-pencil" onClick="modifyInventario('P00004')"> </i>&nbsp;<i style="display:inline;" class="glyphicon glyphicon-trash" onClick="removeProduct('P00004')"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario('P00004')"> Salva </button></td>
 </tr>
-<tr id="A0002" class="alertScorta">
+<tr id="A0002" class="table-danger">
 <td id="codice">A002</td>
 <td id="nome"> Panna e Nutella</td>
 <td id="quantita">10</td>

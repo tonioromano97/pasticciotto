@@ -41,9 +41,9 @@ public class RemoveIProductControl extends HttpServlet {
 			e.printStackTrace();
 		} 
 		if (done)
-			response.getWriter().println("done");
+			response.setStatus(HttpServletResponse.SC_ACCEPTED);
 		else
-			response.getWriter().println("fail");
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
 	/**

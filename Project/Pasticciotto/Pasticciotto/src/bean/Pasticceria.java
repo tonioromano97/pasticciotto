@@ -9,7 +9,7 @@ public class Pasticceria {
 		prodotti = new ArrayList<Prodotto>();
 		finanze = new ArrayList<Finanza>();
 	}
-	public Pasticceria(int codice,String nome,String indirizzo,String email,String telefono,String descrizione,String urlWebSite){
+	public Pasticceria(int codice,String nome,String indirizzo,String email,String telefono,String descrizione,String urlWebSite, String urlLogo){
 		this.codice = codice;
 		this.nome=nome;
 		this.indirizzo=indirizzo;
@@ -17,6 +17,7 @@ public class Pasticceria {
 		this.telefono=telefono;
 		this.descrizione=descrizione;
 		this.urlWebSite=urlWebSite;
+		this.urlLogo=urlLogo;
 		utenti = new ArrayList<Utente>();
 		prodotti = new ArrayList<Prodotto>();
 		finanze = new ArrayList<Finanza>();
@@ -111,7 +112,14 @@ public class Pasticceria {
 		this.codice = codice;
 	}
 
-	private String nome,indirizzo, email, telefono, descrizione, urlWebSite;
+	public String getUrlLogo() {
+		return urlLogo;
+	}
+	public void setUrlLogo(String urlLogo) {
+		this.urlLogo = urlLogo;
+	}
+
+	private String nome,indirizzo, email, telefono, descrizione, urlWebSite, urlLogo;
 	private int codice;
 	private ArrayList<Utente> utenti = null;
 	private ArrayList<Prodotto> prodotti = null;

@@ -1,11 +1,20 @@
-function showRicetta(codice){
-	$('#'+codice).modal('show');
+function removeIngredient(ricetta, codice){
+	var n = $("#Composition"+ricetta+" #"+codice+" td").html();
+	if(confirm("Confermi di voler eliminare "+n+" ?"))
+		$("#Composition"+ricetta+" #"+codice).remove();
 }
 
 function removeProduct(codice){
 	var n = $("#"+codice+" #nome").html();
-	if(confirm("Confermi di voler eliminare "+n+" ?"))
-		$("#"+codice).remove();
+	if(confirm("Confermi di voler eliminare "+n+" ?")){
+	$.ajax({url: "/Pasticciotto/RemoveIProductControl?code="+codice, success: function(result,status){
+		if(status.toLowerCase() === "success")
+			$("#"+codice).remove();
+		else alert("Errore nella cancellazione del prodotto "+n);
+	}, error: function(){
+		alert("Errore nella cancellazione del prodotto "+n);
+	}});
+	}
 }
 
 function saveInventario(codice){
@@ -14,6 +23,8 @@ function saveInventario(codice){
 	var n = $("#"+codice+" #nomeM").val();
 	var q = $("#"+codice+" #quantitaM").val();
 	var s = $("#"+codice+" #scortaM").val();
+	if(q>=s) $("#"+codice).attr('class', '');
+	else $("#"+codice).attr('class', 'table-danger');
 	$("#"+codice+" #nome").html(n);
 	$("#"+codice+" #quantita").html(q);
 	$("#"+codice+" #scorta").html(s);	
@@ -52,37 +63,37 @@ function filterTable(){
 	});
 }
 
+function saveRicetta(){
+	page = "loginPage/ricettario.jsp";
+	$("#viewOptionSidebar").load(page);
+}
+
+function modifyRicetta(codice){
+	var nome = $("#ricettario #"+codice+" #nome").html();
+	var ore = $("#ricettario #"+codice+" #tempo #ore").html();
+	var minuti = $("#ricettario #"+codice+" #tempo #minuti").html();
+	$("#ricettario #"+codice+" #modify").css('display','none');
+	$("#ricettario #"+codice+" #nome").html("<input id=\"nomeM\" class=\"form-control\" type=\"text\" value=\""+nome+"\" style=\"width:50%; color:black;\"/>");
+	$("#ricettario #"+codice+" #ore").html("<input id=\"oreM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+ore+"\" style=\"display:inline; width:50px; color:black;\"/>");
+	$("#ricettario #"+codice+" #minuti").html("<input id=\"minutiM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+minuti+"\" style=\"display:inline; width:50px; color:black;\"/>");
+	$("#Composition"+codice).css("display","table-row");
+	$("#Composition"+codice+" div").slideDown();
+}
+
 function showPage(pulsante,page){
+	if(!(pulsante==false)){
 	$("#sidebarLogin button").css('box-shadow','0px 0px 0px 0px');
 	pulsante.style.boxShadow = "1px 1px 1px 1px #fff";
+	}
 	page = "loginPage/"+page;
 	$("#viewOptionSidebar").load(page);
 	
 }
 
-function viewProducts(){
-	document.getElementById("information").style.display = "table";
-	var div = document.getElementById("viewInformationOrProducts");
-	div.innerHTML = "" +
-			"<table class=\"table\">" +
-			"<thead>" +
-			"<tr>" +
-			"<th> Nome </th>" +
-			"<th> Prezzo </th>" +
-			"<th> Prenota </th>" +
-			"</tr>" +
-			"</thead>" +
-			"<tbody>" +
-			"<tr>" +
-			"<td> Ricotta e Pera </td>" +
-			"<td> &euro; 10.00 /kg </td>" +
-			"<td> <button style=\"float:left;\" class=\"btn btn-primary\"> &euro; Prenota</button> </td>" +
-			"</tr>" +
-			"<tr>" +
-			"<td> Panna e Nutella</td>" +
-			"<td> &euro; 8.00 /kg </td>" +
-			"<td> <button style=\"float:left;\" class=\"btn btn-primary\"> &euro; Prenota</button> </td>" +
-			"</tr>" +
-			"</tbody>" +
-			"</table>";
+function showRicetta(codice){
+	$('#R'+codice).modal('show');
+}
+
+function showProducts(codice){
+	$('#'+codice).modal('show');
 }

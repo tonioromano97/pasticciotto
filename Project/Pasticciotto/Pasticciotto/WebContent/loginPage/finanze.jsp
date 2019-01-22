@@ -16,13 +16,14 @@
     </tr>
     </tbody>
     </table>
-    <button class="btn btn-primary"> Nuova Entrata</button>
+    <button class="btn btn-primary" onClick="showPage(false,'newEntrata.jsp')"> Nuova Entrata</button>
     </div>
     <div id="uscite">
     <h4> Uscite </h4>
     <table class="table">
     <thead>
     <tr>
+    <td> Tipo </td>
     <td> Descrizione </td>
     <td> Data </td>
     <td> Importo </td>
@@ -30,11 +31,12 @@
     </thead>
     <tbody>
     <tr>
+    <td> Bolletta</td>
     <td> Bolletta Enel </td>
     <td> 04/11/2018 </td>
     <td> &euro; 213.42</td>
     </tr>
     </tbody>
     </table>
-    <button class="btn btn-primary"> Nuova Uscita</button>
+    <button class="btn btn-primary" onClick="showPage(false,'newUscita.jsp')"> Nuova Uscita</button>
     </div>
