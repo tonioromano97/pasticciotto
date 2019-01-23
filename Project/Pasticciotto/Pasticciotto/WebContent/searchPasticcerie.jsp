@@ -17,32 +17,19 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			  
 			  <div class="carousel-inner">
-			  <!-- 
+			  
 			    <div class="carousel-item active">
 			      <img class="d-block w-100" src="img/cake.png" alt="First slide">
 			      <div class="carousel-caption d-none d-md-block carouselInformation">
     				<h5><%//Pasticcerie.get(0).getNome();%></h5>
-    				<span class="glyphicon glyphicon-road"> Via Roma, Salerno, 0000 </span>
-    				<span class="glyphicon glyphicon-phone"> 0890000000 </span>
-    				<span class="glyphicon glyphicon-envelope"> info@cake.com </span>
-    				<p> La pasticceria è il miglior allenamento anche per gli chef di cucina grazie alla precisione e alla perfezione necessaria; il pasticciere invece deve conoscere i sapori e giocare con gli abbinamenti andando anche oltre la classica dolcezza.</p>
-    				<button onClick="showProducts('P0001')" type="button" class="btn btn-primary">Consulta prodotti</button>
+    				<span class="glyphicon glyphicon-road"><%//Pasticcerie.get(0).getIndirizzo();%></span>
+    				<span class="glyphicon glyphicon-phone"><%//Pasticcerie.get(0).getTelefono();%></span>
+    				<span class="glyphicon glyphicon-envelope"><%//Pasticcerie.get(0).getEmail();%></span>
+    				<p><%//Pasticcerie.get(0).getDescrizione();%></p>
+    				<button onClick="showProducts(1)" type="button" class="btn btn-primary">Consulta prodotti</button>
   				</div>
 			    </div>
-			     -->
-			    <% for(Pasticceria p : Pasticcerie) { %>
-			    <div class="carousel-item">
-			      <img class="d-block w-100" src="<%p.getUrlLogo();%>" alt="Second slide">
-			      <div class="carousel-caption d-none d-md-block carouselInformation">
-    				<h5><%p.getNome();%></h5>
-    				<span class="glyphicon glyphicon-road"> <%p.getIndirizzo();%></span>
-    				<span class="glyphicon glyphicon-phone"> <%p.getTelefono();%></span>
-    				<span class="glyphicon glyphicon-envelope"><%p.getTelefono();%></span>
-    				<p><%p.getDescrizione();%></p>
-    				<button onClick="showProducts('<%p.getCodice();%>')" type="button" class="btn btn-primary">Consulta prodotti</button>
-  				</div>
-			    </div>
-			    <% } %>
+			    
 			    
 			  </div>
 			  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -65,7 +52,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 		<div id="details" style="background-color: rgb(40,130,160); color:rgb(245,245,245); padding:30px;">
-			<h1 id="nome"> Nome pasticceria </h1>
+			<h1 id="nomeP"></h1>
 			<table class="table">
 			<thead>
 			<tr>
@@ -76,14 +63,6 @@
 			</thead>
 			<tbody id="products">
 			<tr>
-			<td> Ricotta e Pera </td>
-			<td> &euro; 10.00 /kg </td>
-			<td> <button style="float:left;" class="btn btn-primary"> &euro; Prenota</button> </td>
-			</tr>
-			<tr>
-			<td> Panna e Nutella</td>
-			<td> &euro; 8.00 /kg </td>
-			<td> <button style="float:left;" class="btn btn-primary"> &euro; Prenota</button> </td>
 			</tr>
 			</tbody>
 			</table>

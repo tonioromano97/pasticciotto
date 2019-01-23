@@ -28,6 +28,7 @@
 </div>
 <div id="sidebarLogin">
 <button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="showPage(this,'home.jsp')"> Home </button> <br>
+<button class="btn btn-primary" onClick="showPage(this,'vetrina.jsp')"> Vetrina </button> <br>
 <button class="btn btn-primary" onClick="showPage(this,'finanze.jsp')"> Finanze </button> <br>
 <button class="btn btn-primary" onClick="showPage(this,'grafici.jsp')"> Grafici </button> <br>
 <button class="btn btn-primary" onClick="showPage(this,'inventario.jsp')"> Inventario </button> <br>

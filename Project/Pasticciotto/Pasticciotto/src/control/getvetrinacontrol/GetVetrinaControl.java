@@ -25,7 +25,7 @@ import model.VetrinaManager;
 /**
  * Servlet implementation class GetPasticcerieControl
  */
-@WebServlet("/UploadPasticcerie")
+@WebServlet("/GetVetrinaControl")
 public class GetVetrinaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
