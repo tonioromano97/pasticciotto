@@ -2,12 +2,8 @@ package bean;
 
 public class Prodotto {
 
-	public Prodotto(Pasticceria pasticceria, String codice){
-		this.pasticceria=pasticceria;
-		this.codice=codice;
-	}
 	
-	public Prodotto(Pasticceria pasticceria, String codice, String nome, int quantita, int minScorta, double prezzo){
+	public Prodotto(Pasticceria pasticceria, int codice, String nome, int quantita, int minScorta, double prezzo){
 		this.pasticceria=pasticceria;
 		this.codice=codice;
 		this.nome=nome;
@@ -19,10 +15,11 @@ public class Prodotto {
 	public Pasticceria getPasticceria() {
 		return pasticceria;
 	}
-	public String getCodice() {
+
+	public int getCodice() {
 		return codice;
 	}
-	public void setCodice(String codice) {
+	public void setCodice(int codice) {
 		this.codice = codice;
 	}
 	public String getNome() {
@@ -54,7 +51,7 @@ public class Prodotto {
 	}
 
 	private Pasticceria pasticceria;
-	String codice,nome;
-	int quantita,minScorta;
+	String nome;
+	int codice,quantita,minScorta;
 	double prezzo;
 }

@@ -13,5 +13,7 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/Users/giulio/Downloads/json-20180813.jar"/>
+	<classpathentry kind="lib" path="/Users/giulio/Downloads/java-json.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

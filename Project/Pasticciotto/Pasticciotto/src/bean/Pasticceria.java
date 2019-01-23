@@ -3,10 +3,21 @@ package bean;
 import java.util.ArrayList;
 
 public class Pasticceria {
+	
+	public Pasticceria(int codice){
+		this.codice = codice; 
+		this.nome="";
+		utenti = new ArrayList<Utente>();
+		prodotti = new ArrayList<Prodotto>();
+		ricette = new ArrayList<Ricetta>();
+		finanze = new ArrayList<Finanza>();
+	}
+	
 	public Pasticceria(String nome){
 		this.nome=nome;
 		utenti = new ArrayList<Utente>();
 		prodotti = new ArrayList<Prodotto>();
+		ricette = new ArrayList<Ricetta>();
 		finanze = new ArrayList<Finanza>();
 	}
 	public Pasticceria(int codice,String nome,String indirizzo,String email,String telefono,String descrizione,String urlWebSite, String urlLogo){
@@ -29,6 +40,11 @@ public class Pasticceria {
 
 	public ArrayList<Prodotto> getProdotti() {
 		return prodotti;
+	}
+	
+	public void setProdotti(ArrayList<Prodotto> prodotti)
+	{
+		this.prodotti = prodotti;
 	}
 	
 	public ArrayList<Finanza> getFinanze() {
@@ -119,9 +135,17 @@ public class Pasticceria {
 		this.urlLogo = urlLogo;
 	}
 
+	public ArrayList<Ricetta> getRicette() {
+		return ricette;
+	}
+	public void setRicette(ArrayList<Ricetta> ricette) {
+		this.ricette = ricette;
+	}
+
 	private String nome,indirizzo, email, telefono, descrizione, urlWebSite, urlLogo;
 	private int codice;
 	private ArrayList<Utente> utenti = null;
 	private ArrayList<Prodotto> prodotti = null;
 	private ArrayList<Finanza> finanze = null;
+	private ArrayList<Ricetta> ricette = null;
 }

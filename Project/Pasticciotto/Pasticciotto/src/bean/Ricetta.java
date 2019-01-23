@@ -7,7 +7,7 @@ public class Ricetta {
 		this.nome=nome;
 		this.composizione = new ArrayList<Prodotto>();
 	}
-	public Ricetta(String nome,long tempoMedio,double prezzoVendita,double prezzoAcquisto){
+	public Ricetta(String nome,String tempoMedio,double prezzoVendita,double prezzoAcquisto){
 		this.nome=nome;
 		this.tempoMedio=tempoMedio;
 		this.prezzoAcquisto=prezzoAcquisto;
@@ -21,11 +21,11 @@ public class Ricetta {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public long getTempoMedio() {
+	public String getTempoMedio() {
 		return tempoMedio;
 	}
-	public void setTempoMedio(long tempoMedio) {
-		if(tempoMedio<0) throw new IllegalArgumentException("Tempo medio ricetta minore di 0");
+	public void setTempoMedio(String tempoMedio) {
+		//if(tempoMedio<0) throw new IllegalArgumentException("Tempo medio ricetta minore di 0");
 		this.tempoMedio = tempoMedio;
 	}
 	public double getPrezzoVendita() {
@@ -48,6 +48,6 @@ public class Ricetta {
 	
 	private ArrayList<Prodotto> composizione;
 	private String nome;
-	private long tempoMedio;
+	private String tempoMedio;
 	double prezzoVendita,prezzoAcquisto;
 }
