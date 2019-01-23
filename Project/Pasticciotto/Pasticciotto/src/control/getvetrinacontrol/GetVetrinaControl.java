@@ -93,7 +93,7 @@ public class GetVetrinaControl extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
 		} */
-		response.setContentType("application/json");
+		response.setStatus(202);
 		response.getWriter().print(obj);
 		
 	}

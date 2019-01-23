@@ -95,22 +95,14 @@ function showRicetta(codice){
 }
 
 function showProducts(codice){
-	$.ajax({
-		url: "/Pasticciotto/GetVetrinaContol?code="+codice,
-		success: function(data){
-			var pasticceria = JSON.parse(data);
+        $.get("/Pasticciotto/GetVetrinaControl?code="+codice, function(data) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+        	var pasticceria = JSON.parse(data);
 			var nome = pasticceria.nome;
 			var prodotti = pasticceria.prodotti;
 			$('#viewProductsOfPasticceria #nomeP').html(nome);
 			$(prodotti).each(function(index, prodotto){
 				$('#viewProductsOfPasticceria #products tr:last').after('<tr> <td>'+prodotto.nome+'</td> <td> &euro; '+prodotto.prezzo+' /kg </td> <td> <button style="float:left;" class="btn btn-primary"> &euro; Prenota</button> </td> </tr>');
 			})
-		},
-		error: function(){
-			alert("Errore nel caricamento dei prodotti delle pasticcerie");
-		},
-		complete: function(){
 			$('#viewProductsOfPasticceria').modal('show');
-		}
-	});
+        });
 }
