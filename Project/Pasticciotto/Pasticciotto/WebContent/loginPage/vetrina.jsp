@@ -1,3 +1,9 @@
+<%@ page import="bean.Ricetta,java.util.ArrayList" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	@SuppressWarnings("unchecked")
+	ArrayList<Ricetta> ricette = (ArrayList<Ricetta>) request.getSession().getAttribute("ricette");
+%>
 <div id="vetrina">
 <table class="table">
 <thead>
@@ -8,25 +14,13 @@
 </tr>
 </thead>
 <tbody id="myTable">
+<%for(Ricetta r : ricette){ %>
 <tr>
-<td id="nome">Ricotta e Pera</td>
-<td id="pA">10</td>
-<td id="pV"> <i id="less" style="display:inline;" class="glyphicon glyphicon-minus" onClick="less(1)"></i>&euro; <span id="1">20.00</span> <i id="more" style="display:inline;" class="glyphicon glyphicon-plus" onClick="more(1)"> </i></td>
+<td id="nome"><%=r.getNome()%></td>
+<td id="pA"><%=r.getPrezzoAcquisto()%></td>
+<td id="pV"><%=r.getPrezzoVendita()%></td>
 </tr>
+<%}%>
 </tbody>
 </table>
 </div>
-<script>
-function less(codice){
-	var prezzo = $("#"+codice).html();
-	prezzo = parseFloat(prezzo);
-	prezzo = prezzo-0.5;
-	$("#"+codice).html(prezzo);
-}
-function more(codice){
-	var prezzo = $("#"+codice).html();
-	prezzo = parseFloat(prezzo);
-	prezzo = prezzo+0.5;
-	$("#"+codice).html(prezzo);
-}
-</script>

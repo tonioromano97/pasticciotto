@@ -1,3 +1,10 @@
+<%@ page import="bean.Finanza,bean.Entrata,bean.Uscita,java.util.ArrayList" %>
+<%
+	@SuppressWarnings("unchecked")
+	ArrayList<Entrata> entrate = (ArrayList<Entrata>) request.getSession().getAttribute("entrate");
+	@SuppressWarnings("unchecked")
+	ArrayList<Uscita> uscite = (ArrayList<Uscita>) request.getSession().getAttribute("uscite");
+%>
 <h1> Grafici</h1>
 <div style="width:45%; float:left;">
 <canvas id="entrate" style="background-color:white; border-radius:10px;"></canvas>

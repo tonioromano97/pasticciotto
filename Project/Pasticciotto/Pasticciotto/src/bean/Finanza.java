@@ -1,10 +1,10 @@
 package bean;
 
-import java.util.GregorianCalendar;
+import java.sql.Date;
 
 public class Finanza {
 	
-	public Finanza(Pasticceria pasticceria, String descrizione, GregorianCalendar data, double importo){
+	public Finanza(Pasticceria pasticceria, String descrizione, Date data, double importo){
 		this.descrizione = descrizione;
 		this.data=data;
 		this.importo=importo;
@@ -19,11 +19,11 @@ public class Finanza {
 		this.descrizione = descrizione;
 	}
 	
-	public GregorianCalendar getData() {
+	public Date getData() {
 		return data;
 	}
 	
-	public void setData(GregorianCalendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	
@@ -42,6 +42,6 @@ public class Finanza {
 	
 	private Pasticceria pasticceria;
 	private String descrizione;
-	private GregorianCalendar data;
+	private Date data;
 	private double importo;
 }

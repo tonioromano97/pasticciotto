@@ -1,10 +1,10 @@
 package bean;
 
-import java.util.GregorianCalendar;
+import java.sql.Date;
 
 public class Uscita extends Finanza {
 
-	public Uscita(Pasticceria p, String descrizione, GregorianCalendar data, double importo, String tipo) {
+	public Uscita(Pasticceria p, String descrizione, Date data, double importo, String tipo) {
 		super(p, descrizione, data, importo);
 		this.tipo = tipo;
 	}

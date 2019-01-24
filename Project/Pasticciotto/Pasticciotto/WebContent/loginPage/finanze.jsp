@@ -1,3 +1,10 @@
+<%@ page import="bean.Finanza,bean.Entrata,bean.Uscita,java.util.ArrayList" %>
+<%
+	@SuppressWarnings("unchecked")
+	ArrayList<Entrata> entrate = (ArrayList<Entrata>) request.getSession().getAttribute("entrate");
+	@SuppressWarnings("unchecked")
+	ArrayList<Uscita> uscite = (ArrayList<Uscita>) request.getSession().getAttribute("uscite");
+%>
 <div id="entrate">
     <h4> Entrate </h4>
     <table class="table">
@@ -9,11 +16,13 @@
     </tr>
     </thead>
     <tbody>
+    <%for(Entrata e : entrate){ %>
     <tr>
-    <td> Ricotta e Pera </td>
-    <td> 10/12/2019 </td>
-    <td> 20.00 &euro; / kg </td>
+    <td><%=e.getDescrizione() %></td>
+    <td><%=e.getData() %></td>
+    <td><%=e.getImporto() %> &euro; / kg </td>
     </tr>
+    <%} %>
     </tbody>
     </table>
     <button class="btn btn-primary" onClick="showPage(false,'newEntrata.jsp')"> Nuova Entrata</button>
@@ -30,12 +39,14 @@
     </tr>
     </thead>
     <tbody>
+    <%for(Uscita u : uscite){ %>
     <tr>
-    <td> Bolletta</td>
-    <td> Bolletta Enel </td>
-    <td> 04/11/2018 </td>
-    <td> &euro; 213.42</td>
+    <td><%=u.getTipo() %></td>
+    <td><%=u.getDescrizione() %></td>
+    <td><%=u.getData() %></td>
+    <td> &euro; <%=u.getImporto() %></td>
     </tr>
+    <%} %>
     </tbody>
     </table>
     <button class="btn btn-primary" onClick="showPage(false,'newUscita.jsp')"> Nuova Uscita</button>

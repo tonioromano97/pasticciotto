@@ -3,7 +3,6 @@ package control.getvetrinacontrol;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import bean.Pasticceria;
-import bean.Prodotto;
 import bean.Ricetta;
 import model.PastryManager;
 import model.VetrinaManager;
