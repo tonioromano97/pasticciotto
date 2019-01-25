@@ -1,7 +1,14 @@
 package bean;
 
+import java.util.ArrayList;
+
 public class Prodotto {
 
+	public Prodotto(String nome, int quantita){
+		this.nome=nome;
+		this.quantita=quantita;
+	}
+	
 	
 	public Prodotto(Pasticceria pasticceria, int codice, String nome, int quantita, int minScorta, double prezzo){
 		this.pasticceria=pasticceria;
@@ -50,8 +57,17 @@ public class Prodotto {
 		this.prezzo = prezzo;
 	}
 
+	public ArrayList<Ricetta> getRicette() {
+		return ricette;
+	}
+
+	public void setRicette(ArrayList<Ricetta> ricette) {
+		this.ricette = ricette;
+	}
+
 	private Pasticceria pasticceria;
-	String nome;
-	int codice,quantita,minScorta;
-	double prezzo;
+	private ArrayList<Ricetta> ricette;
+	private String nome;
+	private int codice,quantita,minScorta;
+	private double prezzo;
 }

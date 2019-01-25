@@ -1,10 +1,10 @@
 package bean;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class Prenotazione {
-	public Prenotazione(String codice, GregorianCalendar dataPrenotazione, GregorianCalendar dataRitiro, String note){
+	public Prenotazione(String codice, Date dataPrenotazione, Date dataRitiro, String note){
 		this.codice=codice;
 		this.dataPrenotazione= dataPrenotazione;
 		this.dataRitiro=dataRitiro;
@@ -24,16 +24,16 @@ public class Prenotazione {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public GregorianCalendar getDataPrenotazione() {
+	public Date getDataPrenotazione() {
 		return dataPrenotazione;
 	}
-	public void setDataPrenotazione(GregorianCalendar dataPrenotazione) {
+	public void setDataPrenotazione(Date dataPrenotazione) {
 		this.dataPrenotazione = dataPrenotazione;
 	}
-	public GregorianCalendar getDataRitiro() {
+	public Date getDataRitiro() {
 		return dataRitiro;
 	}
-	public void setDataRitiro(GregorianCalendar dataRitiro) {
+	public void setDataRitiro(Date dataRitiro) {
 		//check dataRitiro>dataPrenotazione
 		this.dataRitiro = dataRitiro;
 	}
@@ -47,8 +47,16 @@ public class Prenotazione {
 		return prodotti;
 	}
 	
+	public Utente getUtente() {
+		return u;
+	}
+	public void setUtente(Utente u) {
+		this.u = u;
+	}
+
+	private Utente u;
 	private ArrayList<Ricetta> prodotti;
 	private String codice,note;
-	private GregorianCalendar dataPrenotazione, dataRitiro;
+	private Date dataPrenotazione, dataRitiro;
 	boolean effettuata;
 }

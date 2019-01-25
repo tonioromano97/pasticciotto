@@ -18,8 +18,6 @@ public class JDBCConnectionPool
 		Class.forName("com.mysql.jdbc.Driver");
 		System.out.println("MySQL JDBC Driver registrato!");
 		connection = DriverManager.getConnection(url,user,password);
-		
-
 		if (connection != null) {
 			System.out.println("Connesso al DB!");
 		} else {

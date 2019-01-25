@@ -1,4 +1,4 @@
-package control.registercontrol;
+package control.gestioneaccount;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,16 +13,16 @@ import bean.Utente;
 import model.UserManager;
 
 /**
- * Servlet implementation class RegisterControl
+ * Servlet implementation class ModifyEmailControl
  */
-@WebServlet("/Register")
-public class RegisterControl extends HttpServlet {
+@WebServlet("/ModifyEmailControl")
+public class ModifyEmailControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterControl() {
+    public ModifyEmailControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +32,20 @@ public class RegisterControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String telefono = request.getParameter("telefono");
+		Utente u = (Utente)request.getSession().getAttribute("user");
+		String newEmail = request.getParameter("newEmail");
 		
-		Utente u = new Utente(nome,cognome,email,password,telefono,null,"Cliente",0);
+		boolean done = false;
 		
-		UserManager manager = new UserManager();
 		try {
-			manager.register(u);
+			done = UserManager.modifyEmail(u,newEmail);
+			u.setEmail(newEmail);
+			request.getSession().setAttribute("user", u);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**

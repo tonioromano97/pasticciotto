@@ -1,4 +1,4 @@
-package control.getvetrinacontrol;
+package control.gestioneprenotazione;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,8 +16,8 @@ import org.json.JSONObject;
 
 import bean.Pasticceria;
 import bean.Ricetta;
-import model.PastryManager;
-import model.VetrinaManager;
+import bean.Utente;
+import model.BookingManager;
 
 
 /**
@@ -40,20 +40,11 @@ public class GetVetrinaControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Ricetta> vetrina = null;
-		
 		Pasticceria p = null;
-		try {
-			p = PastryManager.retrieve(Integer.parseInt(request.getParameter("code")));
-		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		try {
-			vetrina = VetrinaManager.retrieve(p);
+			p = BookingManager.getBakery(Integer.parseInt(request.getParameter("code")));
+			vetrina = BookingManager.getProducts(p);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

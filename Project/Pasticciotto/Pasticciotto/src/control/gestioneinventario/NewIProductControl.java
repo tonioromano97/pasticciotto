@@ -1,4 +1,4 @@
-package control.logincontrol;
+package control.gestioneinventario;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Utente;
-import model.UserManager;
+import bean.Prodotto;
+import model.ProductManager;
 
 /**
- * Servlet implementation class LoginControl
+ * Servlet implementation class NewIProductControl
  */
-@WebServlet("/Login")
-public class LoginControl extends HttpServlet {
+@WebServlet("/NewIProductControl")
+public class NewIProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginControl() {
+    public NewIProductControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +32,27 @@ public class LoginControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		Utente user = null;
+		boolean done = false;
 		
-		UserManager manager = new UserManager();
+		String nome = request.getParameter("nome");
+		int codice = Integer.parseInt(request.getParameter("codice"));
+		int quantita = Integer.parseInt(request.getParameter("quantita"));
+		int minScorta = Integer.parseInt(request.getParameter("minScorta"));
+		double prezzo = Double.parseDouble(request.getParameter("prezzo"));
+		
+		Prodotto product = new Prodotto(null,codice,nome,quantita,minScorta,prezzo); //Aggiustare la pasticceria in tutti i control
+		
 		try {
-			user = manager.login(email, password);
+			done = ProductManager.add(product);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (user!=null)
-		{
-			request.getSession().setAttribute("user", user);
-			response.sendRedirect("loginHome.jsp");
-		}
-			
+		
+		if(done)
+			response.setStatus(HttpServletResponse.SC_ACCEPTED);
+		else
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
 	/**
@@ -60,3 +64,4 @@ public class LoginControl extends HttpServlet {
 	}
 
 }
+

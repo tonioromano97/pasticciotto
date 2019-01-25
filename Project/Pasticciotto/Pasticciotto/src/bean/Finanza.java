@@ -2,9 +2,10 @@ package bean;
 
 import java.sql.Date;
 
-public class Finanza {
+public abstract class Finanza {
 	
-	public Finanza(Pasticceria pasticceria, String descrizione, Date data, double importo){
+	public Finanza(int codice, Pasticceria pasticceria, String descrizione, Date data, double importo){
+		this.codice = codice;
 		this.descrizione = descrizione;
 		this.data=data;
 		this.importo=importo;
@@ -40,8 +41,17 @@ public class Finanza {
 		return pasticceria;
 	}
 	
+	public int getCodice() {
+		return codice;
+	}
+
+	public void setCodice(int codice) {
+		this.codice = codice;
+	}
+
 	private Pasticceria pasticceria;
 	private String descrizione;
 	private Date data;
+	private int codice;
 	private double importo;
 }

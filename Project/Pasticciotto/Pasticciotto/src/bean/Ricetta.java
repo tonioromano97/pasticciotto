@@ -3,9 +3,9 @@ package bean;
 import java.util.ArrayList;
 
 public class Ricetta {
-	public Ricetta(String nome){
+	public Ricetta(String nome, double prezzoVendita){
 		this.nome=nome;
-		this.composizione = new ArrayList<Prodotto>();
+		this.prezzoVendita = prezzoVendita;
 	}
 	public Ricetta(String nome,int h, int m,double prezzoVendita,double prezzoAcquisto){
 		this.nome=nome;

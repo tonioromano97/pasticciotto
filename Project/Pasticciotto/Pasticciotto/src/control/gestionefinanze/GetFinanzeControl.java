@@ -1,7 +1,8 @@
-package control.newiproductcontrol;
+package control.gestionefinanze;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Prodotto;
-import model.ProductManager;
+import bean.Finanza;
+import bean.Pasticceria;
+import bean.Utente;
+import model.FinanceManager;
 
 /**
- * Servlet implementation class NewIProductControl
+ * Servlet implementation class GetFinanzeControl
  */
-@WebServlet("/NewIProductControl")
-public class NewIProductControl extends HttpServlet {
+@WebServlet("/GetFinanzeControl")
+public class GetFinanzeControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewIProductControl() {
+    public GetFinanzeControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,27 +35,14 @@ public class NewIProductControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		boolean done = false;
-		
-		String nome = request.getParameter("nome");
-		int codice = Integer.parseInt(request.getParameter("codice"));
-		int quantita = Integer.parseInt(request.getParameter("quantita"));
-		int minScorta = Integer.parseInt(request.getParameter("minScorta"));
-		double prezzo = Double.parseDouble(request.getParameter("prezzo"));
-		
-		Prodotto product = new Prodotto(null,codice,nome,quantita,minScorta,prezzo); //Aggiustare la pasticceria in tutti i control
-		
+		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
 		try {
-			done = ProductManager.add(product);
+			ArrayList<Finanza> finances = FinanceManager.getFinances(p);
+			request.getSession().setAttribute("finances", finances);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(done)
-			response.setStatus(HttpServletResponse.SC_ACCEPTED);
-		else
-			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
 	/**
@@ -64,4 +54,3 @@ public class NewIProductControl extends HttpServlet {
 	}
 
 }
-
