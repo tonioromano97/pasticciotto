@@ -27,15 +27,15 @@
                 <div id="userLogin"> <div><img src="img/user.png"/> </div> <div id="buttonLogin"> <a href="logout.jsp"> <button type="button" class="btn btn-primary"> LOGOUT </button> </a> </div> </div>
 </div>
 <div id="sidebarLogin">
-<button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="showPage(this,'home.jsp')"> Home </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'vetrina.jsp')"> Vetrina </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'finanze.jsp')"> Finanze </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'grafici.jsp')"> Grafici </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'inventario.jsp')"> Inventario </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'ricettario.jsp')"> Ricettario </button> <br>
+<button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','vetrina.jsp')"> Vetrina </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetFinanzeControl','finanze.jsp')"> Finanze </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetGraficiControl','grafici.jsp')"> Grafici </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','inventario.jsp')"> Inventario </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','ricettario.jsp')"> Ricettario </button> <br>
 <!--
-<button class="btn btn-primary" onClick="showPage(this,'prenotazioni.jsp')"> Prenotazioni </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'impostazioni.jsp')"> Impostazioni </button> <br>
+<button class="btn btn-primary" onClick="showPage(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
+<button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
 -->
 <button class="btn btn-primary disabled"> Prenotazioni </button> <br>
 <button class="btn btn-primary disabled"> Impostazioni </button> <br>

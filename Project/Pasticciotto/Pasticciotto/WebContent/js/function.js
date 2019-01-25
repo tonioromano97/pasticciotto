@@ -80,14 +80,18 @@ function modifyRicetta(codice){
 	$("#Composition"+codice+" div").slideDown();
 }
 
-function showPage(pulsante,page){
-	if(!(pulsante==false)){
-	$("#sidebarLogin button").css('box-shadow','0px 0px 0px 0px');
-	pulsante.style.boxShadow = "1px 1px 1px 1px #fff";
-	}
-	page = "loginPage/"+page;
-	$("#viewOptionSidebar").load(page);
-	
+function callServlet(pulsante,servlet,page){
+	$.get("/Pasticciotto/"+servlet, function(data) {
+		$("#sidebarLogin button").css('box-shadow','0px 0px 0px 0px');
+		pulsante.style.boxShadow = "1px 1px 1px 1px #fff";
+    	page = "loginPage/"+page;
+		$("#viewOptionSidebar").load(page); 
+    });
+}
+
+function showPage(page){
+		page = "loginPage/"+page;
+		$("#viewOptionSidebar").load(page);
 }
 
 function showRicetta(codice){

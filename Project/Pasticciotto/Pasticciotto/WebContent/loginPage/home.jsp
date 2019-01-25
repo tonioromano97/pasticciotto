@@ -1,9 +1,11 @@
-<%@ page import="bean.Pasticceria" %>
+<%@ page import="bean.Pasticceria,bean.Utente" %>
 <%
-	Pasticceria p = (Pasticceria) request.getSession().getAttribute("pasticceria");
+	Utente u = (Utente) request.getSession().getAttribute("user");
+	Pasticceria p = u.getPasticceria();
 %>
 <div>
 	<div>
+	<%if(!(p==null)){ %>
 		<h1><%=p.getNome() %></h1>
 		<span class="glyphicon glyphicon-road"><%=p.getIndirizzo() %></span>
 		<span class="glyphicon glyphicon-phone"><%=p.getTelefono() %></span>
@@ -13,4 +15,7 @@
 	<div style="width:50%;">
 		<img src="<%=p.getUrlLogo() %>" style="border-radius:10px; box-shadow: 5px 10px 18px #000;"/>
 	</div>
+	<%} else{ %>
+	<p> Non hai pasticcerie registrate </p>
+	<%} %>
 </div>

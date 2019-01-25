@@ -92,7 +92,7 @@ public class UserManager
 			rs = preparedStatement.executeQuery();
 			if(rs.first())
 			{
-				int codice = rs.getInt("codice");
+				int codice = rs.getInt("id");
 				String nome = rs.getString("nome");
 				String indirizzo = rs.getString("indirizzo");
 				String emailp = rs.getString("email");

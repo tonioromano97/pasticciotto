@@ -2,7 +2,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	@SuppressWarnings("unchecked")
-	ArrayList<Ricetta> ricette = (ArrayList<Ricetta>) request.getSession().getAttribute("ricette"); 
+	ArrayList<Ricetta> ricette = (ArrayList<Ricetta>) request.getSession().getAttribute("cakes"); 
 	ArrayList<Prodotto> prodotti = null;
 %>
 <div id="headerRicettario">

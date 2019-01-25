@@ -1,9 +1,13 @@
-<%@ page import="bean.Finanza,bean.Entrata,bean.Uscita,java.util.ArrayList" %>
+<%@ page import="bean.Utente,bean.Finanza,bean.Entrata,bean.Uscita,java.util.ArrayList" %>
 <%
 	@SuppressWarnings("unchecked")
-	ArrayList<Entrata> entrate = (ArrayList<Entrata>) request.getSession().getAttribute("entrate");
-	@SuppressWarnings("unchecked")
-	ArrayList<Uscita> uscite = (ArrayList<Uscita>) request.getSession().getAttribute("uscite");
+	ArrayList<Finanza> finanze = (ArrayList<Finanza>) request.getSession().getAttribute("finances");
+	ArrayList<Entrata> entrate = new ArrayList<Entrata>();
+	ArrayList<Uscita> uscite = new ArrayList<Uscita>();
+	for(Finanza f : finanze){
+		if(f instanceof Entrata) entrate.add((Entrata)f);
+		else uscite.add((Uscita)f);
+	}
 %>
 <div id="entrate">
     <h4> Entrate </h4>

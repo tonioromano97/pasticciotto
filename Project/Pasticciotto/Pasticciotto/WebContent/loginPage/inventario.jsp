@@ -2,7 +2,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	@SuppressWarnings("unchecked")
-	ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) request.getSession().getAttribute("ricette"); 
+	ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) request.getSession().getAttribute("inventory"); 
 %>
 <div id="headerInventario">
 <button class="btn btn-primary" onClick="showPage(false,'newProduct.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuovo prodotto </button>
