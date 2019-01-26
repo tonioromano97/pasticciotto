@@ -1,4 +1,10 @@
+<%@ page import="bean.Utente" %>
+<%
+	Utente utente = (Utente) request.getSession().getAttribute("user");
+	String ruolo = utente.getRuolo();
+%>
 <!DOCTYPE html>
+
 <html>
     <title> Pasticciotto </title>
 <head>
@@ -27,18 +33,34 @@
                 <div id="userLogin"> <div><img src="img/user.png"/> </div> <div id="buttonLogin"> <a href="logout.jsp"> <button type="button" class="btn btn-primary"> LOGOUT </button> </a> </div> </div>
 </div>
 <div id="sidebarLogin">
+<%if(ruolo.equalsIgnoreCase("admin")){ %>
 <button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','vetrina.jsp')"> Vetrina </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetFinanzeControl','finanze.jsp')"> Finanze </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetGraficiControl','grafici.jsp')"> Grafici </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','inventario.jsp')"> Inventario </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','ricettario.jsp')"> Ricettario </button> <br>
-<!--
 <button class="btn btn-primary" onClick="showPage(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
 <button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
--->
+<%}else if(ruolo.equalsIgnoreCase("pasticciere")){ %> 
+<button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
+<button class="btn btn-primary disabled"> Vetrina </button> <br>
+<button class="btn btn-primary disabled"> Finanze </button> <br>
+<button class="btn btn-primary disabled"> Grafici </button> <br>
+<button class="btn btn-primary disabled"> Inventario </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','ricettario.jsp')"> Ricettario </button> <br>
+<button class="btn btn-primary" onClick="showPage(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
+<button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
+<%}else if(ruolo.equalsIgnoreCase("magazziniere")){ %>
+<button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
+<button class="btn btn-primary disabled"> Vetrina </button> <br>
+<button class="btn btn-primary disabled"> Finanze </button> <br>
+<button class="btn btn-primary disabled"> Grafici </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','inventario.jsp')"> Inventario </button> <br>
+<button class="btn btn-primary disabled"> Ricettario </button> <br>
 <button class="btn btn-primary disabled"> Prenotazioni </button> <br>
-<button class="btn btn-primary disabled"> Impostazioni </button> <br>
+<button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
+<%} %>
 </div>
 <div id="viewOptionSidebar">
 <%@ include file="loginPage/home.jsp" %> 

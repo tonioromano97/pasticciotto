@@ -10,9 +10,9 @@ function removeProduct(codice){
 	$.ajax({url: "/Pasticciotto/RemoveIProductControl?code="+codice, success: function(result,status){
 		if(status.toLowerCase() === "success")
 			$("#"+codice).remove();
-		else alert("Errore nella cancellazione del prodotto "+n);
+		else alert("Errore nella cancellazione del prodotto "+n+"\nControlla che il prodotto non sia associato ad una ricetta.");
 	}, error: function(){
-		alert("Errore nella cancellazione del prodotto "+n);
+		alert("Errore nella cancellazione del prodotto "+n+"\nControlla che il prodotto non sia associato ad una ricetta.");
 	}});
 	}
 }
@@ -104,6 +104,7 @@ function showProducts(codice){
 			var nome = pasticceria.nome;
 			var prodotti = pasticceria.prodotti;
 			$('#viewProductsOfPasticceria #nomeP').html(nome);
+			$('#viewProductsOfPasticceria #products').html("<tr></tr>");
 			$(prodotti).each(function(index, prodotto){
 				$('#viewProductsOfPasticceria #products tr:last').after('<tr> <td>'+prodotto.nome+'</td> <td> &euro; '+prodotto.prezzo+' /kg </td> <td> <button style="float:left;" class="btn btn-primary"> &euro; Prenota</button> </td> </tr>');
 			})
