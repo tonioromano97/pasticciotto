@@ -11,7 +11,8 @@ CREATE TABLE Pasticceria
     email varchar(30),
     telefono varchar(12),
     descrizione varchar(500),
-    urlWebsite varchar(60)
+    urlWebsite varchar(60),
+    urlLogo varchar(60)
 );
 
 CREATE TABLE Utente
@@ -25,6 +26,7 @@ CREATE TABLE Utente
     ruolo varchar(20) not null,
     numPrenotazioni int,
     foreign key(pasticceria) references Pasticceria(id)
+    on delete set null on update cascade
 );
 
 CREATE TABLE Entrata
@@ -35,6 +37,7 @@ CREATE TABLE Entrata
     importo decimal(10,2),
     pasticceria int,
     foreign key(pasticceria) references Pasticceria(id)
+    on delete cascade on update cascade
 );
 
 CREATE TABLE Uscita
@@ -46,53 +49,61 @@ CREATE TABLE Uscita
     tipo varchar(30),
     pasticceria int,
     foreign key(pasticceria) references Pasticceria(id)
+    on delete cascade on update cascade
 );
 
 CREATE TABLE Prenotazione
 (
-	codice varchar(10) primary key,
+	codice int primary key auto_increment,
     dataPrenotazione datetime not null,
     dataRitiro datetime not null,
     note varchar(100),
     effettuata boolean not null,
     utente varchar(30),
     foreign key(utente) references Utente(email)
+    on delete cascade on update cascade
 );
 
 CREATE TABLE Prodotto
-(
-	codice varchar(10) primary key,
+( 
+	codice int primary key auto_increment,
     nome varchar(60) not null,
     quantita int not null,
     minScorta int, 
     prezzo decimal(10,2),
     pasticceria int,
     foreign key(pasticceria) references Pasticceria(id)
+    on delete no action on update cascade
 );
 
 CREATE TABLE Ricetta
 (
-	nome varchar(30) primary key,
-    tempoMedio time not null,
+	codice int primary key auto_increment,
+	nome varchar(30),
+    ore int not null,
+    minuti int not null,
     prezzoVendita decimal (10,2),
-    prezzoAcquisto decimal(10,2)
+    prezzoAcquisto decimal(10,2),
+    pasticceria int,
+    foreign key(pasticceria) references Pasticceria(id)
+    on delete cascade on update cascade
 );
 
 CREATE TABLE Prodotto_Ricetta
 (
-	ricetta varchar(30),
-    prodotto varchar(10),
+	ricetta int,
+    prodotto int,
     quantita decimal(5,1) not null,
     primary key (ricetta,prodotto),
-    foreign key(ricetta) references Ricetta(nome),
-    foreign key(prodotto) references Prodotto(codice)
+    foreign key(ricetta) references Ricetta(codice) on delete cascade on update cascade,
+    foreign key(prodotto) references Prodotto(codice) on delete no action on update cascade
 );
 
 CREATE TABLE Ricetta_Prenotazione
 (
-	prenotazione varchar(10),
-    ricetta varchar(30),
+	prenotazione int,
+    ricetta int,
     primary key(prenotazione,ricetta),
-    foreign key (prenotazione) references Prenotazione(codice),
-    foreign key (ricetta) references Ricetta(nome)
+    foreign key (prenotazione) references Prenotazione(codice) on delete cascade on update cascade,
+    foreign key (ricetta) references Ricetta(codice) on delete no action on update cascade
 );
