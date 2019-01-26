@@ -37,6 +37,7 @@ public class FinanceManager
 				e.printStackTrace();
 			}
 			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, p.getCodice());
 			rs = preparedStatement.executeQuery();
 			while (rs.next())
 			{
@@ -49,6 +50,7 @@ public class FinanceManager
 			}
 			preparedStatement.close();
 			preparedStatement = connection.prepareStatement(selectSQL2);
+			preparedStatement.setInt(1, p.getCodice());
 			rs = preparedStatement.executeQuery();
 			while (rs.next())
 			{

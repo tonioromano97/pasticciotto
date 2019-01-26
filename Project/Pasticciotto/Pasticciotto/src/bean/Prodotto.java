@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Prodotto {
 
-	public Prodotto(String nome, int quantita){
+	public Prodotto(int codice, String nome, int quantita){
+		this.codice = codice;
 		this.nome=nome;
 		this.quantita=quantita;
 	}

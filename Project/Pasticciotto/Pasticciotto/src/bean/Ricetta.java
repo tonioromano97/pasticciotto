@@ -7,7 +7,8 @@ public class Ricetta {
 		this.nome=nome;
 		this.prezzoVendita = prezzoVendita;
 	}
-	public Ricetta(String nome,int h, int m,double prezzoVendita,double prezzoAcquisto){
+	public Ricetta(int codice, String nome,int h, int m,double prezzoVendita,double prezzoAcquisto){
+		this.codice=codice;
 		this.nome=nome;
 		this.h=h;
 		this.m=m;

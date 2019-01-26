@@ -16,6 +16,7 @@
 <td> <b>Nome</b> </td>
 <td> <b> Quantità</b> </td>
 <td> <b>Scorta Minima</b> </td>
+<td> <b>Prezzo</b> </td>
 <td> <b>Azione</b> </td>
 </tr>
 </thead>
@@ -27,7 +28,8 @@
 <td id="nome"><%=p.getNome() %></td>
 <td id="quantita"><%=p.getQuantita() %></td>
 <td id="scorta"><%=p.getMinScorta() %></td>
-<td> <i style="display:inline;" class="glyphicon glyphicon-pencil" onClick="modifyInventario('<%=p.getCodice() %>')"> </i>&nbsp;<i style="display:inline;" class="glyphicon glyphicon-trash" onClick="removeProduct('<%=p.getCodice() %>')"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario('<%=p.getCodice() %>')"> Salva </button></td>
+<td id="scorta">&euro; <%=p.getPrezzo() %></td>
+<td> <i style="display:inline;" class="glyphicon glyphicon-pencil" onClick="modifyInventario(<%=p.getCodice() %>)"> </i>&nbsp;<i style="display:inline;" class="glyphicon glyphicon-trash" onClick="removeProduct(<%=p.getCodice() %>)"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario(<%=p.getCodice() %>)"> Salva </button></td>
 </tr>
 <%} %>
 </tbody>
