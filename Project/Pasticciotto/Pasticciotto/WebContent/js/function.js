@@ -80,18 +80,28 @@ function modifyRicetta(codice){
 	$("#Composition"+codice+" div").slideDown();
 }
 
+
 function callServlet(pulsante,servlet,page){
-	$.get("/Pasticciotto/"+servlet, function(data) {
-		$("#sidebarLogin button").css('box-shadow','0px 0px 0px 0px');
-		pulsante.style.boxShadow = "1px 1px 1px 1px #fff";
-    	page = "loginPage/"+page;
-		$("#viewOptionSidebar").load(page); 
+	$.when($("#viewOptionSidebar").fadeOut(200))
+	.done(function() {
+		$.get("/Pasticciotto/"+servlet, function(data) {
+			$("#sidebarLogin button").css('box-shadow','0px 0px 0px 0px');
+			pulsante.style.boxShadow = "1px 1px 1px 1px #fff";
+	    	page = "loginPage/"+page;
+			$("#viewOptionSidebar").load(page);
+			$("#viewOptionSidebar").fadeIn(200);
+	    });		
     });
+	
 }
 
 function showPage(page){
+	$.when($("#viewOptionSidebar").fadeOut(200))
+	.done(function() {
 		page = "loginPage/"+page;
 		$("#viewOptionSidebar").load(page);
+		$("#viewOptionSidebar").fadeIn(200);
+    });	
 }
 
 function showRicetta(codice){

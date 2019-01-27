@@ -29,7 +29,7 @@
     <%} %>
     </tbody>
     </table>
-    <button class="btn btn-primary" onClick="showPage(false,'newEntrata.jsp')"> Nuova Entrata</button>
+    <button class="btn btn-primary" onClick="showPage('newEntrata.jsp')"> Nuova Entrata</button>
     </div>
     <div id="uscite">
     <h4> Uscite </h4>
@@ -53,5 +53,5 @@
     <%} %>
     </tbody>
     </table>
-    <button class="btn btn-primary" onClick="showPage(false,'newUscita.jsp')"> Nuova Uscita</button>
+    <button class="btn btn-primary" onClick="showPage('newUscita.jsp')"> Nuova Uscita</button>
     </div>

@@ -5,7 +5,7 @@
 	ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) request.getSession().getAttribute("inventory"); 
 %>
 <div id="headerInventario">
-<button class="btn btn-primary" onClick="showPage(false,'newProduct.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuovo prodotto </button>
+<button class="btn btn-primary" onClick="showPage('newProduct.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuovo prodotto </button>
 <input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Search.."> 
 </div>
 <div id="inventario">
