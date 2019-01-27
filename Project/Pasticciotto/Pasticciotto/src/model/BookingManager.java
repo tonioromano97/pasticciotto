@@ -151,8 +151,7 @@ public class BookingManager
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 
-		String insertPrenotazione = "INSERT INTO Prenotazione (dataPrenotazione,dataRitiro,note,effettuata,utente) VALUES (?, ?, ?, ?);";
-		insertPrenotazione += "SELECT MAX(codice) FROM Prenotazione";
+		String insertPrenotazione = "INSERT INTO Prenotazione (dataPrenotazione,dataRitiro,note,effettuata,utente) VALUES (?, ?, ?, ?)";
 		String insertRicetta = "";
 		try {
 			try {
@@ -168,14 +167,11 @@ public class BookingManager
 			preparedStatement.setString(3,p.getNote());
 			preparedStatement.setInt(4,0);
 			preparedStatement.setString(5, p.getUtente().getEmail());
-			rs = preparedStatement.executeQuery();
-			rs.next();
-			int code = rs.getInt(0);
-			insertRicetta = "INSERT INTO Ricetta_Prenotazione (prenotazione,ricetta) VALUES (?,?)";
+			preparedStatement.executeUpdate();
+			insertRicetta = "INSERT INTO Ricetta_Prenotazione (prenotazione,ricetta) VALUES ((SELECT MAX(codice) FROM Prenotazione),?)";
 			for(Ricetta r : p.getProdotti()) {
 				preparedStatement = connection.prepareStatement(insertRicetta);
-				preparedStatement.setInt(1, code);
-				preparedStatement.setInt(2, r.getCodice());
+				preparedStatement.setInt(1, r.getCodice());
 				preparedStatement.executeQuery();
 			}
 		} finally {

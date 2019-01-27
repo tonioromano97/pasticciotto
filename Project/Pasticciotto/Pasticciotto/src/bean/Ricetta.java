@@ -7,14 +7,16 @@ public class Ricetta {
 		this.nome=nome;
 		this.prezzoVendita = prezzoVendita;
 	}
-	public Ricetta(int codice, String nome,int h, int m,double prezzoVendita,double prezzoAcquisto){
+	public Ricetta(int codice, String nome,int h, int m,double prezzoVendita,double prezzoAcquisto, Pasticceria p){
 		this.codice=codice;
 		this.nome=nome;
 		this.h=h;
 		this.m=m;
 		this.prezzoAcquisto=prezzoAcquisto;
 		this.prezzoVendita=prezzoVendita;
+		this.pasticceria = p;
 		this.composizione = new ArrayList<Prodotto>();
+		
 	}
 	
 	public String getNome() {
@@ -63,6 +65,14 @@ public class Ricetta {
 		return codice;
 	}
 
+	public Pasticceria getPasticceria() {
+		return pasticceria;
+	}
+	public void setPasticceria(Pasticceria pasticceria) {
+		this.pasticceria = pasticceria;
+	}
+
+	private Pasticceria pasticceria;
 	private ArrayList<Prodotto> composizione;
 	private String nome;
 	private int codice,h,m;

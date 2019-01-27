@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Pasticceria;
 import bean.Prodotto;
+import bean.Utente;
 import model.ProductManager;
 
 /**
@@ -33,15 +35,12 @@ public class NewIProductControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		boolean done = false;
-		
-		String nome = request.getParameter("nome");
-		int codice = Integer.parseInt(request.getParameter("codice"));
-		int quantita = Integer.parseInt(request.getParameter("quantita"));
-		int minScorta = Integer.parseInt(request.getParameter("minScorta"));
-		double prezzo = Double.parseDouble(request.getParameter("prezzo"));
-		
-		Prodotto product = new Prodotto(null,codice,nome,quantita,minScorta,prezzo); //Aggiustare la pasticceria in tutti i control
-		
+		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
+		String nome = request.getParameter("name");
+		int quantita = Integer.parseInt(request.getParameter("stock"));
+		int minScorta = Integer.parseInt(request.getParameter("minStock"));
+		double prezzo = Double.parseDouble(request.getParameter("price"));
+		Prodotto product = new Prodotto(p,-1,nome,quantita,minScorta,prezzo);
 		try {
 			done = ProductManager.add(product);
 		} catch (SQLException e) {

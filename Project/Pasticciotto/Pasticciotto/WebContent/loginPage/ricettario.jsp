@@ -6,7 +6,7 @@
 	ArrayList<Prodotto> prodotti = null;
 %>
 <div id="headerRicettario">
-<button class="btn btn-primary" onClick="showPage('newRicetta.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuova ricetta </button>
+<button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','newRicetta.jsp');"> <i class="glyphicon glyphicon-plus"> </i> Nuova ricetta </button>
 <input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Search.."> 
 </div>
 <div id="ricettario">

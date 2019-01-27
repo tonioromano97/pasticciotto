@@ -131,9 +131,39 @@ body {
 #uscite{
 	float:right;
 	margin-left:10px;
-	width:45%;
+	width:50%;
 }
 #mySearch{
 	width: 150px;
 	float:right;
 }
+.tab-content #ricettePrenotate{
+	float:left;
+	width:30%;
+}
+.tab-content #info{
+	float:left;
+	width:25%;
+}
+.tab-content #note{
+	float:left;
+	border: 1px solid #fff;
+	border-top: transparent;
+	border-left: transparent;
+	width:45%;
+	height:150px;
+}
+
+.nav-tabs>li a:hover{
+	color: darkgrey !important;
+}
+
+.nav-tabs>li.active>a {
+	background-color:rgb(40,156,179);
+	color:#fff;
+}
+
+.nav-tabs>li a{
+	color: #fff;
+}
+

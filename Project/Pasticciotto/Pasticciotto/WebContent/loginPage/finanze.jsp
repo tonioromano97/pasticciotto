@@ -17,14 +17,16 @@
     <td> Descrizione </td>
     <td> Data </td>
     <td> Importo </td>
+    <td> Elimina </td>
     </tr>
     </thead>
     <tbody>
     <%for(Entrata e : entrate){ %>
-    <tr>
+    <tr id="<%=e.getCodice() %>">
     <td><%=e.getDescrizione() %></td>
     <td><%=e.getData() %></td>
     <td><%=e.getImporto() %> &euro; / kg </td>
+    <td><i class="glyphicon glyphicon-trash" onClick="removeEntrata(<%=e.getCodice() %>)"> </i> </td>
     </tr>
     <%} %>
     </tbody>
@@ -40,15 +42,17 @@
     <td> Descrizione </td>
     <td> Data </td>
     <td> Importo </td>
+    <td> Elimina </td>
     </tr>
     </thead>
     <tbody>
     <%for(Uscita u : uscite){ %>
-    <tr>
+    <tr id="<%=u.getCodice() %>">
     <td><%=u.getTipo() %></td>
     <td><%=u.getDescrizione() %></td>
     <td><%=u.getData() %></td>
     <td> &euro; <%=u.getImporto() %></td>
+    <td><i class="glyphicon glyphicon-trash" onClick="removeUscita(<%=u.getCodice() %>)"> </i></td>
     </tr>
     <%} %>
     </tbody>

@@ -18,8 +18,8 @@ public class ProductManager
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO Prodotto" 
-				+ "(codice, nome, quantita, minScorta, prezzo, pasticceria)"
-				+" VALUES (?, ?, ?, ?, ?, ?)";
+				+ "(nome, quantita, minScorta, prezzo, pasticceria)"
+				+" VALUES (?, ?, ?, ?, ?)";
 
 		try {
 			try {
@@ -29,12 +29,11 @@ public class ProductManager
 				e.printStackTrace();
 			}
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, product.getCodice());
-			preparedStatement.setString(2, product.getNome());
-			preparedStatement.setInt(3, product.getQuantita());
-			preparedStatement.setInt(4, product.getMinScorta());
-			preparedStatement.setDouble(5, product.getPrezzo());
-			preparedStatement.setInt(6,product.getPasticceria().getCodice());
+			preparedStatement.setString(1, product.getNome());
+			preparedStatement.setInt(2, product.getQuantita());
+			preparedStatement.setInt(3, product.getMinScorta());
+			preparedStatement.setDouble(4, product.getPrezzo());
+			preparedStatement.setInt(5,product.getPasticceria().getCodice());
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			
@@ -84,8 +83,74 @@ public class ProductManager
 		return false;
 	}
 	
+	public static synchronized boolean modifyName(Prodotto p) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE Prodotto SET nome = ? WHERE codice = ?";
+
+		try {
+			try {
+				connection = JDBCConnectionPool.getConnection();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setString(1, p.getNome());
+			preparedStatement.setInt(2, p.getCodice());
+
+			if (preparedStatement.executeUpdate() > 0)
+				return true;
+			//connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return false;
+	}
 	
-	public synchronized boolean modifyQuantity(Prodotto p) throws SQLException {
+	public static synchronized boolean modifyPrice(Prodotto p) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE Prodotto SET prezzo = ? WHERE codice = ?";
+
+		try {
+			try {
+				connection = JDBCConnectionPool.getConnection();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setDouble(1, p.getPrezzo());
+			preparedStatement.setInt(2, p.getCodice());
+
+			if (preparedStatement.executeUpdate() > 0)
+				return true;
+			//connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return false;
+	}
+	
+	
+	public static synchronized boolean modifyQuantity(Prodotto p) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -118,7 +183,7 @@ public class ProductManager
 		return false;
 	}
 	
-	public synchronized boolean modifyMinStock(Prodotto p) throws SQLException {
+	public static synchronized boolean modifyMinStock(Prodotto p) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

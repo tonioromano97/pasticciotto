@@ -1,7 +1,9 @@
-package control.gestioneaccount;
+package control.gestionefinanze;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Entrata;
+import bean.Finanza;
+import bean.Pasticceria;
+import bean.Uscita;
 import bean.Utente;
-import model.UserManager;
+import model.FinanceManager;
 
 /**
- * Servlet implementation class RegisterControl
+ * Servlet implementation class AddFinanzaControl
  */
-@WebServlet("/Register")
-public class RegisterControl extends HttpServlet {
+@WebServlet("/AddFinanzaControl")
+public class AddFinanzaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterControl() {
+    public AddFinanzaControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +37,22 @@ public class RegisterControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String telefono = request.getParameter("telefono");
-		String ruolo = request.getParameter("ruolo");
-		
-		Utente u = new Utente(nome,cognome,email,password,telefono,null,ruolo,0);
-		
+		Finanza finances;
+		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
+		String finanza = request.getParameter("finanza");
+		String descrizione = request.getParameter("descrizione");
+		Date data = Date.valueOf(request.getParameter("data"));
+		double importo = Double.parseDouble(request.getParameter("importo"));
+		if(finanza.equalsIgnoreCase("entrata"))
+			finances = new Entrata(-1, p, descrizione, data, importo);
+		else {
+			String tipo = request.getParameter("tipo");
+			finances = new Uscita(-1, p, descrizione, data, importo, tipo);
+		}
 		try {
-			UserManager.register(u);
-			response.sendRedirect("registerok.jsp?nome="+u.getNome()+"&cognome="+u.getCognome()+"&email="+u.getEmail());
+			if(finances instanceof Entrata)
+				FinanceManager.addEntrata((Entrata)finances);
+			else FinanceManager.addUscita((Uscita)finances); 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -34,7 +34,7 @@ public class UserManager
 			preparedStatement.setString(3, user.getEmail());
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setString(5, user.getTelefono());
-			preparedStatement.setInt(6, -1);
+			preparedStatement.setNull(6, java.sql.Types.INTEGER);
 			preparedStatement.setString(7, user.getRuolo());
 			preparedStatement.setInt(8, user.getNumPrenotazioni());;
 			if (preparedStatement.executeUpdate() > 0)

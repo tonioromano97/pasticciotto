@@ -11,21 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Pasticceria;
+import bean.Prodotto;
 import bean.Ricetta;
 import bean.Utente;
 import model.RecipeManager;
 
 /**
- * Servlet implementation class GetCakesControl
+ * Servlet implementation class NewCakesControl
  */
-@WebServlet("/GetCakesControl")
-public class GetCakesControl extends HttpServlet {
+@WebServlet("/NewCakesControl")
+public class NewCakesControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetCakesControl() {
+    public NewCakesControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,13 +36,26 @@ public class GetCakesControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
-			ArrayList<Ricetta> recipes = RecipeManager.getRecipes(p);
-			request.getSession().setAttribute("cakes", recipes);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
+		String nome = request.getParameter("name");
+		int ore = Integer.parseInt(request.getParameter("h"));
+		int minuti = Integer.parseInt(request.getParameter("m"));
+		double prezzoVendita = Double.parseDouble(request.getParameter("pV"));
+		double prezzoAcquisto = Double.parseDouble(request.getParameter("pA"));
+		int ingredienti = Integer.parseInt(request.getParameter("i"));
+		
+		Ricetta recipe = new Ricetta(6, nome, ore, minuti, prezzoVendita, prezzoAcquisto, p);
+		ArrayList<Prodotto> products = new ArrayList<Prodotto>();
+	
+		for(int i=0; i<ingredienti; i++){
+			int code = Integer.parseInt(request.getParameter("c"+i));
+			int dose = Integer.parseInt(request.getParameter("d"+i));
+			products.add(new Prodotto(code, null, dose));
+		}
+		recipe.setComposizione(products);
+		try{
+		RecipeManager.add(recipe);
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

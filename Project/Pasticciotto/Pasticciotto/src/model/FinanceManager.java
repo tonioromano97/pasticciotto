@@ -5,18 +5,18 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import bean.Entrata;
 import bean.Finanza;
 import bean.Pasticceria;
+import bean.Ricetta;
 import bean.Uscita;
-import bean.Utente;
 import connectionPool.JDBCConnectionPool;
 
 public class FinanceManager 
 {
+	
 	public static synchronized ArrayList<Finanza> getFinances(Pasticceria p) throws SQLException
 	{
 		Connection connection = null;
@@ -119,7 +119,7 @@ public class FinanceManager
 
 		String insertSQL = "INSERT INTO Uscita" 
 				+ "(descrizione,data,importo,tipo,pasticceria)"
-				+" VALUES (?, ?, ?, ?)";
+				+" VALUES (?, ?, ?, ?, ?)";
 
 		try {
 			try {

@@ -1,4 +1,4 @@
-package control.gestioneaccount;
+package control.gestioneinventario;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Pasticceria;
+import bean.Prodotto;
 import bean.Utente;
-import model.UserManager;
+import model.ProductManager;
 
 /**
- * Servlet implementation class RegisterControl
+ * Servlet implementation class UpdateIProductControl
  */
-@WebServlet("/Register")
-public class RegisterControl extends HttpServlet {
+@WebServlet("/UpdateIProductControl")
+public class UpdateIProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterControl() {
+    public UpdateIProductControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +34,20 @@ public class RegisterControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String telefono = request.getParameter("telefono");
-		String ruolo = request.getParameter("ruolo");
-		
-		Utente u = new Utente(nome,cognome,email,password,telefono,null,ruolo,0);
-		
-		try {
-			UserManager.register(u);
-			response.sendRedirect("registerok.jsp?nome="+u.getNome()+"&cognome="+u.getCognome()+"&email="+u.getEmail());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
+		int codice = Integer.parseInt(request.getParameter("code"));
+		String nome = request.getParameter("name");
+		int quantita = Integer.parseInt(request.getParameter("stock"));
+		int minScorta = Integer.parseInt(request.getParameter("minStock"));
+		double prezzo = Double.parseDouble(request.getParameter("price"));
+		Prodotto prodotto = new Prodotto(p, codice, nome, quantita, minScorta, prezzo);
+		try{
+		ProductManager.modifyName(prodotto);
+		ProductManager.modifyQuantity(prodotto);
+		ProductManager.modifyMinStock(prodotto);
+		ProductManager.modifyPrice(prodotto);
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

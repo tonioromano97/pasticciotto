@@ -21,6 +21,12 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
             <input id="telefono" type="text" class="form-control" name="telefono" placeholder="Telefono" required>
     </div>
+    <div class="input-group" style="color:white; font-size:15px;">
+		<div class="radio">
+		  <label style="margin-right:20px;"><input type="radio" name="ruolo" value="cliente" checked>Non ho una pasticceria</label>
+		  <label><input type="radio" name="ruolo" value="admin">Ho una pasticceria</label>
+		</div>
+    </div>
     <div class="input-group">
     	<input type="submit" class="btn btn-primary" value="Registrati"/>
     	<a href="login.jsp"> <button id="nearSubmit" type="button" class="btn btn-primary"> Hai già  un account ? Accedi qui </button> </a>

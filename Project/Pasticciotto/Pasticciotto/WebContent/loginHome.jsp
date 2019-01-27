@@ -40,8 +40,8 @@
 <button class="btn btn-primary" onClick="callServlet(this,'GetGraficiControl','grafici.jsp')"> Grafici </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','inventario.jsp')"> Inventario </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','ricettario.jsp')"> Ricettario </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
 <%}else if(ruolo.equalsIgnoreCase("pasticciere")){ %> 
 <button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
 <button class="btn btn-primary disabled"> Vetrina </button> <br>
@@ -49,8 +49,8 @@
 <button class="btn btn-primary disabled"> Grafici </button> <br>
 <button class="btn btn-primary disabled"> Inventario </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','ricettario.jsp')"> Ricettario </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetPrenotazioniControl','prenotazioni.jsp')"> Prenotazioni </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
 <%}else if(ruolo.equalsIgnoreCase("magazziniere")){ %>
 <button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
 <button class="btn btn-primary disabled"> Vetrina </button> <br>
@@ -59,7 +59,7 @@
 <button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','inventario.jsp')"> Inventario </button> <br>
 <button class="btn btn-primary disabled"> Ricettario </button> <br>
 <button class="btn btn-primary disabled"> Prenotazioni </button> <br>
-<button class="btn btn-primary" onClick="showPage(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetImpostazioniControl','impostazioni.jsp')"> Impostazioni </button> <br>
 <%} %>
 </div>
 <div id="viewOptionSidebar">

@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class Prenotazione {
-	public Prenotazione(String codice, Date dataPrenotazione, Date dataRitiro, String note){
+	public Prenotazione(int codice, Date dataPrenotazione, Date dataRitiro, String note){
 		this.codice=codice;
 		this.dataPrenotazione= dataPrenotazione;
 		this.dataRitiro=dataRitiro;
@@ -12,10 +12,10 @@ public class Prenotazione {
 		this.effettuata=false;
 		this.prodotti = new ArrayList<Ricetta>();
 	}
-	public String getCodice() {
+	public int getCodice() {
 		return codice;
 	}
-	public void setCodice(String codice) {
+	public void setCodice(int codice) {
 		this.codice = codice;
 	}
 	public String getNote() {
@@ -47,6 +47,10 @@ public class Prenotazione {
 		return prodotti;
 	}
 	
+	public void setProdotti(ArrayList<Ricetta> p){
+		this.prodotti = p;
+	}
+	
 	public Utente getUtente() {
 		return u;
 	}
@@ -54,9 +58,10 @@ public class Prenotazione {
 		this.u = u;
 	}
 
+	private int codice;
 	private Utente u;
 	private ArrayList<Ricetta> prodotti;
-	private String codice,note;
+	private String note;
 	private Date dataPrenotazione, dataRitiro;
 	boolean effettuata;
 }

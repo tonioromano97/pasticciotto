@@ -1,4 +1,4 @@
-package control.gestioneaccount;
+package control.gestionefinanze;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Utente;
-import model.UserManager;
+import model.FinanceManager;
 
 /**
- * Servlet implementation class RegisterControl
+ * Servlet implementation class RemoveFinanzaControl
  */
-@WebServlet("/Register")
-public class RegisterControl extends HttpServlet {
+@WebServlet("/RemoveFinanzaControl")
+public class RemoveFinanzaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterControl() {
+    public RemoveFinanzaControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +31,14 @@ public class RegisterControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String telefono = request.getParameter("telefono");
-		String ruolo = request.getParameter("ruolo");
-		
-		Utente u = new Utente(nome,cognome,email,password,telefono,null,ruolo,0);
-		
-		try {
-			UserManager.register(u);
-			response.sendRedirect("registerok.jsp?nome="+u.getNome()+"&cognome="+u.getCognome()+"&email="+u.getEmail());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		String tipo = request.getParameter("tipo");
+		int key = Integer.parseInt(request.getParameter("code"));
+		try{
+		if(tipo.equalsIgnoreCase("entrata"))
+			FinanceManager.deleteEntrata(key);
+		else FinanceManager.deleteUscita(key);
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

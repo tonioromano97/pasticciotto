@@ -22,13 +22,17 @@
 </thead>
 <!-- Non ci devono essere spazi nei campi di <td> -->
 <tbody id="myTable">
-<%for(Prodotto p : prodotti){ %>
+<%for(Prodotto p : prodotti){ 
+if(p.getQuantita()>p.getMinScorta()){ %>
 <tr id="<%=p.getCodice() %>">
+<% } else{ %>
+<tr id="<%=p.getCodice() %>" class="table-danger">
+<%} %>
 <td id="codice"><%=p.getCodice() %></td>
 <td id="nome"><%=p.getNome() %></td>
 <td id="quantita"><%=p.getQuantita() %></td>
 <td id="scorta"><%=p.getMinScorta() %></td>
-<td id="scorta">&euro; <%=p.getPrezzo() %></td>
+<td id="prezzo"><%=p.getPrezzo() %></td>
 <td> <i style="display:inline;" class="glyphicon glyphicon-pencil" onClick="modifyInventario(<%=p.getCodice() %>)"> </i>&nbsp;<i style="display:inline;" class="glyphicon glyphicon-trash" onClick="removeProduct(<%=p.getCodice() %>)"> </i> <button class="btn btn-primary" style="display:none;" onClick="saveInventario(<%=p.getCodice() %>)"> Salva </button></td>
 </tr>
 <%} %>

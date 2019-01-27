@@ -13,6 +13,53 @@ import connectionPool.JDBCConnectionPool;
 
 public class RecipeManager 
 {
+	
+	public static synchronized boolean add(Ricetta recipe) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "INSERT INTO Ricetta" 
+				+ "(nome, ore, minuti, prezzoVendita, prezzoAcquisto, pasticceria)"
+				+" VALUES (?, ?, ?, ?, ?, ?)";
+		
+		String insertSQL2 = "INSERT INTO Prodotto_Ricetta (ricetta,prodotto,quantita) VALUES ((SELECT MAX(codice) FROM Ricetta),?,?)";
+
+		try {
+			try {
+				connection = JDBCConnectionPool.getConnection();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, recipe.getNome());
+			preparedStatement.setInt(2, recipe.getH());
+			preparedStatement.setInt(3, recipe.getM());
+			preparedStatement.setDouble(4, recipe.getPrezzoVendita());
+			preparedStatement.setDouble(5, recipe.getPrezzoAcquisto());
+			preparedStatement.setInt(6, recipe.getPasticceria().getCodice());
+			if (preparedStatement.executeUpdate() > 0){
+				preparedStatement = connection.prepareStatement(insertSQL2);
+				for(Prodotto prodotto : recipe.getComposizione()){
+					preparedStatement.setInt(1, prodotto.getCodice());
+					preparedStatement.setDouble(2, prodotto.getQuantita());
+					preparedStatement.executeUpdate();
+				}
+			}
+			//connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return false;
+	}
+	
 	public static synchronized ArrayList<Ricetta> getRecipes(Pasticceria p) throws SQLException
 	{
 		Connection connection = null;
@@ -46,7 +93,7 @@ public class RecipeManager
 				int m = rs.getInt("minuti");
 				double prezzoVendita = rs.getDouble("prezzoVendita");
 				double prezzoAcquisto = rs.getDouble("prezzoAcquisto");
-				ricetta = new Ricetta(codice,nome,h,m,prezzoVendita,prezzoAcquisto);
+				ricetta = new Ricetta(codice,nome,h,m,prezzoVendita,prezzoAcquisto,p);
 				preparedStatement2 = connection.prepareStatement(selectSQL2);
 				preparedStatement2.setInt(1, p.getCodice());
 				preparedStatement2.setInt(2, ricetta.getCodice());
