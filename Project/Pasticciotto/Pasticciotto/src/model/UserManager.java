@@ -34,9 +34,13 @@ public class UserManager
 			preparedStatement.setString(3, user.getEmail());
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setString(5, user.getTelefono());
-			preparedStatement.setNull(6, java.sql.Types.INTEGER);
+			if(user.getPasticceria()==null)
+				preparedStatement.setNull(6, java.sql.Types.INTEGER);
+			else preparedStatement.setInt(6, user.getPasticceria().getCodice());
 			preparedStatement.setString(7, user.getRuolo());
-			preparedStatement.setInt(8, user.getNumPrenotazioni());;
+			if(user.getRuolo().equalsIgnoreCase("cliente"))
+				preparedStatement.setInt(8, user.getNumPrenotazioni());
+			else preparedStatement.setNull(8, java.sql.Types.INTEGER); 
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			//connection.commit();

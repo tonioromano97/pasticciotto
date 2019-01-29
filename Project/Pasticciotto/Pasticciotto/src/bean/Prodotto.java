@@ -3,6 +3,16 @@ package bean;
 import java.util.ArrayList;
 
 public class Prodotto {
+	
+	public Prodotto(int codice, String nome){
+		this.codice = codice;
+		this.nome=nome;
+		this.pasticceria=null;
+		this.ricette=null;
+		this.quantita=0;
+		this.minScorta=0;
+		this.prezzo=0;
+	}
 
 	public Prodotto(int codice, String nome, int quantita){
 		this.codice = codice;

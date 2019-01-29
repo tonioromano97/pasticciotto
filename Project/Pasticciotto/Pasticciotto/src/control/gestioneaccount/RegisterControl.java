@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Pasticceria;
 import bean.Utente;
 import model.UserManager;
 
@@ -38,8 +39,13 @@ public class RegisterControl extends HttpServlet {
 		String password = request.getParameter("password");
 		String telefono = request.getParameter("telefono");
 		String ruolo = request.getParameter("ruolo");
+		Pasticceria pasticceria = null;
+		if(ruolo.equalsIgnoreCase("magazziniere")||ruolo.equalsIgnoreCase("pasticciere")){
+			 pasticceria = new Pasticceria(Integer.parseInt(request.getParameter("pasticceria")));
+			 System.out.println(""+request.getParameter("pasticceria"));
+		}
 		
-		Utente u = new Utente(nome,cognome,email,password,telefono,null,ruolo,0);
+		Utente u = new Utente(nome,cognome,email,password,telefono,pasticceria,ruolo,0);
 		
 		try {
 			UserManager.register(u);
