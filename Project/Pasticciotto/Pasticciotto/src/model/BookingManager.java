@@ -150,7 +150,7 @@ public class BookingManager
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-
+		//Manca aggiunta del numPrenotazioni al cliente
 		String insertPrenotazione = "INSERT INTO Prenotazione (dataPrenotazione,dataRitiro,note,effettuata,utente) VALUES (?, ?, ?, ?)";
 		String insertRicetta = "";
 		try {
@@ -184,6 +184,37 @@ public class BookingManager
 			}
 		}
 		return false;
+	}
+	
+	public static synchronized boolean doBooking(Prenotazione p)
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		boolean done = false;
+
+		String updateSQL = "UPDATE Prenotazione" 
+				+ "SET 'effettuata' = ?"
+				+" WHERE 'codice' = ?";
+		
+			try {
+				connection = JDBCConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				preparedStatement.setBoolean(1, p.isEffettuata());
+				if (preparedStatement.executeUpdate() > 0)
+					done = true;
+				preparedStatement.close();
+				connection.close();
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return done;
+
 	}
 	
 }

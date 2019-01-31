@@ -13,8 +13,8 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/Users/antonioromano/Documents/GitHub/pasticciotto/Project/Pasticciotto/Pasticciotto/WebContent/WEB-INF/lib/java-json.jar"/>
-	<classpathentry kind="lib" path="/Users/antonioromano/Documents/GitHub/pasticciotto/Project/Pasticciotto/Pasticciotto/WebContent/WEB-INF/lib/json-20180813.jar"/>
-	<classpathentry kind="lib" path="/Users/antonioromano/Documents/GitHub/pasticciotto/Project/Pasticciotto/Pasticciotto/WebContent/WEB-INF/lib/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/giulio/Downloads/java-json.jar"/>
+	<classpathentry kind="lib" path="/Users/giulio/Downloads/json-20180813.jar"/>
+	<classpathentry kind="lib" path="/Users/giulio/Downloads/mysql-connector-java-5.1.45.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -149,7 +149,7 @@ public class FinanceManager
 		}
 		return false;
 	}
-	
+	//TODO Incorpare i due metodi
 	public static synchronized boolean deleteEntrata(int key) throws SQLException
 	{
 		Connection connection = null;
