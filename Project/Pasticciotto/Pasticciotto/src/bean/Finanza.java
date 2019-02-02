@@ -4,6 +4,11 @@ import java.sql.Date;
 
 public abstract class Finanza {
 	
+	public Finanza(int codice)
+	{
+		this.codice = codice;
+	}
+	
 	public Finanza(int codice, Pasticceria pasticceria, String descrizione, Date data, double importo){
 		this.codice = codice;
 		this.descrizione = descrizione;

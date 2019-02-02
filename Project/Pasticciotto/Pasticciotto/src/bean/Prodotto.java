@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class Prodotto {
 	
+	public Prodotto(int codice)
+	{
+		this.codice = codice;
+	}
+	
 	public Prodotto(int codice, String nome){
 		this.codice = codice;
 		this.nome=nome;

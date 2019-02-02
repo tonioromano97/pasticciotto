@@ -4,6 +4,11 @@ import java.sql.Date;
 
 public class Uscita extends Finanza {
 
+	public Uscita(int codice)
+	{
+		super(codice);
+	}
+	
 	public Uscita(int codice, Pasticceria p, String descrizione, Date data, double importo, String tipo) {
 		super(codice, p, descrizione, data, importo);
 		this.tipo = tipo;

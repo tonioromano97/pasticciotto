@@ -84,6 +84,7 @@ CREATE TABLE Ricetta
     minuti int not null,
     prezzoVendita decimal (10,2),
     prezzoAcquisto decimal(10,2),
+    insale boolean,
     pasticceria int,
     foreign key(pasticceria) references Pasticceria(id)
     on delete cascade on update cascade

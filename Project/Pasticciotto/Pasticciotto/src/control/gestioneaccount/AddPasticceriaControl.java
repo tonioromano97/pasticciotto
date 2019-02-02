@@ -9,44 +9,50 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Utente;
+import bean.Pasticceria;
 import model.UserManager;
 
 /**
- * @author giulio
- * This servlet lets modify the personal password of an user
+ * Servlet implementation class AddPasticceriaControl
  */
-@WebServlet("/ModifyPasswordControl")
-public class ModifyPasswordControl extends HttpServlet {
+@WebServlet("/AddPasticceriaControl")
+public class AddPasticceriaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModifyPasswordControl() {
+    public AddPasticceriaControl() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    /**
-     *In the request of this Servlet, given the user and the new password, the control do the change and set the new password
-	 * also in the session object
-     */
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Utente u = (Utente)request.getSession().getAttribute("user");
-		String newPassword = request.getParameter("newPassword");
-		
 		boolean done = false;
+		int codice = Integer.parseInt(request.getParameter("codice"));
+		String nome = request.getParameter("nome");
+		String indirizzo = request.getParameter("indirizzo");
+		String email = request.getParameter("email");
+		String telefono = request.getParameter("telefono");
+		String descrizione = request.getParameter("descrizione");
+		String urlWebsite = request.getParameter("urlWebsite");
+		String urlLogo = request.getParameter("urlLogo");
 		
 		try {
-			done = UserManager.modifyPassword(u,newPassword);
-			u.setEmail(newPassword);
-			request.getSession().setAttribute("user", u);
+			done = UserManager.addPasticceria(new Pasticceria(codice,nome,indirizzo,email,telefono,descrizione,urlWebsite, urlLogo));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (done == true)
+		{
+			//Redirect to personal homepage
+		}
+			
+		// else redirect to error
 	}
 
 	/**

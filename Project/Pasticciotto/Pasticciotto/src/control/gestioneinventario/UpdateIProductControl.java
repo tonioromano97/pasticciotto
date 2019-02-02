@@ -42,10 +42,7 @@ public class UpdateIProductControl extends HttpServlet {
 		double prezzo = Double.parseDouble(request.getParameter("price"));
 		Prodotto prodotto = new Prodotto(p, codice, nome, quantita, minScorta, prezzo);
 		try{
-		ProductManager.modifyName(prodotto);
-		ProductManager.modifyQuantity(prodotto);
-		ProductManager.modifyMinStock(prodotto);
-		ProductManager.modifyPrice(prodotto);
+		ProductManager.modifyProduct(prodotto);
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Prodotto;
 import model.ProductManager;
 
 /**
@@ -31,11 +32,11 @@ public class RemoveIProductControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String code = request.getParameter("code");
+		int key = Integer.parseInt(request.getParameter("code"));
 		boolean done = false;
 		
 		try {
-			done = ProductManager.delete(code);
+			done = ProductManager.delete(new Prodotto(key));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

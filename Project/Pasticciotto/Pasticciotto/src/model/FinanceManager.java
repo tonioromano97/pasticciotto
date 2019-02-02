@@ -149,25 +149,29 @@ public class FinanceManager
 		}
 		return false;
 	}
-	//TODO Incorpare i due metodi
-	public static synchronized boolean deleteEntrata(int key) throws SQLException
+	
+	public static synchronized boolean deleteFinance(Finanza f) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		String deleteSQL = "DELETE FROM Entrata WHERE id = ?";
+		String deleteSQL;
+		if(f instanceof Entrata)
+			deleteSQL = "DELETE FROM Entrata WHERE id = ?";
+		else
+			deleteSQL = "DELETE FROM Uscita WHERE id = ?";
 
 		try {
 			try {
 				connection = JDBCConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(deleteSQL);
+				preparedStatement.setInt(1, f.getCodice());
+				if (preparedStatement.executeUpdate() > 0)
+					return true;
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, key);
-			if (preparedStatement.executeUpdate() > 0)
-				return true;
+			
 			
 			//connection.commit();
 		} finally {
@@ -182,35 +186,4 @@ public class FinanceManager
 		return false;
 	}
 	
-	public static synchronized boolean deleteUscita(int key) throws SQLException
-	{
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		String deleteSQL = "DELETE FROM Uscita WHERE id = ?";
-
-		try {
-			try {
-				connection = JDBCConnectionPool.getConnection();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, key);
-			if (preparedStatement.executeUpdate() > 0)
-				return true;
-			
-			//connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return false;
-	}
 }

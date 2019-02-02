@@ -13,22 +13,22 @@ import bean.Utente;
 import model.UserManager;
 
 /**
- * Servlet implementation class LoginControl
+ * @author giulio
+ * This servlet manage the login of an user
  */
 @WebServlet("/Login")
 public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+ 
     public LoginControl() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * In the request of this Servlet, given the email and the password of the user, the control create a User object 
+	 * and redirect the user to personal homepage 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -53,9 +53,7 @@ public class LoginControl extends HttpServlet {
 			
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

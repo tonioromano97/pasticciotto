@@ -13,25 +13,23 @@ import bean.Utente;
 import model.UserManager;
 
 /**
- * Servlet implementation class ModifyEmailControl
+ * @author giulio
+ * This servlet lets modify the personal email of an user
  */
 @WebServlet("/ModifyEmailControl")
 public class ModifyEmailControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+ 
     public ModifyEmailControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /**
+     *In the request of this Servlet, given the user and the new email, the control do the change and set the new email
+	 * also in the session object
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		Utente u = (Utente)request.getSession().getAttribute("user");
 		String newEmail = request.getParameter("newEmail");
 		
@@ -42,17 +40,13 @@ public class ModifyEmailControl extends HttpServlet {
 			u.setEmail(newEmail);
 			request.getSession().setAttribute("user", u);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

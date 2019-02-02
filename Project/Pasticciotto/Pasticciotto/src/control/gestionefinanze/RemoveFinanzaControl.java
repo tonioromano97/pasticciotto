@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Entrata;
+import bean.Uscita;
 import model.FinanceManager;
 
 /**
@@ -35,8 +37,8 @@ public class RemoveFinanzaControl extends HttpServlet {
 		int key = Integer.parseInt(request.getParameter("code"));
 		try{
 		if(tipo.equalsIgnoreCase("entrata"))
-			FinanceManager.deleteEntrata(key);
-		else FinanceManager.deleteUscita(key);
+			FinanceManager.deleteFinance(new Entrata(key));
+		else FinanceManager.deleteFinance(new Uscita(key));
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

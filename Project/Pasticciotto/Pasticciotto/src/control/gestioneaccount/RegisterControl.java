@@ -14,25 +14,24 @@ import bean.Utente;
 import model.UserManager;
 
 /**
- * Servlet implementation class RegisterControl
+ * @author giulio
+ * This servlet lets the registration of a new user
  */
 @WebServlet("/Register")
 public class RegisterControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public RegisterControl() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * In the request of this Servlet, given the user data, the control register the new user and
+	 * redirect the user to the personal homepage
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
 		String email = request.getParameter("email");
@@ -51,16 +50,13 @@ public class RegisterControl extends HttpServlet {
 			UserManager.register(u);
 			response.sendRedirect("registerok.jsp?nome="+u.getNome()+"&cognome="+u.getCognome()+"&email="+u.getEmail());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+	
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
