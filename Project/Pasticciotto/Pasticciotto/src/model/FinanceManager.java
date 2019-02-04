@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import bean.Entrata;
 import bean.Finanza;
@@ -17,7 +18,7 @@ import connectionPool.JDBCConnectionPool;
 public class FinanceManager 
 {
 	
-	public static synchronized ArrayList<Finanza> getFinances(Pasticceria p) throws SQLException
+	public static synchronized Collection<Finanza> getFinances(Pasticceria p) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

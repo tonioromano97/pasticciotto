@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import bean.Pasticceria;
 import bean.Prodotto;
@@ -101,7 +102,7 @@ public class RecipeManager
 	{
 		
 	} */
-	public static synchronized ArrayList<Ricetta> getRecipes(Pasticceria p) throws SQLException
+	public static synchronized Collection<Ricetta> getRecipes(Pasticceria p) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

@@ -60,6 +60,11 @@ public class Ricetta {
 	public String getNome() {
 		return nome;
 	}
+	
+	/**
+	 * Set the name of the recipe
+	 * @param nome name of the recipe
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

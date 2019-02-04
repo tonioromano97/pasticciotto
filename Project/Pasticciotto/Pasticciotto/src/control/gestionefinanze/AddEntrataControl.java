@@ -1,32 +1,34 @@
-package control.gestioneprenotazione;
+package control.gestionefinanze;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Entrata;
+import bean.Finanza;
 import bean.Pasticceria;
-import model.BookingManager;
-import sun.rmi.server.Dispatcher;
+import bean.Uscita;
+import bean.Utente;
+import model.FinanceManager;
 
 /**
- * Servlet implementation class GetPasticcerieControl
+ * Servlet implementation class AddFinanzaControl
  */
-@WebServlet("/GetPasticcerieControl")
-public class GetPasticcerieControl extends HttpServlet {
+@WebServlet("/AddEntrataControl")
+public class AddEntrataControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetPasticcerieControl() {
+    public AddEntrataControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +37,25 @@ public class GetPasticcerieControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//Get the associated bakery from the user session object
+		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
+		
+		boolean done = false;
+		
+		
+		
+		String descrizione = request.getParameter("descrizione");
+		Date data = Date.valueOf(request.getParameter("data"));
+		double importo = Double.parseDouble(request.getParameter("importo"));
+		Entrata entrata = new Entrata(-1,p,descrizione,data,importo);
+		
 		try {
-			Collection<Pasticceria> bakeries = BookingManager.getBakeries();
-			request.getSession().setAttribute("bakeries", bakeries);
-			response.sendRedirect("index.jsp");
+				done = FinanceManager.addEntrata(entrata);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	/**

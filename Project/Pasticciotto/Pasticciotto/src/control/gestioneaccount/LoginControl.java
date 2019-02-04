@@ -36,9 +36,9 @@ public class LoginControl extends HttpServlet {
 		String password = request.getParameter("password");
 		Utente user = null; 
 		
-		UserManager manager = new UserManager();
+		
 		try {
-			user = manager.login(email, password);
+			user = UserManager.login(email, password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

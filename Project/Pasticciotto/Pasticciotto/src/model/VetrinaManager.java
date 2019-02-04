@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import bean.Pasticceria;
 import bean.Prodotto;
@@ -13,7 +14,7 @@ import connectionPool.JDBCConnectionPool;
 
 public class VetrinaManager 
 {
-	public static synchronized ArrayList<Ricetta> getVetrinaProducts(Pasticceria p) throws SQLException
+	public static synchronized Collection<Ricetta> getVetrinaProducts(Pasticceria p) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

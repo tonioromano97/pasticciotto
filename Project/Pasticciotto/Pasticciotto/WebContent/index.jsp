@@ -3,7 +3,9 @@
 
 <%
 	@SuppressWarnings("unchecked")
-	ArrayList<Pasticceria> Pasticcerie = (ArrayList<Pasticceria>) request.getSession().getAttribute("bakeries");	
+	Collection<Pasticceria> Pasticcerie = (Collection<Pasticceria>) request.getSession().getAttribute("bakeries");
+	Iterator i = Pasticcerie.iterator();
+	Pasticceria first = (Pasticceria)i.next();
 %>
 
 <%@ include file="header.html" %>
@@ -20,27 +22,29 @@
 			  <div class="carousel-inner">
 			  
 			    <div class="carousel-item active">
-			      <img class="d-block w-100" src="<%=Pasticcerie.get(0).getUrlLogo() %>" alt="First slide">
+			      <img class="d-block w-100" src="<%=first.getUrlLogo() %>" alt="First slide">
 			      <div class="carousel-caption d-none d-md-block carouselInformation">
-    				<h5><%=Pasticcerie.get(0).getNome() %></h5>
-    				<span class="glyphicon glyphicon-road"><%=Pasticcerie.get(0).getIndirizzo() %></span>
-    				<span class="glyphicon glyphicon-phone"><%=Pasticcerie.get(0).getTelefono() %></span>
-    				<span class="glyphicon glyphicon-envelope"><%=Pasticcerie.get(0).getEmail() %></span>
-    				<p><%=Pasticcerie.get(0).getDescrizione() %></p>
-    				<button onClick="showProducts(<%=Pasticcerie.get(0).getCodice() %>)" type="button" class="btn btn-primary">Consulta prodotti</button>
+    				<h5><%=first.getNome() %></h5>
+    				<span class="glyphicon glyphicon-road"><%=first.getIndirizzo() %></span>
+    				<span class="glyphicon glyphicon-phone"><%=first.getTelefono() %></span>
+    				<span class="glyphicon glyphicon-envelope"><%=first.getEmail() %></span>
+    				<p><%=first.getDescrizione() %></p>
+    				<button onClick="showProducts(<%=first.getCodice() %>)" type="button" class="btn btn-primary">Consulta prodotti</button>
   				</div>
 			    </div>
 			    
-			    <%for(int i=1; i<Pasticcerie.size(); i++){ %>
+			    <%for(;i.hasNext();)
+			    { 
+			    	Pasticceria p = (Pasticceria)i.next();%>
 			    <div class="carousel-item">
-			      <img class="d-block w-100" src="<%=Pasticcerie.get(i).getUrlLogo() %>" alt="First slide">
+			      <img class="d-block w-100" src="<%=p.getUrlLogo() %>" alt="First slide">
 			      <div class="carousel-caption d-none d-md-block carouselInformation">
-    				<h5><%=Pasticcerie.get(i).getNome() %></h5>
-    				<span class="glyphicon glyphicon-road"><%=Pasticcerie.get(i).getIndirizzo() %></span>
-    				<span class="glyphicon glyphicon-phone"><%=Pasticcerie.get(i).getTelefono() %></span>
-    				<span class="glyphicon glyphicon-envelope"><%=Pasticcerie.get(i).getEmail() %></span>
-    				<p><%=Pasticcerie.get(i).getDescrizione() %></p>
-    				<button onClick="showProducts(<%=Pasticcerie.get(i).getCodice() %>)" type="button" class="btn btn-primary">Consulta prodotti</button>
+    				<h5><%=p.getNome() %></h5>
+    				<span class="glyphicon glyphicon-road"><%=p.getIndirizzo() %></span>
+    				<span class="glyphicon glyphicon-phone"><%=p.getTelefono() %></span>
+    				<span class="glyphicon glyphicon-envelope"><%=p.getEmail() %></span>
+    				<p><%=p.getDescrizione() %></p>
+    				<button onClick="showProducts(<%=p.getCodice() %>)" type="button" class="btn btn-primary">Consulta prodotti</button>
   				</div>
 			    </div>
 			    <%} %>

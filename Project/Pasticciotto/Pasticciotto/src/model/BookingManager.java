@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import bean.Pasticceria;
 import bean.Prenotazione;
@@ -60,7 +61,7 @@ public class BookingManager
 		return p;
 	}
 	
-	public static synchronized ArrayList<Pasticceria> getBakeries() throws SQLException
+	public static synchronized Collection<Pasticceria> getBakeries() throws SQLException
 	{
 		Connection connection = null;
 		Statement statement = null;
@@ -106,7 +107,7 @@ public class BookingManager
 	}
 	
 	
-	public static synchronized ArrayList<Ricetta> getProducts(Pasticceria bakery) throws SQLException
+	public static synchronized Collection<Ricetta> getProducts(Pasticceria bakery) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
