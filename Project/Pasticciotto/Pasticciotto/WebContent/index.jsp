@@ -127,7 +127,7 @@
 	    if(ut!=null) {
 	    %>
 		    <div id="books" style="display:none;float:left;" class="type--fine-print">
-			    <span style="float:left;">Nel carrello c'è: </span><br>
+			    <span style="float:left;">Prodotti: </span><br>
 			    <ul style="float:left;">
 			    </ul>
 			    <textarea style="float:left; color:black;" placeholder="Scrivi qui le note al pasticciere"></textarea>

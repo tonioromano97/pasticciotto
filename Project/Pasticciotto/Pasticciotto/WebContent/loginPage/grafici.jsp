@@ -1,16 +1,15 @@
 <%@ page import="bean.Finanza,bean.Entrata,bean.Uscita,java.util.ArrayList" %>
 <%
-	@SuppressWarnings("unchecked")
-	ArrayList<Entrata> entrate = (ArrayList<Entrata>) request.getSession().getAttribute("entrate");
-	@SuppressWarnings("unchecked")
-	ArrayList<Uscita> uscite = (ArrayList<Uscita>) request.getSession().getAttribute("uscite");
+	String datiEntrate = (String) request.getSession().getAttribute("entry");
+	//String datiBolletta = (String) request.getSession().getAttribute("outBolletta");
+	//String datiFornitura = (String) request.getSession().getAttribute("outFornitura");
+	//String datiAltro = (String) request.getSession().getAttribute("outAltro");
 %>
-<h1> Grafici</h1>
 <div style="width:45%; float:left;">
-<canvas id="entrate" style="background-color:white; border-radius:10px;"></canvas>
+<canvas id="entrate" style="background-color:transparent; border-radius:10px;"></canvas>
 </div>
 <div style="width:45%; display:inline-block; margin-left:5%;">
-<canvas id="uscite" style="background-color:white; border-radius:10px;"></canvas>
+<canvas id="uscite" style="background-color:transparent; border-radius:10px;"></canvas>
 </div>
 <script>
 $( document ).ready(function() {
@@ -20,27 +19,24 @@ $( document ).ready(function() {
 				labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
 				datasets: [{
 					label: 'Prodotti',
+					labelsColor: 'white',
 					backgroundColor: window.chartColors.yellow,
 					borderColor: window.chartColors.yellow,
-					data: [
-						90,100,70,30,150,130
-					],
+					data: [<%=datiEntrate %>],
 					fill: false,
-				}, {
-					label: 'Bonifici',
-					fill: false,
-					backgroundColor: window.chartColors.orange,
-					borderColor: window.chartColors.orange,
-					data: [
-						200,100,140,140,150,190
-					],
 				}]
 			},
 			options: {
 				responsive: true,
+				legend: {
+					labels : {
+						fontColor:"white"
+					}
+				},
 				title: {
 					display: true,
-					text: 'Entrate'
+					text: 'Entrate',
+					fontColor:"white"
 				},
 				tooltips: {
 					mode: 'index',
@@ -55,14 +51,22 @@ $( document ).ready(function() {
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Mesi'
+							labelString: 'Mesi',
+							fontColor:"white"
+						},
+						ticks :{
+							fontColor: "white"
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Euro'
+							labelString: 'Euro',
+							fontColor:"white"
+						},
+						ticks :{
+							fontColor: "white"
 						}
 					}]
 				}
@@ -73,7 +77,7 @@ $( document ).ready(function() {
 			data: {
 				labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
 				datasets: [{
-					label: 'Gas',
+					label: 'Bolletta',
 					backgroundColor: window.chartColors.green,
 					borderColor: window.chartColors.green,
 					data: [
@@ -81,7 +85,7 @@ $( document ).ready(function() {
 					],
 					fill: false,
 				},{
-					label: 'Luce',
+					label: 'Fornitura',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
 					data: [
@@ -89,7 +93,7 @@ $( document ).ready(function() {
 					],
 					fill: false,
 				}, {
-					label: 'Acqua',
+					label: 'Altro',
 					fill: false,
 					backgroundColor: window.chartColors.blue,
 					borderColor: window.chartColors.blue,
@@ -100,9 +104,15 @@ $( document ).ready(function() {
 			},
 			options: {
 				responsive: true,
+				legend: {
+					labels : {
+						fontColor:"white"
+					}
+				},
 				title: {
 					display: true,
-					text: 'Uscite'
+					text: 'Uscite',
+					fontColor:"white"
 				},
 				tooltips: {
 					mode: 'index',
@@ -117,14 +127,22 @@ $( document ).ready(function() {
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Mesi'
+							labelString: 'Mesi',
+							fontColor:"white"
+						},
+						ticks :{
+							fontColor: "white"
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Euro'
+							labelString: 'Euro',
+							fontColor:"white"
+						},
+						ticks :{
+							fontColor: "white"
 						}
 					}]
 				}
