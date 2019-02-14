@@ -1,8 +1,9 @@
-<%@ page import="bean.Prodotto,java.util.ArrayList" %>
+<%@ page import="bean.Prodotto,java.util.Collection,java.util.Iterator" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	@SuppressWarnings("unchecked")
-	ArrayList<Prodotto> prodotti = (ArrayList<Prodotto>) request.getSession().getAttribute("inventory"); 
+	Collection<Prodotto> products = (Collection<Prodotto>) request.getSession().getAttribute("inventory");
+	Iterator<Prodotto> i = products.iterator(); 
 %>
 <form id="formNewRecipe">
   <div class="form-group">
@@ -19,7 +20,7 @@
   <input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Cerca un ingrediente...">
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-primary" onClick="addRecipe()"> <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento </button>
+    <button type="button" class="btn btn-primary" onClick="addRecipe()"> &nbsp; &nbsp;  <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento  &nbsp; &nbsp; </button>
   </div>
   
   <div id="okok">
@@ -33,12 +34,15 @@
   </tr>
   </thead>
   <tbody id="myTable">
-  <%for(Prodotto p : prodotti){ %>
-  <tr id="<%=p.getCodice() %>">
-  <td><%=p.getNome() %></td>
-  <td> <input type="number" min="0" max="<%=p.getQuantita() %>" value="0" class="form-control" id="exampleFormControlInput1" style="width:50px; height:20px;"></td>
-  <td> <button type="button" class="btn btn-primary" onClick="addIngredientToRicetta('<%=p.getCodice() %>','<%=p.getNome() %>');"> Aggiungi </button> </td>
-  </tr>
+  <%
+  for(;i.hasNext();){
+	  Prodotto p = (Prodotto) i.next();
+  %>
+	  <tr id="<%=p.getCodice() %>">
+	  <td><%=p.getNome() %></td>
+	  <td> <input type="number" min="0" max="<%=p.getQuantita() %>" value="0" class="form-control" id="exampleFormControlInput1" style="width:50px; height:20px;"></td>
+	  <td> <button type="button" style="width:90px; text-align:center;" class="btn btn--sm btn--primary" onClick="addIngredientToRicetta('<%=p.getCodice() %>','<%=p.getNome() %>');"> Aggiungi </button> </td>
+	  </tr>
   <%} %>
   </tbody>
   </table>

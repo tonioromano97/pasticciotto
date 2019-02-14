@@ -37,8 +37,12 @@ public class ModifyEmailControl extends HttpServlet {
 		
 		try {
 			done = UserManager.modifyEmail(u,newEmail);
+			if(done){
 			u.setEmail(newEmail);
 			request.getSession().setAttribute("user", u);
+			response.getWriter().print("done");
+			}
+			else response.getWriter().print("fail");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

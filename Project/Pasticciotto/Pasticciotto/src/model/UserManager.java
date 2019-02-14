@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+
 import bean.Pasticceria;
 import bean.Utente;
 import connectionPool.JDBCConnectionPool;
@@ -118,14 +120,14 @@ public class UserManager
 		return logged;
 	}
 	
-	public synchronized static boolean addPasticceria(Pasticceria p) throws SQLException {
+	public synchronized static boolean addPasticceria(Pasticceria p, Utente u) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO Pasticceria" 
-				+ " (nome, indirizzo, email, telefono, descrizione, urlWebsite)"
-				+" VALUES (?, ?, ?, ?, ?, ?)";
+				+ " (nome, indirizzo, email, telefono, descrizione, urlWebsite, urlLogo)"
+				+" VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			try {
@@ -141,6 +143,41 @@ public class UserManager
 			preparedStatement.setString(4, p.getTelefono());
 			preparedStatement.setString(5, p.getDescrizione());
 			preparedStatement.setString(6, p.getUrlWebSite());
+			preparedStatement.setString(7, p.getUrlLogo());
+			if (preparedStatement.executeUpdate() > 0){
+				return UserManager.linkLastPasticceriaAddedToUser(u);
+			}
+				
+			//connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return false;
+	}
+	
+	
+	private static boolean linkLastPasticceriaAddedToUser(Utente u) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE Utente SET pasticceria = (SELECT MAX(id) FROM Pasticceria) WHERE email = ?";
+
+		try {
+			try {
+				connection = JDBCConnectionPool.getConnection();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setString(1, u.getEmail());
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			//connection.commit();

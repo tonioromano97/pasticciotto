@@ -12,6 +12,6 @@
     <input type="number" min="0" value="0" class="form-control" id="importo">
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-primary" onClick="addEntrata()"> <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento </button>
+    <button type="button" class="btn btn-primary" onClick="addEntrata()">&nbsp;&nbsp;  <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento &nbsp;&nbsp; </button>
   </div>
 </form>

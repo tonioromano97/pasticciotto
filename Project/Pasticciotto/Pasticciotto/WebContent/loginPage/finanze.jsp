@@ -1,12 +1,18 @@
+<%@page import="java.util.HashSet"%>
+<%@page import="java.util.Collection,java.util.Iterator"%>
 <%@ page import="bean.Utente,bean.Finanza,bean.Entrata,bean.Uscita,java.util.ArrayList" %>
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<Finanza> finanze = (ArrayList<Finanza>) request.getSession().getAttribute("finances");
-	ArrayList<Entrata> entrate = new ArrayList<Entrata>();
-	ArrayList<Uscita> uscite = new ArrayList<Uscita>();
-	for(Finanza f : finanze){
-		if(f instanceof Entrata) entrate.add((Entrata)f);
-		else uscite.add((Uscita)f);
+	@SuppressWarnings("unchecked")
+	Collection<Finanza> finacesCollection = (Collection<Finanza>) request.getSession().getAttribute("finances");
+	Collection<Entrata> entry = new HashSet<Entrata>();
+	Collection<Uscita> outs = new HashSet<Uscita>();
+	Iterator<Finanza> i = finacesCollection.iterator();
+	for(;i.hasNext();){
+		Finanza f = (Finanza) i.next();
+		if(f instanceof Entrata) entry.add((Entrata) f);
+		else outs.add((Uscita) f);
 	}
 %>
 <div id="entrate">
@@ -21,7 +27,11 @@
     </tr>
     </thead>
     <tbody>
-    <%for(Entrata e : entrate){ %>
+    <%
+    Iterator<Entrata> iE = entry.iterator();
+    for(;iE.hasNext();){ 
+    Entrata e = (Entrata) iE.next();
+    %>
     <tr id="<%=e.getCodice() %>">
     <td><%=e.getDescrizione() %></td>
     <td><%=e.getData() %></td>
@@ -31,7 +41,7 @@
     <%} %>
     </tbody>
     </table>
-    <button class="btn btn-primary" onClick="showPage('newEntrata.jsp')"> Nuova Entrata</button>
+    <button class="btn btn-primary" onClick="showPage('newEntrata.jsp')"> &nbsp;&nbsp; Nuova Entrata &nbsp;&nbsp;</button>
     </div>
     <div id="uscite">
     <h4> Uscite </h4>
@@ -46,7 +56,11 @@
     </tr>
     </thead>
     <tbody>
-    <%for(Uscita u : uscite){ %>
+    <%
+    Iterator<Uscita> iU = outs.iterator();
+    for(;iU.hasNext();){
+    	Uscita u = (Uscita) iU.next();
+    %>
     <tr id="<%=u.getCodice() %>">
     <td><%=u.getTipo() %></td>
     <td><%=u.getDescrizione() %></td>
@@ -57,5 +71,5 @@
     <%} %>
     </tbody>
     </table>
-    <button class="btn btn-primary" onClick="showPage('newUscita.jsp')"> Nuova Uscita</button>
+    <button class="btn btn-primary" onClick="showPage('newUscita.jsp')"> &nbsp;&nbsp; Nuova Uscita &nbsp;&nbsp;</button>
     </div>

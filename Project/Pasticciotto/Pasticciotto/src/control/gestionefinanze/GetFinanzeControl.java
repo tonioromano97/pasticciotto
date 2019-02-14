@@ -3,6 +3,7 @@ package control.gestionefinanze;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +38,7 @@ public class GetFinanzeControl extends HttpServlet {
 		// TODO Auto-generated method stub
 		Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
 		try {
-			ArrayList<Finanza> finances = FinanceManager.getFinances(p);
+			Collection<Finanza> finances = FinanceManager.getFinances(p);
 			request.getSession().setAttribute("finances", finances);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -30,6 +30,21 @@ public class Ricetta {
 		this.nome=nome;
 		this.prezzoVendita = prezzoVendita;
 	}
+	/**
+	 * Constructor for the product of the booking (a product of booking is a recipe also, but with only name and sale price)
+	 * @param codice code of the recipe
+	 * @param nome name of the recipe
+	 * @param prezzoVendita sale price of the recipe
+	 */
+	public Ricetta(int codice, String nome, double prezzoVendita){
+		this.codice = codice;
+		this.nome=nome;
+		this.prezzoVendita = prezzoVendita;
+	}
+	
+	public Ricetta(int codice){
+		this.codice=codice;
+	}
 	
 	/**
 	 * Constructor for the new Ricetta object
@@ -157,6 +172,10 @@ public class Ricetta {
 	 */
 	public int getCodice() {
 		return codice;
+	}
+	
+	public void setCodice(int codice) {
+		this.codice = codice;
 	}
 	
 	/**

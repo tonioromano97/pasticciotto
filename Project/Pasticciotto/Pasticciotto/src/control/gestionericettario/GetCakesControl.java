@@ -2,8 +2,9 @@ package control.gestionericettario;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,10 +41,16 @@ public class GetCakesControl extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			Pasticceria p = ((Utente)request.getSession().getAttribute("user")).getPasticceria();
-			ArrayList<Ricetta> recipes = RecipeManager.getRecipes(p);
+			Collection<Ricetta> recipes = RecipeManager.getRecipes(p);
+			Collection<Prodotto> products = ProductManager.getProducts(p);
+			Iterator<Prodotto> iProducts = products.iterator();
+			
 			HashMap<Integer, Prodotto> productsMap = new HashMap<Integer,Prodotto>();
-			for(Prodotto prodotto : ProductManager.getProducts(p))
-				productsMap.put(prodotto.getCodice(), prodotto);
+			while(iProducts.hasNext()){
+				Prodotto prodotto = iProducts.next();
+				productsMap.put(prodotto.getCodice(),prodotto);
+			}
+			
 			request.getSession().setAttribute("cakes", recipes);
 			request.getSession().setAttribute("products", productsMap);
 			

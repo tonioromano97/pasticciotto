@@ -3,6 +3,7 @@ package control.gestioneinventario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +36,7 @@ public class GetInventarioControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			ArrayList<Prodotto> products = ProductManager.getProducts(((Utente)request.getSession().getAttribute("user")).getPasticceria());
+			Collection<Prodotto> products = ProductManager.getProducts(((Utente)request.getSession().getAttribute("user")).getPasticceria());
 			request.getSession().setAttribute("inventory", products);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

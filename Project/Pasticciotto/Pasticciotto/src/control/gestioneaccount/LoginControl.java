@@ -46,9 +46,10 @@ public class LoginControl extends HttpServlet {
 		if (user!=null)
 		{
 			request.getSession().setAttribute("user", user);
-			if(user.getRuolo().equalsIgnoreCase("cliente"))
-				response.sendRedirect("index.jsp");
-			else response.sendRedirect("loginHome.jsp");
+			String ruolo = user.getRuolo(); 
+			if(ruolo.equals("cliente"))
+				response.getWriter().print("index.jsp");
+			else response.getWriter().print("loginHome.jsp");
 		}
 			
 	}

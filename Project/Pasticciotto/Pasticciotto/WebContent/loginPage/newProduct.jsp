@@ -16,6 +16,6 @@
     <input type="text" class="form-control" id="prezzo" placeholder="0.00">
   </div>
   <div class="form-group">
-    <button class="btn btn-primary" type="button" onClick="addProduct()"> <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento </button>
+    <button class="btn btn-primary" type="button" onClick="addProduct()"> &nbsp; &nbsp; <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento &nbsp; &nbsp;  </button>
   </div>
 </form>

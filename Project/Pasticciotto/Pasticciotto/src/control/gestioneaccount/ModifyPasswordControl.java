@@ -41,8 +41,12 @@ public class ModifyPasswordControl extends HttpServlet {
 		
 		try {
 			done = UserManager.modifyPassword(u,newPassword);
-			u.setEmail(newPassword);
+			if(done){
+			u.setPw(newPassword);
 			request.getSession().setAttribute("user", u);
+			response.getWriter().print("done");
+			}
+			else response.getWriter().print("fail");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

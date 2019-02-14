@@ -1,7 +1,7 @@
 <form id="formNewUscita">
 <div class="form-group">
     <label for="exampleFormControlSelect1">Tipo: </label>
-    <select class="form-control" id="tipo">
+    <select class="form-control" style="height:35px;" id="tipo">
       <option>Bolletta</option>
       <option>Fornitura</option>
       <option>Altro</option>
@@ -20,6 +20,6 @@
     <input type="number" min="0" value="0" class="form-control" id="importo">
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-primary" onClick="addUscita()"> <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento </button>
+    <button type="button" class="btn btn-primary" onClick="addUscita()"> &nbsp;&nbsp; <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento &nbsp;&nbsp; </button>
   </div>
 </form>

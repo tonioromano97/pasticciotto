@@ -12,6 +12,16 @@ function callServlet(pulsante,servlet,page){
 	
 }
 
+function setPreparata(servlet,page){
+	$.when($("#viewOptionSidebar").fadeOut(200))
+	.done(function() {
+		$.get("/Pasticciotto/"+servlet, function(data) {
+			refreshDateOfPage('GetPrenotazioniControl', page);
+	    });		
+    });
+	
+}
+
 function refreshDateOfPage(servlet,page){
 	$.when($("#viewOptionSidebar").fadeOut(200))
 	.done(function() {
@@ -24,10 +34,20 @@ function refreshDateOfPage(servlet,page){
 	
 }
 
-function removeIngredient(ricetta, codice){
-	var n = $("#Composition"+ricetta+" #"+codice+" td").html();
-	if(confirm("Confermi di voler eliminare "+n+" ?"))
-		$("#Composition"+ricetta+" #"+codice).remove();
+function removeIngredient(ricetta, codice, nomeIngredient){
+	if(confirm("Confermi di voler eliminare "+nomeIngredient+" ?"))
+		$.get("RemoveProductToCakesControl",{
+			KeyRecipe : ricetta,
+			keyProduct : codice
+		},function(data){
+			if(data==="done"){
+				$("#Composition"+ricetta+" #"+codice).remove();
+				refreshDateOfPage('GetCakesControl','ricettario.jsp');	
+			}
+			else alert("C'è stato un errore nella rimozione di "+nomeIngredient);
+		})
+		
+		
 }
 
 function addRecipe(){
@@ -61,7 +81,7 @@ function addEntrata(){
 	var descrizione = $("#formNewEntrata #descrizione").val();
 	var data = $("#formNewEntrata #data").val();
 	var importo = $("#formNewEntrata #importo").val();
-	$.get("/Pasticciotto/AddFinanzaControl?finanza=entrata&descrizione="+descrizione+"&data="+data+"&importo="+importo, function(data) {
+	$.get("/Pasticciotto/AddEntrataControl?descrizione="+descrizione+"&data="+data+"&importo="+importo, function(data) {
 		refreshDateOfPage('GetFinanzeControl','finanze.jsp');
     });	
 }
@@ -71,7 +91,7 @@ function addUscita(){
 	var descrizione = $("#formNewUscita #descrizione").val();
 	var data = $("#formNewUscita #data").val();
 	var importo = $("#formNewUscita #importo").val();
-	$.get("/Pasticciotto/AddFinanzaControl?finanza=uscita&descrizione="+descrizione+"&data="+data+"&importo="+importo+"&tipo="+tipo, function(data) {
+	$.get("/Pasticciotto/AddUscitaControl?descrizione="+descrizione+"&data="+data+"&importo="+importo+"&tipo="+tipo, function(data) {
 		refreshDateOfPage('GetFinanzeControl','finanze.jsp');
     });	
 }
@@ -125,12 +145,26 @@ function modifyInventario(codice){
 	$("#"+codice+" #prezzo").html("<input id=\"prezzoM\" class=\"form-control\" type=\"text\" value=\""+p+"\" style=\"color:black;\"/>");
 }
 
+function addOneIngredientToRicetta(code){
+	codeProduct = $("#Composition"+code+" #addOneIngredient").find(":selected").attr('id');
+	codeRecipe = code;
+	q = $("#Composition"+code+" #quantityProduct").val();
+	$.get("AddProductToCakesControl",{
+		recipeKey: codeRecipe,
+		keyProduct: codeProduct,
+		quantity : q
+	},function(data){
+		alert(data);
+		refreshDateOfPage('GetCakesControl','ricettario.jsp');
+	});
+}
+
 function addIngredientToRicetta(codice, nome){
 	$("#myTable #"+codice+" button").attr('class', 'btn btn-primary disabled');
 	var text = $("#myTable #"+codice+" button").text();
-	if(text==="Aggiunto") return;
+	if(text===" &nbsp; &nbsp; Aggiunto &nbsp; &nbsp; ") return;
 	var val = $('#'+codice+' input').val();
-	$('#tableRicetta > tbody:last-child').append('<tr id=\''+codice+'\'> <td id=\'nome\'>'+nome+'</td><td id=\'dose\'>'+val+'</td><td><button type=\'button\' class=\'btn btn-primary\' onClick="removeIngredientToRicetta(\''+codice+'\');"> Rimuovi </button> </td></tr>');
+	$('#tableRicetta > tbody:last-child').append('<tr id=\''+codice+'\'> <td id=\'nome\'>'+nome+'</td><td id=\'dose\'>'+val+'</td><td><button type=\'button\' class=\'btn btn-primary\' onClick="removeIngredientToRicetta(\''+codice+'\');"> &nbsp; &nbsp;  Rimuovi  &nbsp; &nbsp; </button> </td></tr>');
 	$("#myTable #"+codice+" button").text("Aggiunto");
 }
 
@@ -147,19 +181,26 @@ function filterTable(){
 	});
 }
 
-function saveRicetta(){
-	page = "loginPage/ricettario.jsp";
-	$("#viewOptionSidebar").load(page);
+function endModifyRicetta(codice){
+	$.when($("#Composition"+codice+" div").slideUp())
+	.done(function(){
+		$("#Composition"+codice+" div").css('display','none');
+		$("#Composition"+codice).css("display","none");
+		$("#ricettario #"+codice+" #endModify").css('display','none');
+		$("#ricettario #"+codice+" #modify").css('display','inline');
+	});
+	
 }
 
 function modifyRicetta(codice){
-	var nome = $("#ricettario #"+codice+" #nome").html();
-	var ore = $("#ricettario #"+codice+" #tempo #ore").html();
-	var minuti = $("#ricettario #"+codice+" #tempo #minuti").html();
+	//var nome = $("#ricettario #"+codice+" #nome").html();
+	//var ore = $("#ricettario #"+codice+" #tempo #ore").html();
+	//var minuti = $("#ricettario #"+codice+" #tempo #minuti").html();
 	$("#ricettario #"+codice+" #modify").css('display','none');
-	$("#ricettario #"+codice+" #nome").html("<input id=\"nomeM\" class=\"form-control\" type=\"text\" value=\""+nome+"\" style=\"width:50%; color:black;\"/>");
-	$("#ricettario #"+codice+" #ore").html("<input id=\"oreM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+ore+"\" style=\"display:inline; width:50px; color:black;\"/>");
-	$("#ricettario #"+codice+" #minuti").html("<input id=\"minutiM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+minuti+"\" style=\"display:inline; width:50px; color:black;\"/>");
+	$("#ricettario #"+codice+" #endModify").css('display','inline');
+	//$("#ricettario #"+codice+" #nome").html("<input id=\"nomeM\" class=\"form-control\" type=\"text\" value=\""+nome+"\" style=\"width:50%; color:black;\"/>");
+	//$("#ricettario #"+codice+" #ore").html("<input id=\"oreM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+ore+"\" style=\"display:inline; width:50px; color:black;\"/>");
+	//$("#ricettario #"+codice+" #minuti").html("<input id=\"minutiM\" class=\"form-control\" type=\"number\" min=\"0\" value=\""+minuti+"\" style=\"display:inline; width:50px; color:black;\"/>");
 	$("#Composition"+codice).css("display","table-row");
 	$("#Composition"+codice+" div").slideDown();
 }
@@ -184,9 +225,12 @@ function showProducts(codice){
 			var prodotti = pasticceria.prodotti;
 			$('#viewProductsOfPasticceria #nomeP').html(nome);
 			$('#viewProductsOfPasticceria #products').html("<tr></tr>");
+			if(prodotti.length==0) $('#viewProductsOfPasticceria #products tr:last').after('<tr> <td colspan=\'3\'> Al momento non ci sono prodotti in vetrina</td> </tr>');
+			else{
 			$(prodotti).each(function(index, prodotto){
-				$('#viewProductsOfPasticceria #products tr:last').after('<tr> <td>'+prodotto.nome+'</td> <td> &euro; '+prodotto.prezzo+' /kg </td> <td> <button style="float:left;" class="btn btn-primary"> &euro; Prenota</button> </td> </tr>');
+				$('#viewProductsOfPasticceria #products tr:last').after('<tr> <td>'+prodotto.nome+'</td> <td> &euro; '+prodotto.prezzo+' /kg </td> <td> <button style="float:left;" onClick="prenota('+prodotto.codice+',\''+prodotto.nome+'\',\''+nome+'\')" class="btn btn--sm btn--primary">&nbsp; &nbsp;<i class="glyphicon glyphicon-shopping-cart"> </i> Aggiungi alla prenotazione &nbsp;&nbsp;</button> </td> </tr>');
 			})
+			}
 			$('#viewProductsOfPasticceria').modal('show');
         });
 }

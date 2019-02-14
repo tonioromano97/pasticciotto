@@ -3,7 +3,14 @@ package bean;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.classfile.Code;
+
 public class Prenotazione {
+	
+	public Prenotazione(int codice){
+		this.codice = codice;
+	}
+	
 	public Prenotazione(int codice, Date dataPrenotazione, Date dataRitiro, String note){
 		this.codice=codice;
 		this.dataPrenotazione= dataPrenotazione;

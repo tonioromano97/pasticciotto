@@ -165,8 +165,64 @@ public class RecipeManager
 		return ricette;
 	}
 	
+	public static synchronized boolean addProduct(Ricetta recipe, Prodotto product) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		boolean updated = false;
+		
+		String insertSQL = "INSERT INTO Prodotto_Ricetta (ricetta,prodotto,quantita)"
+				+ " VALUES (?,?,?)";
+		
+			try {
+				//Delete first the old associations
+				connection = JDBCConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(insertSQL);
+				preparedStatement.setInt(1,recipe.getCodice());
+				preparedStatement.setInt(2,product.getCodice());
+				preparedStatement.setInt(3,product.getQuantita());
+				if (preparedStatement.executeUpdate() > 0)
+					updated = true;
+				preparedStatement.close();
+				connection.close();				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return updated;		
+	}
 	
-	private static boolean updateComposition(Ricetta recipe)
+	public static synchronized boolean removeProduct(Ricetta recipe, Prodotto product) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		boolean updated = false;
+		
+		String insertSQL = "DELETE FROM Prodotto_Ricetta WHERE ricetta = ? AND prodotto = ?";
+		
+			try {
+				//Delete first the old associations
+				connection = JDBCConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(insertSQL);
+				preparedStatement.setInt(1,recipe.getCodice());
+				preparedStatement.setInt(2,product.getCodice());	
+				if (preparedStatement.executeUpdate() > 0)
+					updated = true;
+				preparedStatement.close();
+				connection.close();				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return updated;		
+	}
+	
+	private static synchronized boolean updateComposition(Ricetta recipe)
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

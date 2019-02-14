@@ -2,7 +2,8 @@ package control.gestioneprenotazione;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,6 @@ import org.json.JSONObject;
 
 import bean.Pasticceria;
 import bean.Ricetta;
-import bean.Utente;
 import model.BookingManager;
 
 
@@ -39,12 +39,14 @@ public class GetVetrinaControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Ricetta> vetrina = null;
+		Collection<Ricetta> vetrina = null;
+		Iterator<Ricetta> iRicetta = null;
 		Pasticceria p = null;
 		
 		try {
 			p = BookingManager.getBakery(Integer.parseInt(request.getParameter("code")));
 			vetrina = BookingManager.getProducts(p);
+			iRicetta = vetrina.iterator();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,11 +57,13 @@ public class GetVetrinaControl extends HttpServlet {
 		//try {
 			JSONArray arrayProducts = new JSONArray();
 			try{
-					for (int i = 0; i<vetrina.size(); i++)
+					for (;iRicetta.hasNext();)
 					{
+						Ricetta r = iRicetta.next();
 						product = new JSONObject();
-						product.put("nome", vetrina.get(i).getNome());
-						product.put("prezzo", vetrina.get(i).getPrezzoVendita());
+						product.put("nome", r.getNome());
+						product.put("prezzo", r.getPrezzoVendita());
+						product.put("codice", r.getCodice());
 						arrayProducts.put(product);
 					}
 					
