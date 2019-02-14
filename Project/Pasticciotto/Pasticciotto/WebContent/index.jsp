@@ -121,16 +121,24 @@
 		</table>
       </div>
       <div class="modal-footer">
-	    
 	    <span id="alertLogin" style="display:none; float:left;" class="type--fine-print block">Prima di poter prenotare devi effettuare il login ! <a href="login.jsp" target="_self">Accedi </a></span>
-	    <div id="books" style="display:none;float:left;" class="type--fine-print">
-	    <span style="float:left;">Nel carrello c'è: </span><br>
-	    <ul style="float:left;">
-	    </ul>
-	    </div>
-      	<button class="btn btn-btn-secondary" onClick="sendBooks()">&nbsp;&nbsp;Prenota&nbsp;&nbsp;</button>
+	    <% 
+	    Utente ut = (Utente) request.getSession().getAttribute("user");
+	    if(ut!=null) {
+	    %>
+		    <div id="books" style="display:none;float:left;" class="type--fine-print">
+			    <span style="float:left;">Nel carrello c'è: </span><br>
+			    <ul style="float:left;">
+			    </ul>
+			    <textarea style="float:left; color:black;" placeholder="Scrivi qui le note al pasticciere"></textarea>
+		    </div>
+		    <div id="booksOk" style="display:none;float:left;" class="type--fine-print">
+		    <span> La tua prenotazine è stata salvata !</span>
+		    </div>
+		    <button class="btn btn-btn-secondary" onClick="sendBooks('<%=ut.getEmail() %>')">&nbsp;&nbsp;Prenota&nbsp;&nbsp;</button>
+		<% } %>
         <button type="button" class="btn btn-btn-secondary" data-dismiss="modal">&nbsp;&nbsp;Chiudi&nbsp;&nbsp;</button>
-      </div>
+      	</div>
     </div>
   </div>
 </div>
@@ -166,15 +174,41 @@
         	<%} else{%>        	
         	$.when($("#books").slideDown())
         	.done(function(){
-        		$('#books ul').append('<li style="display:none;text-align:left;" id="'+codice+'"> <i class="glyphicon glyphicon-remove"> </i>&nbsp; &nbsp;'+pasticceria+': '+nome+'</li>');
+        		if($('#books li#'+codice).length) return; //non aggiuno se già c'è
+        		$('#books ul').append('<li style="display:none;text-align:left;" id="'+codice+'"> <i onClick="removeElement('+codice+')" class="glyphicon glyphicon-remove"> </i>&nbsp; &nbsp;'+pasticceria+': '+nome+'</li>');
         		$('#books ul #'+codice).fadeIn();
         	});
         	
         	<%}%>
         }
         
-        function sendBooks(){
-        	alert("effettuo la prenotazione");
+        function removeElement(codice){
+        	$.when($('#books ul #'+codice).fadeOut())
+        	.done(function(){
+        		$('#books ul #'+codice).remove();
+        	});
+        }
+        
+        function sendBooks(email){
+        	var nProdotti = $("#books li").length;
+        	if(nProdotti==0) return;
+        	var emailUser = email;
+        	var note = $("#books textarea").val();
+        	var param = "?email="+emailUser;
+        	param += "&note="+note;
+        	param += "&nProdotti="+nProdotti;
+        	param += "&prodotti=";
+        	$("#books li").each(function(i) {
+				param += $(this).attr('id')+',';
+			});
+        	$.get("EffettuaPrenotazioneControl"+param,{},function(data){
+        		if(data==='done') {
+        			$.when($("#books").slideUp())
+        			.done(function(){
+        				$("#booksOk").fadeIn();
+        			});
+        		}
+        	});
         }
         </script>
     </body>

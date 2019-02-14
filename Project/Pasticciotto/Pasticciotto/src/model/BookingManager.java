@@ -284,7 +284,7 @@ public class BookingManager
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		//Manca aggiunta del numPrenotazioni al cliente
-		String insertPrenotazione = "INSERT INTO Prenotazione (dataPrenotazione,dataRitiro,note,effettuata,utente) VALUES (?, ?, ?, ?)";
+		String insertPrenotazione = "INSERT INTO Prenotazione (dataPrenotazione,dataRitiro,note,effettuata,utente) VALUES (?, ?, ?, ?, ?)";
 		String insertRicetta = "";
 		try {
 			try {
@@ -301,12 +301,13 @@ public class BookingManager
 			preparedStatement.setInt(4,0);
 			preparedStatement.setString(5, p.getUtente().getEmail());
 			preparedStatement.executeUpdate();
-			insertRicetta = "INSERT INTO Ricetta_Prenotazione (prenotazione,ricetta) VALUES ((SELECT MAX(codice) FROM Prenotazione),?)";
+			insertRicetta = "INSERT INTO Ricetta_Prenotazione (prenotazione,ricetta,effettuata) VALUES ((SELECT MAX(codice) FROM Prenotazione),?,0)";
 			for(Ricetta r : p.getProdotti()) {
 				preparedStatement = connection.prepareStatement(insertRicetta);
 				preparedStatement.setInt(1, r.getCodice());
-				preparedStatement.executeQuery();
+				preparedStatement.executeUpdate();
 			}
+			return true;
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -316,7 +317,6 @@ public class BookingManager
 					connection.close();
 			}
 		}
-		return false;
 	}
 	
 	public static synchronized boolean doBooking(Prenotazione p, Ricetta r)
