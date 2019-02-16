@@ -1,6 +1,9 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 /**
  * This bean represents a bakery in the system
  * @author giulio
@@ -15,10 +18,10 @@ public class Pasticceria {
 	public Pasticceria(int codice){
 		this.codice = codice; 
 		this.nome="";
-		utenti = new ArrayList<Utente>();
-		prodotti = new ArrayList<Prodotto>();
-		ricette = new ArrayList<Ricetta>();
-		finanze = new ArrayList<Finanza>();
+		utenti = new HashSet<Utente>();
+		prodotti = new HashSet<Prodotto>();
+		ricette = new HashSet<Ricetta>();
+		finanze = new HashSet<Finanza>();
 	}
 	
 	/**
@@ -27,10 +30,10 @@ public class Pasticceria {
 	 */
 	public Pasticceria(String nome){
 		this.nome=nome;
-		utenti = new ArrayList<Utente>();
-		prodotti = new ArrayList<Prodotto>();
-		ricette = new ArrayList<Ricetta>();
-		finanze = new ArrayList<Finanza>();
+		utenti = new HashSet<Utente>();
+		prodotti = new HashSet<Prodotto>();
+		ricette = new HashSet<Ricetta>();
+		finanze = new HashSet<Finanza>();
 	}
 	
 	/**
@@ -53,24 +56,34 @@ public class Pasticceria {
 		this.descrizione=descrizione;
 		this.urlWebSite=urlWebSite;
 		this.urlLogo=urlLogo;
-		utenti = new ArrayList<Utente>();
-		prodotti = new ArrayList<Prodotto>();
-		finanze = new ArrayList<Finanza>();
+		utenti = new HashSet<Utente>() {};
+		prodotti = new HashSet<Prodotto>();
+		finanze = new HashSet<Finanza>();
 	}
 	
 	/**
 	 * Get the collection of users
 	 * @return the collection of Utente objects 
 	 */
-	public ArrayList<Utente> getUtenti() {
+	public Collection<Utente> getUtenti() {
 		return utenti;
+	}
+	
+	/**
+	 * Set the users of the bakery
+	 * ADDED AFTER 
+	 * @param utenti the collection of users associated to the bakery
+	 */
+	public void setUtenti(Set<Utente> utenti)
+	{
+		this.utenti = utenti;
 	}
 	
 	/**
 	 * Get the collection of products
 	 * @return the collection of Prodotto objects 
 	 */
-	public ArrayList<Prodotto> getProdotti() {
+	public Collection<Prodotto> getProdotti() {
 		return prodotti;
 	}
 	
@@ -78,7 +91,7 @@ public class Pasticceria {
 	 * Set the products of the bakery
 	 * @param prodotti the collection of products associated to the bakery
 	 */
-	public void setProdotti(ArrayList<Prodotto> prodotti)
+	public void setProdotti(Set<Prodotto> prodotti)
 	{
 		this.prodotti = prodotti;
 	}
@@ -87,10 +100,20 @@ public class Pasticceria {
 	 * Get the collection of finances
 	 * @return the collection of Finanza objects 
 	 */
-	public ArrayList<Finanza> getFinanze() {
+	public Collection<Finanza> getFinanze() {
 		return finanze;
 	}
 
+	/**
+	 * Set the finances of the bakery
+	 * ADDED AFTERS
+	 * @param finanze the collection of the finances associated to the bakery
+	 */
+	public void setFinanze(Set<Finanza> finanze)
+	{
+		this.finanze = finanze;
+	}
+	
 	/**
 	 * Get the name of the bakery
 	 * @return a string that represents the name of the bakery
@@ -223,7 +246,7 @@ public class Pasticceria {
 	 * Get the collection of bakery's recipes
 	 * @return the collection of Ricetta objects
 	 */
-	public ArrayList<Ricetta> getRicette() {
+	public Collection<Ricetta> getRicette() {
 		return ricette;
 	}
 	
@@ -231,15 +254,15 @@ public class Pasticceria {
 	 * Set the collection of bakery's recipes
 	 * @param ricette a collection of Ricetta objects
 	 */
-	public void setRicette(ArrayList<Ricetta> ricette) {
+	public void setRicette(Set<Ricetta> ricette) {
 		this.ricette = ricette;
 	}
 
 	//Instance variables
 	private String nome,indirizzo, email, telefono, descrizione, urlWebSite, urlLogo;
 	private int codice;
-	private ArrayList<Utente> utenti = null;
-	private ArrayList<Prodotto> prodotti = null;
-	private ArrayList<Finanza> finanze = null;
-	private ArrayList<Ricetta> ricette = null;
+	private Set<Utente> utenti = null;
+	private Set<Prodotto> prodotti = null;
+	private Set<Finanza> finanze = null;
+	private Set<Ricetta> ricette = null;
 }

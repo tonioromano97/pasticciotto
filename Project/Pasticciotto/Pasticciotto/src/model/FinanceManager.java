@@ -20,6 +20,9 @@ public class FinanceManager
 	
 	public static synchronized Collection<Finanza> getFinances(Pasticceria p) throws SQLException
 	{
+		if(p == null)
+			return null;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs;
@@ -78,6 +81,9 @@ public class FinanceManager
 	
 	public static synchronized boolean addEntrata(Entrata finance) throws SQLException
 	{
+		if (finance == null || finance.getPasticceria() == null)
+			return false;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -101,7 +107,12 @@ public class FinanceManager
 				return true;
 			
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -115,6 +126,9 @@ public class FinanceManager
 	
 	public static synchronized boolean addUscita(Uscita finance) throws SQLException
 	{
+		if (finance == null || finance.getPasticceria() == null)
+			return false;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -139,7 +153,12 @@ public class FinanceManager
 				return true;
 			
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -153,6 +172,9 @@ public class FinanceManager
 	
 	public static synchronized boolean deleteFinance(Finanza f) throws SQLException
 	{
+		if (f== null)
+			return false;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String deleteSQL;
@@ -175,7 +197,12 @@ public class FinanceManager
 			
 			
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();

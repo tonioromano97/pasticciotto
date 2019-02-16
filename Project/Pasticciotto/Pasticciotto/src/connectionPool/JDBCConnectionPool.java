@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class JDBCConnectionPool
 {
-	static final String driver = "com.mysql.jdbc.Driver";	
-	static final String url = "jdbc:mysql://localhost/pasticciotto";
-	static final String user = "root";
-	static final String password="pasticciotto";
+	private static final String driver = "com.mysql.jdbc.Driver";	
+	private static final String url = "jdbc:mysql://localhost/pasticciotto";
+	private static final String user = "root";
+	private static final String password="pasticciotto";
 	
 	public static Connection getConnection()throws SQLException, ClassNotFoundException
 	{
@@ -25,5 +25,10 @@ public class JDBCConnectionPool
 		}
 		
 		return connection;
+	}
+	
+	public static void releaseConnection(Connection c) throws SQLException
+	{
+		c.close();
 	}
 }

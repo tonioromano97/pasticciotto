@@ -33,11 +33,21 @@ public class RegisterControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nome = request.getParameter("nome");
+		if (nome.equals(""))
+			nome = null;
 		String cognome = request.getParameter("cognome");
+		if (cognome.equals(""))
+			cognome = null;
 		String email = request.getParameter("email");
+		if (email.equals(""))
+			email = null;
 		String password = request.getParameter("password");
+		if (password.equals(""))
+			password = null;
 		String telefono = request.getParameter("telefono");
 		String ruolo = request.getParameter("ruolo");
+		if (ruolo.equals(""))
+			ruolo = null;
 		Pasticceria pasticceria = null;
 		if(ruolo.equalsIgnoreCase("magazziniere")||ruolo.equalsIgnoreCase("pasticciere")){
 			 pasticceria = new Pasticceria(Integer.parseInt(request.getParameter("pasticceria")));

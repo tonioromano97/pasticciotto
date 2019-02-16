@@ -15,7 +15,7 @@ public class UserManager
 {
 	
 	public synchronized static boolean register(Utente user) throws SQLException {
-
+	
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -46,16 +46,19 @@ public class UserManager
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			//connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
 		}
-		return false;
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally 
+		{
+			if(preparedStatement != null)
+					preparedStatement.close();
+			if (connection != null)
+					connection.close();
+		}
+		return true;
 	}
 	
 	public synchronized static Utente login(String email, String password) throws SQLException
@@ -122,6 +125,8 @@ public class UserManager
 	
 	public synchronized static boolean addPasticceria(Pasticceria p, Utente u) throws SQLException {
 
+		if (p == null || u == null)
+			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -149,7 +154,12 @@ public class UserManager
 			}
 				
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -181,7 +191,12 @@ public class UserManager
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -196,6 +211,8 @@ public class UserManager
 	
 	public synchronized static boolean modifyEmail(Utente u, String newEmail) throws SQLException {
 
+		if (u == null)
+			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -215,7 +232,12 @@ public class UserManager
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -229,6 +251,8 @@ public class UserManager
 	
 	public synchronized static boolean modifyPassword(Utente u, String newPassword) throws SQLException {
 
+		if(u == null || u.getPassword().equals(newPassword))
+			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -248,7 +272,12 @@ public class UserManager
 			if (preparedStatement.executeUpdate() > 0)
 				return true;
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+		finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();

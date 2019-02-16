@@ -32,6 +32,8 @@ public class ModifyEmailControl extends HttpServlet {
 		
 		Utente u = (Utente)request.getSession().getAttribute("user");
 		String newEmail = request.getParameter("newEmail");
+		if(newEmail.equals(""))
+			newEmail = null;
 		
 		boolean done = false;
 		

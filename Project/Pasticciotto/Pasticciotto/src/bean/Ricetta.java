@@ -1,6 +1,7 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * This bean represents a recipe of a bakery
@@ -122,7 +123,7 @@ public class Ricetta {
 	 * Get the ingredients of the recipe
 	 * @return a collection of recipe's products
 	 */
-	public ArrayList<Prodotto> getComposizione() {
+	public Collection<Prodotto> getComposizione() {
 		return composizione;
 	}
 	

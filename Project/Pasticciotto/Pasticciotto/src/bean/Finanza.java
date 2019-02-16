@@ -91,6 +91,15 @@ public abstract class Finanza {
 	}
 	
 	/**
+	 * Set the bakery associated to the finance 
+	 * @param p the Pasticceria object associated to the finance
+	 */
+	public void setPasticceria(Pasticceria p)
+	{
+		pasticceria = p;
+	}
+	
+	/**
 	 * Get the code of the finance
 	 * @return a integer that represents the code of the finance
 	 */

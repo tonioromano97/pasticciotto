@@ -36,7 +36,8 @@ public class ModifyPasswordControl extends HttpServlet {
 		// TODO Auto-generated method stub
 		Utente u = (Utente)request.getSession().getAttribute("user");
 		String newPassword = request.getParameter("newPassword");
-		
+		if (newPassword.equals(""))
+			newPassword = null;
 		boolean done = false;
 		
 		try {

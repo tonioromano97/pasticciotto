@@ -40,7 +40,11 @@ public class AddPasticceriaControl extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("pw");
 		String nomeP = request.getParameter("nomeP");
+		if(nomeP.equals(""))
+			nomeP=null;
 		String indirizzoP = request.getParameter("indirizzoP");
+		if(indirizzoP.equals(""))
+			indirizzoP = null;
 		String emailP = request.getParameter("emailP");
 		String telefonoP = request.getParameter("telefonoP");
 		String descrizioneP = request.getParameter("descrizioneP");
