@@ -16,6 +16,8 @@ public class UserManager
 	
 	public synchronized static boolean register(Utente user) throws SQLException {
 	
+		if (user == null || user.getRuolo() == null)
+			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -63,6 +65,9 @@ public class UserManager
 	
 	public synchronized static Utente login(String email, String password) throws SQLException
 	{
+		if (email == null || password == null)
+			return null;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;

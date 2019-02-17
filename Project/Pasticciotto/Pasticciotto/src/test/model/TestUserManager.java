@@ -36,11 +36,11 @@ public class TestUserManager extends TestCase{
 	
 	public void testLogin() throws SQLException
 	{
-		user = UserManager.login("", "");
+		user = UserManager.login("", null);
 		assertNull(user);
 		
 		user = new Utente();
-		user = UserManager.login("pasti@mail.it", "");
+		user = UserManager.login("pasti@mail.it", null);
 		assertNull(user);
 		
 		user = new Utente();
@@ -54,21 +54,42 @@ public class TestUserManager extends TestCase{
 	
 	public void testRegister() throws SQLException
 	{
-		user = new Utente("mario","rossi",null,null,"1234567",null,"",0);
+		user = new Utente();
 		done = UserManager.register(user);
 		assertFalse(done);
 		
-		user = new Utente(null,null,"mario@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
+		user = new Utente("Vittorio",null,null,null,null,null,null,-1);
 		done = UserManager.register(user);
 		assertFalse(done);
 		
-		user = new Utente("mario","rossi","mario.rossi@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
+		user = new Utente("Vittorio","Bianchi",null,null,null,null,null,-1);
 		done = UserManager.register(user);
 		assertFalse(done);
 		
-		user = new Utente("marco","rossi","marco.rossi@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
+		user = new Utente("Vittorio","Bianchi","vittorio.bianchi@mail.it",null,null,null,null,-1);
+		done = UserManager.register(user);
+		assertFalse(done);
+		
+		user = new Utente("Vittorio","Bianchi","vittorio.bianchi@mail.it","Pasticceria.111",null,null,null,-1);
+		done = UserManager.register(user);
+		assertFalse(done);
+	
+		user = new Utente("Vittorio","Bianchi","vittorio.bianchi@mail.it","Pasticceria.111",null,null,"Proprietario",-1);
 		done = UserManager.register(user);
 		assertTrue(done);
+		
+		user = new Utente("Vittorio","Bianchi","vittorio.bianchi10@mail.it","Pasticceria.111","123456789",null,"Proprietario",-1);
+		done = UserManager.register(user);
+		assertTrue(done);
+		
+		user = new Utente("Vittorio","Bianchi","vittorio.bianchi12@mail.it","Pasticceria.111","123456789",new Pasticceria(999),"Proprietario",-1);
+		done = UserManager.register(user);
+		assertFalse(done);
+		
+		user = new Utente("Vittorio","Bianchi","vittorio.bianchi11@mail.it","Pasticceria.111","123456789",new Pasticceria(1),"Proprietario",-1);
+		done = UserManager.register(user);
+		assertTrue(done);
+		
 	}
 	
 	public void testAddPasticceria() throws SQLException
@@ -96,36 +117,36 @@ public class TestUserManager extends TestCase{
 	
 	public void testModifyEmail() throws SQLException
 	{
-		user = new Utente("marco","rossi","marco.rossi@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
 		
-		done = UserManager.modifyEmail(null, "marco.rossi10@mail.it");
+		done = UserManager.modifyEmail(null, null);
 		assertFalse(done);
 		
+		user = new Utente("marco","rossi","giuseppe@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
 		done = UserManager.modifyEmail(user, null);
 		assertFalse(done);
 		
-		done = UserManager.modifyEmail(user, "marco.rossi10@mail.it");
+		user = new Utente("Giuseppe","Rossi","mario.rossi@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
+		done = UserManager.modifyEmail(user, null);
+		assertFalse(done);
+		
+		done = UserManager.modifyEmail(user, "giuseppe.rossi10@mail.it");
 		assertTrue(done);
 	}
 	
 	public void testModifyPassword() throws SQLException
 	{
-		user = new Utente("marco","rossi","marco.rossi@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
-		
-		done = UserManager.modifyPassword(null, "Pasticciotto.10");
+		done = UserManager.modifyPassword(null, null);
 		assertFalse(done);
 		
+		user = new Utente("marco","rossi","giuseppe@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
 		done = UserManager.modifyPassword(user, null);
 		assertFalse(done);
 		
-		done = UserManager.modifyPassword(user, "Pasticciotto.111");
+		user = new Utente("Giuseppe","Rossi","giuseppe.rossi10@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
+		done = UserManager.modifyPassword(user, null);
 		assertFalse(done);
 		
-		done = UserManager.modifyPassword(user, "Pasticciotto.10");
-		assertFalse(done);
-		
-		user = new Utente("marco","rossi","marco.rossi10@mail.it","Pasticciotto.111","1234567",null,"Proprietario",0);
-		done = UserManager.modifyPassword(user, "Pasticciotto.10");
+		done = UserManager.modifyPassword(user, "Pasticceria.101010");
 		assertTrue(done);
 		
 	}

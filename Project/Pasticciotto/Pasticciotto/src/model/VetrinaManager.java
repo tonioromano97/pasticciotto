@@ -112,6 +112,7 @@ public class VetrinaManager
 	
 	public static synchronized boolean modifySalesPrice(Ricetta r) throws SQLException
 	{
+		if (r.getPrezzoVendita() < 0) return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		boolean done = false;

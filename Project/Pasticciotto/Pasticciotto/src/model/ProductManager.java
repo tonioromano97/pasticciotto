@@ -15,6 +15,8 @@ public class ProductManager
 {
 	public static synchronized boolean add(Prodotto product) throws SQLException
 	{
+		if (product == null || product.getPasticceria() == null)
+			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -54,6 +56,8 @@ public class ProductManager
 	
 	public static synchronized boolean delete(Prodotto p) throws SQLException
 	{
+		if(p == null)
+			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -72,7 +76,12 @@ public class ProductManager
 				return true;
 			
 			//connection.commit();
-		} finally {
+		} 
+		catch(SQLException s)
+		{
+			return false;
+		}
+			finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();

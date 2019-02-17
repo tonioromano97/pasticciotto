@@ -10,13 +10,13 @@ public class Utente {
 	//Empty constructor
 	public Utente()
 	{
-		this.nome="";
-		this.cognome="";
-		this.email="";
-		this.password="";
-		this.telefono="";
+		this.nome=null;
+		this.cognome=null;
+		this.email=null;
+		this.password=null;
+		this.telefono=null;
 		this.pasticceria=null;
-		this.ruolo = "";
+		this.ruolo = null;
 		this.numPrenotazioni = -1;
 	}
 	/**

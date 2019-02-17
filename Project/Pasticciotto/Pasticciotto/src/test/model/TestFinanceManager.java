@@ -4,24 +4,19 @@ package test.model;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import bean.Entrata;
 import bean.Pasticceria;
 import bean.Uscita;
-import bean.Utente;
 import junit.framework.*;
 import model.FinanceManager;
-import model.UserManager;
-
 
 public class TestFinanceManager extends TestCase{
 
-	private Pasticceria bakery;
-	private Entrata e;
-	private Uscita u;
-	private Collection finances;
+	private Entrata entry;
+	private Uscita exit;
 	private boolean done;
+	private Pasticceria bakery;
 	
 	public TestFinanceManager(String name)
 	{
@@ -30,77 +25,105 @@ public class TestFinanceManager extends TestCase{
 	}
 	
 	public void setUp() throws Exception {
-		bakery = null;	
+		entry = null;
+		exit = null;
+		bakery = null;
+		done = false;
 	}
 
 
 	public void tearDown() throws Exception {
+		entry = null;
+		exit = null;
+		bakery = null;
 		done = false;
 	}
+	
+	
+	public void testAddEntrata() throws SQLException {
+		
+		entry = new Entrata(-1, null, "", null, -1);
+		done = FinanceManager.addEntrata(entry);
+		assertFalse(done);
+		
+		entry = new Entrata(-1, null, "Prenotazione.1", null, -1);
+		done = FinanceManager.addEntrata(entry);
+		assertFalse(done);
 
-	public void testGetFinances() throws SQLException{
-		
-		finances = FinanceManager.getFinances(null);
-		assertNull(finances);
-		
-		
-		bakery = new Pasticceria(2,"pasticceria","Via roma 306","pasticceria@mail.it","783273891", "Pasticceria dal 1983", "http://www.pasticceria.it", "/pasticcerie/pasticceria.png");
-		finances = null;
-		finances = FinanceManager.getFinances(bakery);
-		assertEquals(0, finances.size());
-		
-		
-		bakery = new Pasticceria(1,"pasticceria","Via roma 306","pasticceria@mail.it","783273891", "Pasticceria dal 1983", "http://www.pasticceria.it", "/pasticcerie/pasticceria.png");
-		finances = null;
-		finances = FinanceManager.getFinances(bakery);
-		assertNotNull(finances);
-	}
-	
-	public void testAddEntrata() throws SQLException{
-		
-		done = FinanceManager.addEntrata(null);
+		entry = new Entrata(-1, null, "Prenotazione.1", Date.valueOf("2017-12-11"), -1);
+		done = FinanceManager.addEntrata(entry);
 		assertFalse(done);
 		
-		e = new Entrata(-1,null,"Ordine #1090",Date.valueOf("2018-10-23"),10.40);
-		done = FinanceManager.addEntrata(e);
+		entry = new Entrata(-1, null, "Prenotazione.1", Date.valueOf("2017-12-11"), 234.70);
+		done = FinanceManager.addEntrata(entry);
 		assertFalse(done);
 		
-		e.setPasticceria(new Pasticceria(1));
-		done = FinanceManager.addEntrata(e);
+		bakery = new Pasticceria(-1);
+		entry = new Entrata(-1, bakery, "Prenotazione.1", Date.valueOf("2017-12-11"), 234.70);
+		done = FinanceManager.addEntrata(entry);
+		assertFalse(done);
+		
+		bakery = new Pasticceria(1);
+		entry = new Entrata(-1, bakery, "Prenotazione.1", Date.valueOf("2017-12-11"), 234.70);
+		done = FinanceManager.addEntrata(entry);
 		assertTrue(done);
 		
 	}
 	
-	public void testAddUscita() throws SQLException{
-		done = FinanceManager.addUscita(null);
+	public void testAddUscita() throws SQLException {
+		
+		exit = new Uscita(-1, null, "", null, -1, null);
+		done = FinanceManager.addUscita(exit);
 		assertFalse(done);
 		
-		u = new Uscita(-1,null,"Rifornimento #1",Date.valueOf("2018-10-23"),10.40,"Fattura");
-		done = FinanceManager.addUscita(u);
+		exit = new Uscita(-1, null, "Enel", null, -1, null);
+		done = FinanceManager.addUscita(exit);
+		assertFalse(done);
+
+		exit = new Uscita(-1, null, "Enel", Date.valueOf("2017-12-11"), -1, null);
+		done = FinanceManager.addUscita(exit);
 		assertFalse(done);
 		
-		u.setPasticceria(new Pasticceria(1));
-		done = FinanceManager.addUscita(u);
+		exit = new Uscita(-1, null, "Enel", Date.valueOf("2017-12-11"), 143.90, null);
+		done = FinanceManager.addUscita(exit);
+		assertFalse(done);
+		
+		exit = new Uscita(-1, null, "Enel", Date.valueOf("2017-12-11"), 143.90, "Bolletta");
+		done = FinanceManager.addUscita(exit);
+		assertFalse(done);
+		
+		bakery = new Pasticceria(-1);
+		exit = new Uscita(-1, bakery, "Enel", Date.valueOf("2017-12-11"), 143.90, "Bolletta");
+		done = FinanceManager.addUscita(exit);
+		assertFalse(done);
+		
+		bakery = new Pasticceria(1);
+		exit = new Uscita(-1, bakery, "Enel", Date.valueOf("2017-12-11"), 143.90, "Bolletta");
+		done = FinanceManager.addUscita(exit);
 		assertTrue(done);
+			
 	}
 	
-	public void testDeleteFinance() throws SQLException{
-		done = FinanceManager.deleteFinance(null);
+	public void testDelete() throws SQLException {
+		
+		entry = null;
+		done = FinanceManager.deleteFinance(entry);
 		assertFalse(done);
 		
-		done = FinanceManager.deleteFinance(u);
+		entry = new Entrata(-1);
+		done = FinanceManager.deleteFinance(entry);
 		assertFalse(done);
 		
-		u = new Uscita(-1,null,"Rifornimento #1",Date.valueOf("2018-10-23"),10.40,"Fattura");
-		u.setCodice(5);
-		done = FinanceManager.deleteFinance(u);
-		assertTrue(done);
+		exit = new Uscita(1);
+		done = FinanceManager.deleteFinance(exit);
+		assertTrue(done);		
 	}
 	
 	public static Test suite(){
 		TestSuite suite = new TestSuite();
-		suite.addTest(new TestFinanceManager("testDeleteFinance"));
+		suite.addTest(new TestFinanceManager("testAddEntrata"));
+		suite.addTest(new TestFinanceManager("testAddUscita"));
+		suite.addTest(new TestFinanceManager("testDelete"));
 		return suite;
-		
 	}
 }

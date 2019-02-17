@@ -98,7 +98,6 @@ public class Ricetta {
 	 * @param prezzoAcquisto a double that represents the sale's price
 	 */
 	public void setPrezzoVendita(double prezzoVendita) {
-		if(prezzoVendita<0) throw new IllegalArgumentException("Prezzo vendita minore di 0");
 		this.prezzoVendita = prezzoVendita;
 	}
 	
@@ -115,7 +114,6 @@ public class Ricetta {
 	 * @param prezzoAcquisto a double that represents the purchase's price
 	 */
 	public void setPrezzoAcquisto(double prezzoAcquisto) {
-		if(prezzoAcquisto<0) throw new IllegalArgumentException("Prezzo acquisto minore di 0");
 		this.prezzoAcquisto = prezzoAcquisto;
 	}
 	
