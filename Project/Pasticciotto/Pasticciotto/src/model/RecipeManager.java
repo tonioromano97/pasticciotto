@@ -14,42 +14,6 @@ import connectionPool.JDBCConnectionPool;
 
 public class RecipeManager 
 {
-	public static synchronized boolean update(Ricetta recipe)
-	{
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		boolean ricettaDone = false, ingredientiDone = false;
-
-		String updateSQL = "UPDATE Ricetta" 
-				+ "SET 'nome' = ? , 'ore' = ? , 'minuti' = ? , 'prezzoVendita' = ? , 'prezzoAcquisto' = ? , 'pasticceria' = ?"
-				+" WHERE 'codice' = ?";
-		
-			try {
-				connection = JDBCConnectionPool.getConnection();
-				preparedStatement = connection.prepareStatement(updateSQL);
-				preparedStatement.setString(1, recipe.getNome());
-				preparedStatement.setInt(1, recipe.getH());
-				preparedStatement.setInt(3, recipe.getM());
-				preparedStatement.setDouble(4, recipe.getPrezzoVendita());
-				preparedStatement.setDouble(5, recipe.getPrezzoAcquisto());
-				preparedStatement.setInt(6, recipe.getPasticceria().getCodice());
-				if (preparedStatement.executeUpdate() > 0)
-					ricettaDone = true;
-				preparedStatement.close();
-				connection.close();
-				ingredientiDone = updateComposition(recipe);
-				
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return ricettaDone && ingredientiDone;
-				
-	}
 	
 
 	
@@ -165,7 +129,7 @@ public class RecipeManager
 		return ricette;
 	}
 	
-	public static synchronized boolean addProduct(Ricetta recipe, Prodotto product) throws SQLException{
+	private static synchronized boolean addProduct(Ricetta recipe, Prodotto product) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		boolean updated = false;
@@ -195,7 +159,7 @@ public class RecipeManager
 			return updated;		
 	}
 	
-	public static synchronized boolean removeProduct(Ricetta recipe, Prodotto product) throws SQLException{
+	private static synchronized boolean removeProduct(Ricetta recipe, Prodotto product) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		boolean updated = false;
@@ -222,56 +186,9 @@ public class RecipeManager
 			return updated;		
 	}
 	
-	private static synchronized boolean updateComposition(Ricetta recipe)
-	{
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		boolean deleted = false, updated = false;
-
-		String deleteSQL = "DELETE FROM Prodotto_Ricetta"
-				+ "WHERE ricetta = ?";
-		String insertSQL = "INSERT INTO Prodotto_Ricetta (ricetta,prodotto,quantita)"
-				+ " VALUES (?,?,?)";
-		
-			try {
-				//Delete first the old associations
-				connection = JDBCConnectionPool.getConnection();
-				preparedStatement = connection.prepareStatement(deleteSQL);
-				preparedStatement.setInt(1,recipe.getCodice());
-				if (preparedStatement.executeUpdate() > 0)
-					deleted = true;
-				preparedStatement.close();
-				connection.close();
-				//Add new associations
-				connection = JDBCConnectionPool.getConnection();
-				updated = true;
-				for (Prodotto p : recipe.getComposizione())
-				{
-					preparedStatement = connection.prepareStatement(insertSQL);
-					preparedStatement.setInt(1,recipe.getCodice());
-					preparedStatement.setInt(2, p.getCodice());
-					preparedStatement.setDouble(3, p.getQuantita());
-					if (preparedStatement.executeUpdate() <= 0)
-					{
-						updated = false;
-						preparedStatement.close();
-						break;
-					}
-					preparedStatement.close();
-				}
-				connection.close();
-				
-				
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return deleted && updated;
-				
+	public static synchronized boolean updateComposition(Ricetta recipe, Prodotto product, int type) throws SQLException {
+		if(type==0) return addProduct(recipe, product);
+		else return removeProduct(recipe, product);
 	}
 	
 }

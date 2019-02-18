@@ -36,7 +36,8 @@ function refreshDateOfPage(servlet,page){
 
 function removeIngredient(ricetta, codice, nomeIngredient){
 	if(confirm("Confermi di voler eliminare "+nomeIngredient+" ?"))
-		$.get("RemoveProductToCakesControl",{
+		$.get("UpdateCakesControl",{
+			type: 1,
 			KeyRecipe : ricetta,
 			keyProduct : codice
 		},function(data){
@@ -149,7 +150,8 @@ function addOneIngredientToRicetta(code){
 	codeProduct = $("#Composition"+code+" #addOneIngredient").find(":selected").attr('id');
 	codeRecipe = code;
 	q = $("#Composition"+code+" #quantityProduct").val();
-	$.get("AddProductToCakesControl",{
+	$.get("UpdateCakesControl",{
+		type: 0,
 		recipeKey: codeRecipe,
 		keyProduct: codeProduct,
 		quantity : q
