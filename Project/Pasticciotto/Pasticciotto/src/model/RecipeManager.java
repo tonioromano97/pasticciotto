@@ -11,6 +11,7 @@ import bean.Pasticceria;
 import bean.Prodotto;
 import bean.Ricetta;
 import connectionPool.JDBCConnectionPool;
+import sun.security.timestamp.TSRequest;
 
 public class RecipeManager 
 {
@@ -19,14 +20,26 @@ public class RecipeManager
 	
 	public static synchronized boolean add(Ricetta recipe) throws SQLException
 	{
+		if(recipe==null) return false;
+	
+		if(recipe.getPasticceria()==null) return false;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO Ricetta" 
-				+ "(nome, ore, minuti, prezzoVendita, prezzoAcquisto, pasticceria)"
-				+" VALUES (?, ?, ?, ?, ?, ?)";
+				+ "(nome, ore, minuti, prezzoVendita, prezzoAcquisto, procedimento, pasticceria)"
+				+" VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
 		String insertSQL2 = "INSERT INTO Prodotto_Ricetta (ricetta,prodotto,quantita) VALUES ((SELECT MAX(codice) FROM Ricetta),?,?)";
+		
+		String updateSQL = " update ricetta as a inner join ricetta as b "
+						 + " on a.codice = b.codice set a.prezzoAcquisto = "
+						 + " (select sum(prodotto.prezzo*prodotto_ricetta.quantita ) "
+						 + " from prodotto_ricetta, prodotto "
+						 + " where prodotto.codice = prodotto_ricetta.prodotto and prodotto_ricetta.ricetta="
+						 + " (select max(codice) from (select codice from ricetta) as c)) "
+						 + " where a.codice = (select max(codice) from (select codice from ricetta) as c)";
 
 		try {
 			try {
@@ -41,7 +54,8 @@ public class RecipeManager
 			preparedStatement.setInt(3, recipe.getM());
 			preparedStatement.setDouble(4, recipe.getPrezzoVendita());
 			preparedStatement.setDouble(5, recipe.getPrezzoAcquisto());
-			preparedStatement.setInt(6, recipe.getPasticceria().getCodice());
+			preparedStatement.setString(6, recipe.getProcedimento());
+			preparedStatement.setInt(7, recipe.getPasticceria().getCodice());
 			if (preparedStatement.executeUpdate() > 0){
 				preparedStatement = connection.prepareStatement(insertSQL2);
 				for(Prodotto prodotto : recipe.getComposizione()){
@@ -49,6 +63,8 @@ public class RecipeManager
 					preparedStatement.setDouble(2, prodotto.getQuantita());
 					preparedStatement.executeUpdate();
 				}
+				preparedStatement = connection.prepareStatement(updateSQL);
+				if(preparedStatement.executeUpdate()>0) return true;
 			}
 			//connection.commit();
 		} finally {
@@ -99,7 +115,11 @@ public class RecipeManager
 				int m = rs.getInt("minuti");
 				double prezzoVendita = rs.getDouble("prezzoVendita");
 				double prezzoAcquisto = rs.getDouble("prezzoAcquisto");
+				String procedimento = rs.getString("procedimento");
+				boolean insale = rs.getBoolean("insale");
 				ricetta = new Ricetta(codice,nome,h,m,prezzoVendita,prezzoAcquisto,p);
+				ricetta.setInsale(insale);
+				ricetta.setProcedimento(procedimento);
 				preparedStatement2 = connection.prepareStatement(selectSQL2);
 				preparedStatement2.setInt(1, p.getCodice());
 				preparedStatement2.setInt(2, ricetta.getCodice());
@@ -187,6 +207,9 @@ public class RecipeManager
 	}
 	
 	public static synchronized boolean updateComposition(Ricetta recipe, Prodotto product, int type) throws SQLException {
+		if(recipe == null || product==null) return false;
+		if(recipe.getPasticceria() == null) return false;
+		
 		if(type==0) return addProduct(recipe, product);
 		else return removeProduct(recipe, product);
 	}

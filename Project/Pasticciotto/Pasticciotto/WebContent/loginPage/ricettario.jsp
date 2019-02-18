@@ -14,7 +14,7 @@
 %>
 <div id="headerRicettario">
 	<button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','newRicetta.jsp');"> &nbsp;&nbsp; <i class="glyphicon glyphicon-plus"> </i>&nbsp;&nbsp;  Nuova ricetta &nbsp;&nbsp; </button>
-	<input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Search.."> 
+	<input class="form-control" id="mySearch" onkeyup="filterTable(event);" type="text" placeholder="Search.."> 
 </div>
 <div id="ricettario">
 	<table class="table">
@@ -141,6 +141,8 @@ for(;iRicetta.hasNext();){
 				<%} %>
 				</tbody>
 			</table>
+			<h5>Procedimento: </h5><br>
+			<h6><%=r.getProcedimento() %></h6>
 		</div>      
     </div>
   </div>

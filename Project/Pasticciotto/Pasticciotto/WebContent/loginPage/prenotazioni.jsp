@@ -31,10 +31,9 @@
   		<h3>Ricette prenotate:</h3>
   		<%for(Ricetta r : first.getProdotti() ) { 
   			ricette += r.getCodice()+",";
-  			ricette += "."+first.getProdotti().size();
   		%>
   		<h4> - <%=r.getNome() %></h4>
-  		<% } %>
+  		<% } ricette += "."+first.getProdotti().size();%>
   		</div>
   		<div id="info">
   		<label> Cliente: </label> <span><%=first.getUtente().getCognome()+" "+first.getUtente().getNome() %></span> <br>
@@ -65,10 +64,9 @@
   		ricette = "r=";
   		for(Ricetta r : p.getProdotti() ) {
   			ricette += r.getCodice()+",";
-  			ricette += "."+p.getProdotti().size();
   		%>
   		<h4> - <%=r.getNome() %></h4>
-  		<% } %>
+  		<%} ricette += "."+p.getProdotti().size(); %>
   		</div>
   		<div id="info">
   		<label> Cliente: </label> <span><%=p.getUtente().getCognome()+" "+p.getUtente().getNome() %></span> <br>

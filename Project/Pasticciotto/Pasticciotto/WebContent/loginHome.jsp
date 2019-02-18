@@ -92,7 +92,7 @@
 <div id="sidebarLogin">
 <%if(ruolo.equalsIgnoreCase("admin")){ %>
 <button style="box-shadow:1px 1px 1px 1px #fff;" class="btn btn-primary" onClick="javascript:location.reload()"> Home </button> <br>
-<button class="btn btn-primary" onClick="callServlet(this,'GetCakesControl','vetrina.jsp')"> Vetrina </button> <br>
+<button class="btn btn-primary" onClick="callServlet(this,'GetProdottiFinitiControl','vetrina.jsp')"> Vetrina </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetFinanzeControl','finanze.jsp')"> Finanze </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetDataGraficiControl','grafici.jsp')"> Grafici </button> <br>
 <button class="btn btn-primary" onClick="callServlet(this,'GetInventarioControl','inventario.jsp')"> Inventario </button> <br>

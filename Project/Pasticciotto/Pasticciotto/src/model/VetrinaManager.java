@@ -23,7 +23,7 @@ public class VetrinaManager
 		Ricetta ricetta;
 		ArrayList<Ricetta> vetrinaProducts = new ArrayList<Ricetta>();
 		//resume in this point
-		String selectSQL = "SELECT nome,prezzoVendita,prezzoAcquisto FROM Ricetta WHERE pasticceria = ? AND insale = 1";
+		String selectSQL = "SELECT codice,nome,prezzoVendita,prezzoAcquisto FROM Ricetta WHERE pasticceria = ? AND insale = 1";
 
 		try {
 			try {
@@ -37,10 +37,14 @@ public class VetrinaManager
 			rs = preparedStatement.executeQuery();
 			while(rs.next())
 			{
+				int codice = rs.getInt("codice");
 				String nome = rs.getString("nome");
 				double prezzoVendita = rs.getDouble("prezzoVendita");
 				double prezzoAcquisto = rs.getDouble("prezzoAcquisto");
-				ricetta = new Ricetta(nome,prezzoVendita,prezzoAcquisto);
+				ricetta = new Ricetta(codice);
+				ricetta.setNome(nome);
+				ricetta.setPrezzoAcquisto(prezzoAcquisto);
+				ricetta.setPrezzoVendita(prezzoVendita);
 				vetrinaProducts.add(ricetta);
 			}
 			
@@ -64,7 +68,7 @@ public class VetrinaManager
 		PreparedStatement preparedStatement = null;
 		boolean done = false;
 		
-		String updateSQL = "UPDATE Ricetta SET insale = 1 WHERE codice = ?";
+		String updateSQL = "UPDATE Ricetta SET insale = 1, prezzoVendita = ? WHERE codice = ?";
 		
 
 			try {
@@ -74,7 +78,8 @@ public class VetrinaManager
 				e.printStackTrace();
 			}
 			preparedStatement = connection.prepareStatement(updateSQL);
-			preparedStatement.setInt(1, r.getCodice());
+			preparedStatement.setDouble(1, r.getPrezzoVendita());
+			preparedStatement.setInt(2, r.getCodice());
 			
 			if (preparedStatement.executeUpdate() > 0)
 				done = true;

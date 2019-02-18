@@ -55,6 +55,7 @@ function addRecipe(){
 	var parameters = "name=" + $("#formNewRecipe #nome").val();
 	parameters += "&h=" + $("#formNewRecipe #ore").val();
 	parameters += "&m=" + $("#formNewRecipe #minuti").val();
+	parameters += "&procedimento=" + $("#formNewRecipe #procedimento").val();
 	parameters += "&pV=0";
 	parameters += "&pA=0";
 	parameters += "&i=" + $('#compositionRicetta tr').length;
@@ -98,16 +99,20 @@ function addUscita(){
 }
 
 function removeEntrata(codice){
-	$.get("/Pasticciotto/RemoveFinanzaControl?tipo=entrata&code="+codice, function(data) {
-		$("#entrate #"+codice).fadeOut();
-		
-    });	
+	if(confirm("Confermi l'eliminazione ? ")){
+		$.get("/Pasticciotto/RemoveFinanzaControl?tipo=entrata&code="+codice, function(data) {
+			$("#entrate #"+codice).fadeOut();
+			
+	    });	
+	}
 }
 
 function removeUscita(codice){
-	$.get("/Pasticciotto/RemoveFinanzaControl?tipo=uscita&code="+codice, function(data) {
-		$("#uscite #"+codice).fadeOut();
-    });		
+	if(confirm("Confermi l'eliminazione ? ")){
+		$.get("/Pasticciotto/RemoveFinanzaControl?tipo=uscita&code="+codice, function(data) {
+			$("#uscite #"+codice).fadeOut();
+	    });		
+	}
 }
 
 function removeProduct(codice){
@@ -176,11 +181,14 @@ function removeIngredientToRicetta(codice){
 	$('#tableRicetta #'+codice).remove();
 }
 
-function filterTable(){
-	var value = $("#mySearch").val().toLowerCase();
-	$("#myTable tr").filter(function() {
-		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-	});
+function filterTable(event){
+	var code = event.keyCode;
+	if(code==13){
+		var value = $("#mySearch").val().toLowerCase();
+		$("#myTable tr").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	}
 }
 
 function endModifyRicetta(codice){
@@ -235,4 +243,56 @@ function showProducts(codice){
 			}
 			$('#viewProductsOfPasticceria').modal('show');
         });
+}
+
+function modifyPriceEndProduct(codice){
+	$("#vetrina #myTable #"+codice+" #pV").html("<input type=\"number\" min=\"0\" id=\"newPriceEndProduct\"/>");
+	$("#vetrina #myTable #"+codice+" #modify").css('display','none');
+	$("#vetrina #myTable #"+codice+" #remove").css('display','none');
+	$("#vetrina #myTable #"+codice+" #save").css('display','inline');
+	
+}
+
+function removeEndProduct(codice){
+	var nome = $("#vetrina #myTable #"+codice+" #nome").html();
+	if(confirm("Confermi di voler eliminare "+nome+" ?")){
+		$.get("RemoveProdottoFinitoControl",{
+			codeRecipe : codice
+		},function(data){
+			if(data==='done'){
+				refreshDateOfPage('GetProdottiFinitiControl','vetrina.jsp');
+			} else {
+				alert("C'è stato qualche problema nell'eliminazione di "+nome);
+			}
+		});
+	}
+}
+
+function savePriceEndProduct(codice){
+	var price = $("#vetrina #myTable #"+codice+" #pV #newPriceEndProduct").val();
+	$.get("ModifySalesPriceControl",{
+		codeRecipe : codice,
+		price : price
+	},function(data){
+		if(data==='done'){
+			refreshDateOfPage('GetProdottiFinitiControl','vetrina.jsp');
+		} else {
+			alert("Problema nell'aggiornamento del prezzo");
+		}
+	});
+}
+
+function addEndProduct(){
+	var code = $("#formNewEndProduct #product").find(":selected").attr('value');
+	var price = $("#formNewEndProduct #price").val();
+	$.get("NewProdottoFinitoControl",{
+		codeRecipe : code,
+		price : price
+	},function(data){
+		if(data==='done'){
+			refreshDateOfPage('GetProdottiFinitiControl','vetrina.jsp');
+		} else {
+			alert("Problema nell'inserimento");
+		}
+	});
 }

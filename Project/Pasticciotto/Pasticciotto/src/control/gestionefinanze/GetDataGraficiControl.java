@@ -1,4 +1,4 @@
-package control.gestionegrafici;
+package control.gestionefinanze;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sun.org.omg.CORBA.ParDescriptionSeqHelper;
+import com.sun.xml.internal.ws.addressing.EndpointReferenceUtil;
 
 import bean.Entrata;
 import bean.Finanza;
@@ -49,7 +50,8 @@ public class GetDataGraficiControl extends HttpServlet {
 			Iterator<Finanza> iF = cFinanzas.iterator();
 			ArrayList<Entrata> entry = new ArrayList<Entrata>();
 			ArrayList<Uscita> out= new ArrayList<Uscita>();
-			double Gen=0,Feb=0,Mar=0,Apr=0,Mag=0,Giu=0,Lug=0,Ago=0,Set=0,Ott=0,Nov=0,Dic=0;
+			double mesi[] = {0,0,0,0,0,0,0,0,0,0,0,0};
+			String dataEntry = "";
 			while(iF.hasNext()){
 				Finanza finanza = iF.next();
 				if(finanza instanceof Entrata) entry.add((Entrata)finanza);
@@ -57,20 +59,14 @@ public class GetDataGraficiControl extends HttpServlet {
 			}
 			for(Entrata entrata : entry){
 				Date d = entrata.getData(); 
-				if(d.after(Date.valueOf("2019-1-1"))&&d.before(Date.valueOf("2019-1-31"))) Gen = Gen+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-2-1"))&&d.before(Date.valueOf("2019-2-31"))) Feb = Feb+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-3-1"))&&d.before(Date.valueOf("2019-3-31"))) Mar = Mar+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-4-1"))&&d.before(Date.valueOf("2019-4-31"))) Apr = Apr+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-5-1"))&&d.before(Date.valueOf("2019-5-31"))) Mag = Mag+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-6-1"))&&d.before(Date.valueOf("2019-6-31"))) Giu = Giu+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-7-1"))&&d.before(Date.valueOf("2019-7-31"))) Lug = Lug+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-8-1"))&&d.before(Date.valueOf("2019-8-31"))) Ago = Ago+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-9-1"))&&d.before(Date.valueOf("2019-9-31"))) Set = Set+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-10-1"))&&d.before(Date.valueOf("2019-10-31"))) Ott = Ott+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-11-1"))&&d.before(Date.valueOf("2019-11-31"))) Nov = Nov+entrata.getImporto();
-				if(d.after(Date.valueOf("2019-12-1"))&&d.before(Date.valueOf("2019-12-31"))) Dic = Dic+entrata.getImporto();
+				System.out.println("Mese: "+d.getMonth());
+				mesi[d.getMonth()] = mesi[d.getMonth()] + entrata.getImporto();
 			}
-			String dataEntry = ""+Gen+","+Feb+","+Mar+","+Apr+","+Mag+","+Giu+","+Lug+","+Ago+","+Set+","+Ott+","+Nov+","+Dic;
+			for(int i=0; i<12; i++){
+				if(mesi[i]==0.00) dataEntry += ",";
+				else dataEntry += ""+mesi[i]+",";
+			}
+			System.out.println("Data: "+ dataEntry);
 			request.getSession().setAttribute("entry", dataEntry);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

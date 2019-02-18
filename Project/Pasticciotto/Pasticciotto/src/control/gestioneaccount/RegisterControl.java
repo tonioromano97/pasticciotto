@@ -57,8 +57,9 @@ public class RegisterControl extends HttpServlet {
 		Utente u = new Utente(nome,cognome,email,password,telefono,pasticceria,ruolo,0);
 		
 		try {
-			UserManager.register(u);
-			response.sendRedirect("registerok.jsp?nome="+u.getNome()+"&cognome="+u.getCognome()+"&email="+u.getEmail());
+			if(UserManager.register(u))
+				response.sendRedirect("registerok.jsp?nome="+u.getNome()+"&cognome="+u.getCognome()+"&email="+u.getEmail());
+			else response.sendRedirect("registerfail.jsp");
 		} catch (SQLException e) {
 	
 			e.printStackTrace();

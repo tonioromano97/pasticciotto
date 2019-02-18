@@ -193,9 +193,28 @@ public class Ricetta {
 		this.pasticceria = pasticceria;
 	}
 
+	public boolean isInsale() {
+		return insale;
+	}
+
+	public void setInsale(boolean insale) {
+		this.insale = insale;
+	}
+	
+	public String getProcedimento(){
+		return this.procedimento;
+	}
+	
+	public void setProcedimento(String p){
+		this.procedimento = p;
+	}
+
+	private String procedimento = null;
 	private Pasticceria pasticceria;
 	private ArrayList<Prodotto> composizione;
 	private String nome;
 	private int codice,h,m;
+	private boolean insale = false;
 	double prezzoVendita,prezzoAcquisto;
+	
 }

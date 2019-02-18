@@ -40,11 +40,14 @@ public class NewCakesControl extends HttpServlet {
 		String nome = request.getParameter("name");
 		int ore = Integer.parseInt(request.getParameter("h"));
 		int minuti = Integer.parseInt(request.getParameter("m"));
+		String procedimento = request.getParameter("procedimento");
 		double prezzoVendita = Double.parseDouble(request.getParameter("pV"));
 		double prezzoAcquisto = Double.parseDouble(request.getParameter("pA"));
 		int ingredienti = Integer.parseInt(request.getParameter("i"));
 		
 		Ricetta recipe = new Ricetta(6, nome, ore, minuti, prezzoVendita, prezzoAcquisto, p);
+		recipe.setProcedimento(procedimento);
+		
 		ArrayList<Prodotto> products = new ArrayList<Prodotto>();
 	
 		for(int i=0; i<ingredienti; i++){

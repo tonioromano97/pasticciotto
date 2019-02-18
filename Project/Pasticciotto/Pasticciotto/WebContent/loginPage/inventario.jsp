@@ -8,7 +8,7 @@
 %>
 <div id="headerInventario">
 <button class="btn btn-primary" onClick="showPage('newProduct.jsp');">&nbsp;&nbsp;  <i class="glyphicon glyphicon-plus"> </i> &nbsp;&nbsp; Nuovo prodotto &nbsp;&nbsp;</button>
-<input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Search.."> 
+<input class="form-control" id="mySearch" onkeyup="filterTable(event);" type="text" placeholder="Search.."> 
 </div>
 <div id="inventario">
 <table class="table">

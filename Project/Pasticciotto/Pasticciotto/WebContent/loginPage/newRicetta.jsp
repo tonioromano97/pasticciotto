@@ -16,8 +16,13 @@
     <input type="number" min="0" value="0" class="form-control" id="ore" style="width:50px; height:20px; display:inline-block;">
     <input type="number" min="0" max="59" value="0" class="form-control" id="minuti" style="width:50px; height:20px; display:inline-block;">
   </div>
+  <div class="form-group">
+    <label>Procedimento</label>
+    <br>
+    <textarea id="procedimento" rows="3"></textarea>
+  </div>
   <div class="form-group" style="display: inline-block;">
-  <input class="form-control" id="mySearch" onkeyup="filterTable();" type="text" placeholder="Cerca un ingrediente...">
+  <input class="form-control" id="mySearch" onkeyup="filterTable(event);" type="text" placeholder="Search...">
   </div>
   <div class="form-group">
     <button type="button" class="btn btn-primary" onClick="addRecipe()"> &nbsp; &nbsp;  <i class="glyphicon glyphicon-plus"> </i> Conferma inserimento  &nbsp; &nbsp; </button>
