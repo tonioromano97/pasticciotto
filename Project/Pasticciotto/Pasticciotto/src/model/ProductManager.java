@@ -9,7 +9,6 @@ import java.util.Collection;
 
 import bean.Pasticceria;
 import bean.Prodotto;
-import connectionPool.JDBCConnectionPool;
 
 public class ProductManager 
 {

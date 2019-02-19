@@ -57,8 +57,17 @@
                             <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
                                 <div class="bar__module">
                                     <ul class="menu-horizontal text-left">
+                                        <%
+                                if(userLogin != null){
+                                	if(userLogin.getRuolo().equalsIgnoreCase("cliente")){
+								%>
                                         <li> <a href="/Pasticciotto/" target="_self">
                                         CERCA UNA PASTICCERIA</a> </li>
+                                        
+                                        <%}} else{%>
+                                        <li> <a href="/Pasticciotto/" target="_self">
+                                        CERCA UNA PASTICCERIA</a> </li>
+                                        <%} %>
                                         <li> <a href="newPasticceria.jsp" target="_self">
                                         AGGIUNGI LA TUA PASTICCERIA<br></a> </li>
                                         <li> <a href="contattaci.jsp" target="_self">

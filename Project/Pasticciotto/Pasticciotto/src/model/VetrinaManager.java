@@ -10,7 +10,6 @@ import java.util.Collection;
 import bean.Pasticceria;
 import bean.Prodotto;
 import bean.Ricetta;
-import connectionPool.JDBCConnectionPool;
 
 public class VetrinaManager 
 {

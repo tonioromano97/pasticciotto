@@ -52,6 +52,12 @@ function removeIngredient(ricetta, codice, nomeIngredient){
 }
 
 function addRecipe(){
+	var nn = $("#formNewRecipe #nome").val();
+	var lNN = nn.length;
+	if(lNN==0) { alert("Compila i campi"); return; }
+	
+	if(($("#formNewRecipe #ore").val()==0)||($("#formNewRecipe #minuti").val()==-1)) { alert("Inserisci ore e minuti validi"); return; } 
+	
 	var parameters = "name=" + $("#formNewRecipe #nome").val();
 	parameters += "&h=" + $("#formNewRecipe #ore").val();
 	parameters += "&m=" + $("#formNewRecipe #minuti").val();
@@ -74,6 +80,7 @@ function addProduct(){
 	var q = $("#formNewProduct #quantita").val();
 	var s = $("#formNewProduct #scorta").val();
 	var p = $("#formNewProduct #prezzo").val();
+	if(p.length>5){ alert("Prezzo inserito non valido"); return;}
 	$.get("/Pasticciotto/NewIProductControl?name="+n+"&stock="+q+"&minStock="+s+"&price="+p, function(data) {
 		refreshDateOfPage('GetInventarioControl','inventario.jsp');
     });		
@@ -285,6 +292,7 @@ function savePriceEndProduct(codice){
 function addEndProduct(){
 	var code = $("#formNewEndProduct #product").find(":selected").attr('value');
 	var price = $("#formNewEndProduct #price").val();
+	if(price<0){ alert("Inserisci un prezzo valido"); return;}
 	$.get("NewProdottoFinitoControl",{
 		codeRecipe : code,
 		price : price

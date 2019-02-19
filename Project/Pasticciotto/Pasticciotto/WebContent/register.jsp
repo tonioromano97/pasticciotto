@@ -33,7 +33,7 @@
         </div>
         <div class="main-container">
             <section class="height-100 imagebg text-center" data-overlay="4">
-                <div class="background-image-holder"><img alt="background" src="img/blau/treCocktail.jpg"></div>
+                <div class="background-image-holder"><img alt="background" src="img/pasticceria.jpg"></div>
                 <div class="container pos-vertical-center">
                     <div class="row">
                         <div class="col-md-7 col-lg-5" id="formRegister">
@@ -44,10 +44,10 @@
                                     <div class="col-md-6"> <input type="text" placeholder="Nome" name="nome" required> </div>
                                     <div class="col-md-6"> <input type="text" placeholder="Cognome" name="cognome" required> </div>
                                     <div class="col-md-12"> <input type="email" placeholder="Email" name="email" required> </div>
-                                    <div class="col-md-6"> <input type="text" placeholder="Telefono" name="telefono" required> </div>
+                                    <div class="col-md-6"> <input id="phone" type="text" placeholder="Telefono" name="telefono"> </div>
                                     <div class="col-md-6"> 
                                         <select name="ruolo" onChange="codeP(this)" required>
-                                            <option value="cliente"> Sono un ...</option>
+                                            <option value=""> Sono un ...</option>
                                             <option value="cliente"> Cliente</option>
                                             <option value="admin"> Proprietario </option>
                                             <option value="magazziniere"> Magazziniere </option>
@@ -55,8 +55,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-12" id="codiceP" style="display:none;"> <input type="text" name="pasticceria" placeholder="Codice pasticceria"> </div>
-                                    <div class="col-md-12"> <input id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La password deve contenere 8 o più caratteri composti di almeno un numero, una lettera maiuscola e una lettera minuscola." placeholder="Password" name="password" required> </div>
-                                    <div class="col-md-12"> <button class="btn btn--primary type--uppercase" type="submit" onClick="crypt()">Registrati</button> </div>
+                                    <div class="col-md-12"> <input id="password" type="password" title="La password deve contenere 8 o più caratteri composti di almeno un numero, una lettera maiuscola e una lettera minuscola." placeholder="Password" name="password" required> </div>
+                                    <div class="col-md-12"> <button style="width:100%;" class="btn btn--primary type--uppercase" type="submit" onClick="crypt()">Registrati</button> </div>
                                 </div>
                             </form>
                             <span class="type--fine-print block">Hai già  un account ? <a href="login.jsp" target="_self">Accedi </a></span>
@@ -105,12 +105,25 @@
 		<script src="js/jquery.md5.js"> </script>
 		<script>
 			function crypt(){
+				
+				var T = $("#phone").val();
+				var lT = T.length;
+				if(lT>10) {
+					alert("Il telefono deve avere non più di 11 cifre");
+					$("#phone").val('');
+					$("#password").val('');
+					return;
+				}
 				var p = $("#password").val();
-				if(p.length==0) return;
+				if(p.length==0||p.length==32) return;
 				var regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 				if(regex.test(p)){
 					$("#password").val($.md5($("#password").val())); 
-					$("#formRegister form").submit();	
+					//$("#formRegister form").submit();	
+				}
+				else {
+					alert("La password deve contenere 8 o più caratteri composti di almeno un numero, una lettera maiuscola e una lettera minuscola.");
+					$("#password").val('');
 				}
 			}
 		</script>

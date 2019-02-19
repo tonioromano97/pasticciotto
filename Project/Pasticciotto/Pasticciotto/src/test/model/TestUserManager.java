@@ -152,6 +152,10 @@ public class TestUserManager extends TestCase{
 	}
 	public static Test suite(){
 		TestSuite suite = new TestSuite();
+		suite.addTest(new TestUserManager("testLogin"));
+		suite.addTest(new TestUserManager("testRegister"));
+		suite.addTest(new TestUserManager("testAddPasticceria"));
+		suite.addTest(new TestUserManager("testModifyEmail"));
 		suite.addTest(new TestUserManager("testModifyPassword"));
 		return suite;
 		

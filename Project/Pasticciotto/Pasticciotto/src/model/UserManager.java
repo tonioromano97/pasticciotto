@@ -9,7 +9,6 @@ import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 
 import bean.Pasticceria;
 import bean.Utente;
-import connectionPool.JDBCConnectionPool;
 
 public class UserManager 
 {
@@ -162,7 +161,7 @@ public class UserManager
 		} 
 		catch(SQLException s)
 		{
-			return false;
+		s.printStackTrace();
 		}
 		finally {
 			try {
@@ -256,7 +255,7 @@ public class UserManager
 	
 	public synchronized static boolean modifyPassword(Utente u, String newPassword) throws SQLException {
 
-		if(u == null || u.getPassword().equals(newPassword))
+		if(u == null)
 			return false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

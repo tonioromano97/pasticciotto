@@ -35,7 +35,7 @@
             <section class="switchable bg--dark space--xxs">
                 <div class="container">
                     <div class="row justify-content-between">
-                        <div class="col-md-7"> <img alt="Image" class="border--round box-shadow-wide" src="img/blau/11.jpg"> </div>
+                        <div class="col-md-7"> <img alt="Image" class="border--round box-shadow-wide" src="img/pasticceria.jpg"> </div>
                         <div class="col-md-5">
                             <div class="row mx-0 flex-column">
                             	<p class="lead">Non esitare a contattarci </p>

@@ -37,8 +37,7 @@ public class AddPasticceriaControl extends HttpServlet {
 		int isCliente = 0;
 		Utente utente = null;
 		Pasticceria pasticceria = null;
-		String email = request.getParameter("email");
-		String password = request.getParameter("pw");
+		
 		String nomeP = request.getParameter("nomeP");
 		if(nomeP.equals(""))
 			nomeP=null;
@@ -51,7 +50,7 @@ public class AddPasticceriaControl extends HttpServlet {
 		String urlWebsiteP = request.getParameter("urlWebsiteP");
 		Part filePart = request.getPart("urlLogoP");
 		try {
-			utente = UserManager.login(email, password);
+			utente = (Utente) request.getSession().getAttribute("user");
 			if(utente!=null){
 				if(utente.getRuolo().equalsIgnoreCase("cliente")) { done = false; isCliente=1; }
 				else{

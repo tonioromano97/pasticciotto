@@ -34,6 +34,10 @@
         <div class="main-container">
             <section class="switchable bg--dark space--xxs">
                 <div class="container">
+                
+                <%if(userLogin!=null){ 
+                	if(userLogin.getRuolo().equalsIgnoreCase("admin")){
+                %>
                     <div class="row justify-content-between">
                         <div class="col-md-7"> <img alt="Image" class="border--round box-shadow-wide" src="img/blau/12.jpg"> </div>
                         <div class="col-md-5" id="formAddedPasticceria">
@@ -42,8 +46,6 @@
                				<hr class="short">
                             <div class="row mx-0  flex-column">
                                 <form action="AddPasticceriaControl" method="POST" class="row" encType="multipart/form-data">
-                                    <div class="col-md-6"> <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email:</font></font></label> <input type="text" name="email" required> </div>
-                                    <div class="col-md-6"> <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Password:</font></font></label> <input id="password" type="password" name="pw" required> </div>
                                     <div class="col-md-4"> <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nome Pasticceria:</font></font></label> <input type="text" name="nomeP" required> </div>
                                     <div class="col-md-8"> <label>Email:</label> <input type="email" name="emailP" required> </div>
                                     <div class="col-md-7"> <label>Indirizzo:</label> <input type="text" name="indirizzoP" required> </div>
@@ -51,11 +53,36 @@
                                     <div class="col-md-5"> <label>Sito Web:</label> <input type="text" name="urlWebsiteP"> </div>
                                     <div class="col-md-7"> <label>Immagine:</label> <input type="file" name="urlLogoP" required> </div>
                                     <div class="col-md-12"> <label>Descrizione:</label> <textarea rows="2" name="descrizioneP" required></textarea> </div>
-                                    <div class="col-md-7 col-lg-6"> <button type="submit" class="btn type--uppercase btn--primary" onClick="crypt()"> &nbsp;&nbsp; Registra &nbsp;&nbsp;</button> </div>
+                                    <div class="col-md-7 col-lg-6"> <button type="submit" class="btn type--uppercase btn--primary"> &nbsp;&nbsp; Registra &nbsp;&nbsp;</button> </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+                    <%} else{ %>
+                    <section class="height-100 imagebg text-center" data-overlay="4">
+		                <div class="background-image-holder"><img alt="background" src="img/pasticceria.jpg"></div>
+		                <div class="container pos-vertical-center">
+		                    <div class="row">
+		                        <div class="col-md-7 col-lg-5">
+		                            <h5> Sei un cliente. Devi essere un proprietario.</h5>
+		                        </div>
+		                    </div>
+		                </div>
+		            </section>
+                    <%}
+                } else{ %>
+                    <section class="height-100 imagebg text-center" data-overlay="4">
+		                <div class="background-image-holder"><img alt="background" src="img/pasticceria.jpg"></div>
+		                <div class="container pos-vertical-center">
+		                    <div class="row">
+		                        <div class="col-md-7 col-lg-5">
+		                            <h5>Devi effettuare il login per aggiunere la tua pasticceria</h5>
+		                            <a href="login.jsp" target="_self">Accedi </a>
+		                        </div>
+		                    </div>
+		                </div>
+		            </section>
+                    <%} %>
                 </div>
             </section>
             <footer class="footer-7 text-center-xs bg--dark">
@@ -84,14 +111,6 @@
 		<script src="js/utils.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/jquery.md5.js"> </script>
-		<script>
-			function crypt(){
-				if($("#password").val().length==0) return;
-				$("#password").val($.md5($("#password").val())); 
-				//$("#formAddedPasticceria form").submit();
-			}
-		</script>
 
     </body>
 

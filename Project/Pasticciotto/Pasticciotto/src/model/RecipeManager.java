@@ -10,7 +10,6 @@ import java.util.Collection;
 import bean.Pasticceria;
 import bean.Prodotto;
 import bean.Ricetta;
-import connectionPool.JDBCConnectionPool;
 import sun.security.timestamp.TSRequest;
 
 public class RecipeManager 
@@ -207,11 +206,48 @@ public class RecipeManager
 	}
 	
 	public static synchronized boolean updateComposition(Ricetta recipe, Prodotto product, int type) throws SQLException {
-		if(recipe == null || product==null) return false;
-		if(recipe.getPasticceria() == null) return false;
 		
-		if(type==0) return addProduct(recipe, product);
-		else return removeProduct(recipe, product);
+		boolean state = false;
+		
+		if(recipe == null || product==null) return false;
+		
+		if(type==0) state = addProduct(recipe, product);
+		else state = removeProduct(recipe, product);
+		
+		if(state){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String updateSQL = " update ricetta as a inner join ricetta as b "
+				 + " on a.codice = b.codice set a.prezzoAcquisto = "
+				 + " (select sum(prodotto.prezzo*prodotto_ricetta.quantita ) "
+				 + " from prodotto_ricetta, prodotto "
+				 + " where prodotto.codice = prodotto_ricetta.prodotto and prodotto_ricetta.ricetta="
+				 + " (select max(codice) from (select codice from ricetta) as c)) "
+				 + " where a.codice = (select max(codice) from (select codice from ricetta) as c)";
+	
+			try {
+				connection = JDBCConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				if (preparedStatement.executeUpdate() > 0){
+					preparedStatement.close();
+					connection.close();
+					return true;
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return state;
+		}
+		else {
+			 return state;
+		}
+		
+		
 	}
 	
 }

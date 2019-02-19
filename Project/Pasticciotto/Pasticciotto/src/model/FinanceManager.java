@@ -13,7 +13,6 @@ import bean.Finanza;
 import bean.Pasticceria;
 import bean.Ricetta;
 import bean.Uscita;
-import connectionPool.JDBCConnectionPool;
 
 public class FinanceManager 
 {

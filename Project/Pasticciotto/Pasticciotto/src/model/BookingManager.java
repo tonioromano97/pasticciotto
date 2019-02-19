@@ -16,7 +16,6 @@ import bean.Pasticceria;
 import bean.Prenotazione;
 import bean.Ricetta;
 import bean.Utente;
-import connectionPool.JDBCConnectionPool;
 
 public class BookingManager 
 {

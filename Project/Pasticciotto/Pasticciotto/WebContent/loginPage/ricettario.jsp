@@ -56,7 +56,7 @@
 							  %>
 								  <tr id="<%=p.getCodice() %>">
 									  <td> <%=p.getNome() %> </td>
-									  <td> <input type="number" min="0" value="<%=p.getQuantita() %>" class="form-control" style="width:50px; height:20px;"></td>
+									  <td> <span><%=p.getQuantita() %> </span> <!-- <input type="number" min="0" value="" class="form-control" style="width:50px; height:20px;">  --></td>
 									  <td>
 											<i style="display:inline;" class="glyphicon glyphicon-trash" onClick="removeIngredient(<%=r.getCodice() %>,<%=p.getCodice() %>,'<%=p.getNome() %>')"> </i> 
 									  </td>

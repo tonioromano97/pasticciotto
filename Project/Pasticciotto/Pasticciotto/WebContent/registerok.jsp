@@ -33,7 +33,7 @@
         </div>
         <div class="main-container">
         <section class="height-100 imagebg text-center" data-overlay="4">
-                <div class="background-image-holder"><img alt="background" src="img/blau/treCocktail.jpg"></div>
+                <div class="background-image-holder"><img alt="background" src="img/pasticceria.jpg"></div>
                 <div class="container pos-vertical-center">
                     <div class="row">
                         <div class="col-md-7 col-lg-5">
